@@ -1,13 +1,13 @@
 package br.com.princesinhadoalho.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -18,28 +18,42 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "cliente")
+@Table(name = "endereco")
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cliente implements Serializable {
+public class Endereco implements Serializable {
 
-	private static final long serialVersionUID = 5853510303381995346L;
+	private static final long serialVersionUID = -3348795277148369677L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idCliente;
+	private Integer idEndereco;
 
 	@Column(length = 100, nullable = false)
-	private String nome;
+	private String logradouro;
 
-	@Column(nullable = false)
-	private Date dataNascimento;
+	@Column(length = 15)
+	private String cep;
 
-	@Column(length = 20, unique = true)
-	private String cpf;
+	@Column(length = 10, nullable = false)
+	private String numero;
+
+	@Column(length = 100)
+	private String complemento;
+
+	@Column(length = 500)
+	private String observacao;
+
+	@Column(length = 1)
+	private boolean condominio;
+	
+	@OneToOne
+	@Getter
+	@Setter
+	private TipoLogradouro tipoLogradouro;
 
 }

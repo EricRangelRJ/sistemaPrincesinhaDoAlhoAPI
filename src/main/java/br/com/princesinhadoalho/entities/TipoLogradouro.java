@@ -1,8 +1,5 @@
 package br.com.princesinhadoalho.entities;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,28 +15,20 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "cliente")
+@Table(name = "tipoLogradouro")
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cliente implements Serializable {
-
-	private static final long serialVersionUID = 5853510303381995346L;
+public class TipoLogradouro {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idCliente;
+	private Integer idTipoLogradouro;
 
 	@Column(length = 100, nullable = false)
-	private String nome;
-
-	@Column(nullable = false)
-	private Date dataNascimento;
-
-	@Column(length = 20, unique = true)
-	private String cpf;
+	private Integer tipo;
 
 }
