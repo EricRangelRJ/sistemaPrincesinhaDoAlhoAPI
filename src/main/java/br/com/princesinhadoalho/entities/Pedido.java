@@ -1,14 +1,16 @@
 package br.com.princesinhadoalho.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -18,41 +20,45 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "endereco")
+@Table(name = "pedido")
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Endereco implements Serializable {
+public class Pedido implements Serializable {
 
-	private static final long serialVersionUID = -3348795277148369677L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1318735330355748410L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idEndereco;
-
-	@Column(length = 100, nullable = false)
-	private String logradouro;
+	private Integer idPedido;
 
 	@Column(length = 15)
-	private String cep;
+	@Temporal(TemporalType.DATE)
+	private Date dataPedido;
 
-	@Column(length = 10, nullable = false)
-	private String numero;
+	@Column(length = 15)
+	@Temporal(TemporalType.DATE)
+	private Date dataEntrega;
 
-	@Column(length = 100)
-	private String complemento;
+	@Column(length = 15)
+	private Double total;
 
-	@Column(length = 500)
-	private String observacao;
+	@Getter
+	@Setter
+	private Vendedor vendedor;
 
-	@Column(length = 1)
-	private boolean condominio;
-	
-	@OneToOne
-	@Getter @Setter
-	private TipoLogradouro tipoLogradouro;
+	@Getter
+	@Setter
+	private Cliente cliente;
+
+	@Getter
+	@Setter
+	private SituacaoPedido situacaoPedido;
 
 }

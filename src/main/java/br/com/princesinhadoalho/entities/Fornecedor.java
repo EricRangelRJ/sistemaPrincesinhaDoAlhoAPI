@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -18,41 +17,30 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "endereco")
+@Table(name = "fornecedor")
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Endereco implements Serializable {
+public class Fornecedor implements Serializable {
 
-	private static final long serialVersionUID = -3348795277148369677L;
+	private static final long serialVersionUID = 1788516841208424794L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idEndereco;
+	private Integer idFornecedor;
 
 	@Column(length = 100, nullable = false)
-	private String logradouro;
+	private String nome;
 
-	@Column(length = 15)
-	private String cep;
+	@Getter
+	@Setter
+	private Endereco endereco;
 
-	@Column(length = 10, nullable = false)
-	private String numero;
-
-	@Column(length = 100)
-	private String complemento;
-
-	@Column(length = 500)
-	private String observacao;
-
-	@Column(length = 1)
-	private boolean condominio;
-	
-	@OneToOne
-	@Getter @Setter
-	private TipoLogradouro tipoLogradouro;
+	@Getter
+	@Setter
+	private Contato contato;
 
 }
