@@ -30,6 +30,7 @@ public class SituacaoPedido implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idSituacaoPedido")
 	private Integer idSituacaoPedido;
 
 	@Column(length = 50, nullable = false)

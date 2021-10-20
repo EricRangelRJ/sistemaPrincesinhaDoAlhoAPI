@@ -30,6 +30,7 @@ public class TipoContato implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idTipoContato")
 	private Integer idTipoContato;
 	
 	@Column(length = 100, nullable = false)

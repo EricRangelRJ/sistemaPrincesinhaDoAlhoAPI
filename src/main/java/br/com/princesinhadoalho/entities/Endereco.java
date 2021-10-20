@@ -1,12 +1,15 @@
 package br.com.princesinhadoalho.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -31,6 +34,7 @@ public class Endereco implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idEndereco")
 	private Integer idEndereco;
 
 	@Column(length = 100, nullable = false)
@@ -53,6 +57,16 @@ public class Endereco implements Serializable {
 	
 	@OneToOne
 	@Getter @Setter
+	@JoinColumn(name = "idTipoLogradouro", nullable = false)
 	private TipoLogradouro tipoLogradouro;
+	
+	@OneToMany(mappedBy = "endereco")
+	private List<Cliente> clientes;
+	
+	@OneToMany(mappedBy = "endereco")
+	private List<Condominio> condominios;
+
+	@OneToMany(mappedBy = "endereco")
+	private List<Fornecedor> fornecedores;
 
 }

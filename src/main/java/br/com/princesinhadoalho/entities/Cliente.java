@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -31,6 +33,7 @@ public class Cliente implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idCliente")
 	private Integer idCliente;
 
 	@Column(length = 100, nullable = false)
@@ -41,5 +44,9 @@ public class Cliente implements Serializable {
 
 	@Column(length = 20, unique = true)
 	private String cpf;
+	
+	@ManyToOne //Muitos (Clientes) para um (Endereço)
+	@JoinColumn(name = "idEndereco", nullable = false) //FK
+	private Endereco endereco;
 
 }

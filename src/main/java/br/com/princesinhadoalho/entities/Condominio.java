@@ -31,6 +31,7 @@ public class Condominio implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idCondominio")
 	private Integer idCondominio;
 	
 	@Column(length = 100, nullable = false)
