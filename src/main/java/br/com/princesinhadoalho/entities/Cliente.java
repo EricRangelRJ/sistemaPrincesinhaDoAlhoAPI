@@ -47,6 +47,6 @@ public class Cliente implements Serializable {
 	
 	@ManyToOne //Muitos (Clientes) para um (Endereço)
 	@JoinColumn(name = "idEndereco", nullable = false) //FK
-	private Endereco endereco;
+	private Endereco enderecos;
 
 }

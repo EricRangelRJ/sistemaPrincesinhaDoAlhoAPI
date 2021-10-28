@@ -60,7 +60,7 @@ public class Endereco implements Serializable {
 	@JoinColumn(name = "idTipoLogradouro", nullable = false)
 	private TipoLogradouro tipoLogradouro;
 	
-	@OneToMany(mappedBy = "endereco")
+	@OneToMany(mappedBy = "enderecos")
 	private List<Cliente> clientes;
 	
 	@OneToMany(mappedBy = "endereco")
@@ -68,5 +68,7 @@ public class Endereco implements Serializable {
 
 	@OneToMany(mappedBy = "endereco")
 	private List<Fornecedor> fornecedores;
+	
+	
 
 }
