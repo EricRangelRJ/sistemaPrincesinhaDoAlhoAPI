@@ -21,7 +21,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "endereco")
+@Table(name = "enderecos")
 @Getter
 @Setter
 @ToString
@@ -60,7 +60,7 @@ public class Endereco implements Serializable {
 	@JoinColumn(name = "idTipoLogradouro", nullable = false)
 	private TipoLogradouro tipoLogradouro;
 	
-	@OneToMany(mappedBy = "enderecos")
+	@OneToMany(mappedBy = "endereco")
 	private List<Cliente> clientes;
 	
 	@OneToMany(mappedBy = "endereco")

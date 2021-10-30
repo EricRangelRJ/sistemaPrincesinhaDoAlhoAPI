@@ -31,9 +31,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Pedido implements Serializable {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -1318735330355748410L;
 
 	@Id
