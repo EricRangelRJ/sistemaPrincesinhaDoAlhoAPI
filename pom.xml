@@ -88,6 +88,12 @@
 			<version>1.18.22</version><!--$NO-MVN-MAN-VER$--> 
 			<scope>provided</scope>
 		</dependency>
+		
+		<!-- Dependencias para envio de email -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
 	
 	</dependencies>
 

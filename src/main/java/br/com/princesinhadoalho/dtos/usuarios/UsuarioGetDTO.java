@@ -1,12 +1,17 @@
-package br.com.princesinhadoalho.dtos;
+package br.com.princesinhadoalho.dtos.usuarios;
 
-public class UsuarioPostDTO {
+public class UsuarioGetDTO {
 	
+	private Integer idUsuario;
 	private String nome;
 	private String email;
-	private String senha;
 	
-	
+	public Integer getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(Integer idUsuario) {
+		this.idUsuario = idUsuario;
+	}
 	public String getNome() {
 		return nome;
 	}
@@ -19,11 +24,5 @@ public class UsuarioPostDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getSenha() {
-		return senha;
-	}
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-	
+
 }

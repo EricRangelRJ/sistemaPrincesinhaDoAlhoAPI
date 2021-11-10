@@ -1,10 +1,9 @@
-package br.com.princesinhadoalho.dtos;
+package br.com.princesinhadoalho.dtos.usuarios;
 
 public class AuthPostDTO {
 	
 	private String email;
 	private String senha;
-	
 	
 	public String getEmail() {
 		return email;

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.princesinhadoalho.dtos.AuthPostDTO;
-import br.com.princesinhadoalho.dtos.UsuarioGetDTO;
+import br.com.princesinhadoalho.dtos.usuarios.AuthGetDTO;
+import br.com.princesinhadoalho.dtos.usuarios.AuthPostDTO;
 import br.com.princesinhadoalho.entities.Usuario;
 import br.com.princesinhadoalho.repositories.UsuarioRepository;
 import br.com.princesinhadoalho.security.Cryptography;
@@ -31,7 +31,7 @@ public class AuthController {
 	@ApiOperation(value = "Autenticação de usuário")
 	@CrossOrigin
 	@PostMapping
-	public ResponseEntity<UsuarioGetDTO> post(@RequestBody AuthPostDTO dto) {
+	public ResponseEntity<AuthGetDTO> post(@RequestBody AuthPostDTO dto) {
 
 		try {
 
@@ -40,7 +40,7 @@ public class AuthController {
 
 			if (usuario != null) {
 
-				UsuarioGetDTO dtoGet = new UsuarioGetDTO();
+				AuthGetDTO dtoGet = new AuthGetDTO();
 
 				dtoGet.setIdUsuario(usuario.getIdUsuario());
 				dtoGet.setNome(usuario.getNome());

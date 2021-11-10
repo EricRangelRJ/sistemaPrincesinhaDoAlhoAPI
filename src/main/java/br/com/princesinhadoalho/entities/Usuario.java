@@ -23,26 +23,23 @@ public class Usuario implements Serializable{
 	@Column(length = 50, nullable = false)
 	private String nome;
 	
-	@Column(length = 100, nullable = false, unique = true)
+	@Column(length = 50, nullable = false, unique = true)
 	private String email;
 	
-	@Column(length = 50, nullable = false)
+	@Column(length = 100, nullable = false)
 	private String senha;
-	
-	@Column(length = 50)
-	private String perfil;
 
 	public Usuario() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Usuario(Integer idUsuario, String nome, String email, String senha, String perfil) {
+	public Usuario(Integer idUsuario, String nome, String email, String senha) {
 		super();
 		this.idUsuario = idUsuario;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
-		this.perfil = perfil;
+	
 	}
 
 	public Integer getIdUsuario() {
@@ -77,17 +74,9 @@ public class Usuario implements Serializable{
 		this.senha = senha;
 	}
 
-	public String getPerfil() {
-		return perfil;
-	}
-
-	public void setPerfil(String perfil) {
-		this.perfil = perfil;
-	}
-
 	@Override
 	public String toString() {
 		return "Usuario [idUsuario=" + idUsuario + ", nome=" + nome + ", email=" + email + ", senha=" + senha
-				+ ", perfil=" + perfil + "]";
+				+  "]";
 	}
 }

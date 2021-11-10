@@ -1,12 +1,11 @@
-package br.com.princesinhadoalho.dtos;
+package br.com.princesinhadoalho.dtos.usuarios;
 
-public class UsuarioGetDTO {
+public class AuthGetDTO {
 	
 	private Integer idUsuario;
 	private String nome;
 	private String email;
 	private String accessToken;	
-	//private String perfil;
 	
 	public Integer getIdUsuario() {
 		return idUsuario;
@@ -31,14 +30,6 @@ public class UsuarioGetDTO {
 	}
 	public void setAccessToken(String accessToken) {
 		this.accessToken = accessToken;
-	}
-/*	public String getPerfil() {
-		return perfil;
-	}
-	public void setPerfil(String perfil) {
-		this.perfil = perfil;
-	}
-	*/
-	
+	}	
 
 }
