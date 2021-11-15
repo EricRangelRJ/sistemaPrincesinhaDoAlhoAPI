@@ -67,4 +67,4 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 			return false;
 		return true;
 	}
-}
+} 

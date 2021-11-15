@@ -12,7 +12,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "usuarios")
 public class Usuario implements Serializable{
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -31,6 +30,12 @@ public class Usuario implements Serializable{
 
 	public Usuario() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public Usuario(String nome, String email) {
+		super();
+		this.nome = nome;
+		this.email = email;
 	}
 
 	public Usuario(Integer idUsuario, String nome, String email, String senha) {

@@ -16,9 +16,11 @@ import br.com.princesinhadoalho.helpers.PasswordHelper;
 import br.com.princesinhadoalho.repositories.UsuarioRepository;
 import br.com.princesinhadoalho.security.Cryptography;
 import br.com.princesinhadoalho.senders.MailSender;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
+@Api(tags =  "Recuperar Senha")
 @RestController
 @Transactional
 @RequestMapping(value = "/api/recuperarsenha")
