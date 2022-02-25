@@ -20,7 +20,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
+<<<<<<< Updated upstream
 @Api(tags =  "Login")
+=======
+>>>>>>> Stashed changes
 @RestController
 @Transactional
 @RequestMapping("/api/auth")
@@ -53,11 +56,11 @@ public class AuthController {
 			} else {
 
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-
 			}
 
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
+
 	}
 }
