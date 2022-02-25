@@ -20,10 +20,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
-<<<<<<< Updated upstream
-@Api(tags =  "Login")
-=======
->>>>>>> Stashed changes
 @RestController
 @Transactional
 @RequestMapping("/api/auth")
