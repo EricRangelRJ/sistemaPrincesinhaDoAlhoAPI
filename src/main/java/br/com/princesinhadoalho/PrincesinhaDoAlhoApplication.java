@@ -2,8 +2,10 @@ package br.com.princesinhadoalho;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-@SpringBootApplication(scanBasePackages = "br.com.princesinhadoalho")
+@EnableWebMvc
+@SpringBootApplication
 public class PrincesinhaDoAlhoApplication {
 
 	public static void main(String[] args) {

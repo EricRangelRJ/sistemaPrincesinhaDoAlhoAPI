@@ -12,23 +12,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
+@Data
 @Entity
-@Table(name = "condominio")
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "condominio")
 public class Condominio implements Serializable {
-
-	private static final long serialVersionUID = -433258258985834497L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,10 +31,8 @@ public class Condominio implements Serializable {
 	@Column(length = 100, nullable = false)
 	private String nomeCondominio;
 
-	@Getter
-	@Setter
-	@ManyToOne // Muitos (Clientes) para um (Endereço)
-	@JoinColumn(name = "idEndereco", nullable = false) // FK
+	@ManyToOne // Muitos Condomínios para um Endereço
+	@JoinColumn(name = "idEndereco", nullable = false)
 	private Endereco endereco;
 
 }

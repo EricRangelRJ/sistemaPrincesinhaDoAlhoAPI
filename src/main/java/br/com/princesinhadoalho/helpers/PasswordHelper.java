@@ -1,4 +1,4 @@
-package br.com.princesinhadoalho.helpers;
+/*package br.com.princesinhadoalho.helpers;
 
 import java.security.SecureRandom;
 
@@ -20,3 +20,4 @@ public class PasswordHelper {
 	}
 
 }
+*/

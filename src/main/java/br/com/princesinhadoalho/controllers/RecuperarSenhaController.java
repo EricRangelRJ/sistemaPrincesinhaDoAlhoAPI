@@ -1,4 +1,4 @@
-package br.com.princesinhadoalho.controllers;
+/*package br.com.princesinhadoalho.controllers;
 
 import javax.transaction.Transactional;
 
@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +19,7 @@ import br.com.princesinhadoalho.security.Cryptography;
 import br.com.princesinhadoalho.senders.MailSender;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
 
 @Api(tags =  "Recuperar Senha")
 @RestController
@@ -82,3 +83,4 @@ public class RecuperarSenhaController {
 	}
 
 }
+*/

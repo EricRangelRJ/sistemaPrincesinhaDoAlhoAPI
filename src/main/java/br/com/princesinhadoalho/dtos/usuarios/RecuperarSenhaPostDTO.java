@@ -1,4 +1,4 @@
-package br.com.princesinhadoalho.dtos.usuarios;
+/*package br.com.princesinhadoalho.dtos.usuarios;
 
 public class RecuperarSenhaPostDTO {
 
@@ -13,3 +13,4 @@ public class RecuperarSenhaPostDTO {
 	}
 	
 }
+*/

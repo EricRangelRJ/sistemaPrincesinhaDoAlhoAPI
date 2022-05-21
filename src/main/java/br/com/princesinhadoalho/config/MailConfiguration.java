@@ -1,4 +1,4 @@
-package br.com.princesinhadoalho.config;
+/*package br.com.princesinhadoalho.config;
 
 import java.util.Properties;
 
@@ -21,8 +21,10 @@ public class MailConfiguration {
 		mailSenderImpl.setPort(587);
 
 		// configuração da conta de email para envios de emails
-		mailSenderImpl.setUsername("INSERIR UMA CONTA DO GMAIL");
-		mailSenderImpl.setPassword("SENHA");
+		mailSenderImpl.setUsername("israelaze2@gmail.com");
+		mailSenderImpl.setPassword("190507Is");
+		
+		
 
 		Properties props = mailSenderImpl.getJavaMailProperties();
 		props.put("mail.transport.protocol", "smtp");
@@ -30,7 +32,8 @@ public class MailConfiguration {
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.debug", "true");
 
+	     props.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
 		return mailSenderImpl;
 	}
 
-}
+}*/

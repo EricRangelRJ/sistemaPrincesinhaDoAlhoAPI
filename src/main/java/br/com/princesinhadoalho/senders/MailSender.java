@@ -1,4 +1,4 @@
-package br.com.princesinhadoalho.senders;
+/*package br.com.princesinhadoalho.senders;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -16,7 +16,7 @@ public class MailSender {
 
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 
-		mailMessage.setFrom("INSERIR CONTA DE EMAIL");
+		mailMessage.setFrom("israelaze@gmail.com");
 		mailMessage.setTo(to);
 		mailMessage.setSubject(subject);
 		mailMessage.setText(text);
@@ -24,3 +24,4 @@ public class MailSender {
 		javaMailSender.send(mailMessage);
 	}
 }
+*/
