@@ -1,27 +1,26 @@
-/*package br.com.princesinhadoalho.senders;
+package br.com.princesinhadoalho.senders;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
+import lombok.AllArgsConstructor;
+
 @Component
+@AllArgsConstructor
 public class MailSender {
 
-	@Autowired
 	private JavaMailSender javaMailSender;
 
 	// método para realizar o envio do email..
-	public void sendMessage(String to, String subject, String text) {
+	public void sendMessage(String destinatario, String assunto, String mensagem) {
 
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 
-		mailMessage.setFrom("israelaze@gmail.com");
-		mailMessage.setTo(to);
-		mailMessage.setSubject(subject);
-		mailMessage.setText(text);
+		mailMessage.setTo(destinatario);
+		mailMessage.setSubject(assunto);
+		mailMessage.setText(mensagem);
 
 		javaMailSender.send(mailMessage);
 	}
 }
-*/

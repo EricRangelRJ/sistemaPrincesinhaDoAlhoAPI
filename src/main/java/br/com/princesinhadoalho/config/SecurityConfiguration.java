@@ -41,13 +41,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/api/usuarios/**").permitAll()
 				// permitir autenticação do usuário
 				.antMatchers("/api/auth").permitAll()
-				//permitir recuperar senha										
-				.antMatchers("/api/recuperarsenha").permitAll() 
+				// permitir recuperar senha
+				.antMatchers("/api/recuperarsenha").permitAll()
 				// permitir a documentação do swagger
 				.antMatchers(SWAGGER).permitAll()
 				// permitir o acesso ao console do banco de dados h2
 				.antMatchers("/h2-console/**").permitAll()
-				// permitir o envio de parâmetros adicionais no protocolo HTTP como por ex: Header, Patch, et..
+				// permitir o envio de parâmetros adicionais no protocolo HTTP como por ex:
+				// Header, Patch, et..
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated();
 	}
 

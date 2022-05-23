@@ -1,16 +1,10 @@
-/*package br.com.princesinhadoalho.dtos.usuarios;
+package br.com.princesinhadoalho.dtos.usuarios;
 
+import lombok.Getter;
+
+@Getter
 public class RecuperarSenhaPostDTO {
 
 	private String email;
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 	
 }
-*/
