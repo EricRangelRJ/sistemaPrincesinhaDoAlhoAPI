@@ -2,8 +2,6 @@ package br.com.princesinhadoalho.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,20 +36,20 @@ public class Cliente implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "dataNascimento")
-	private Date dataNascimento; 
+	private Date dataNascimento;
 
 	@Column(length = 14, unique = true)
 	private String cpf;
 	
 	@ManyToOne
+	@JoinColumn(name = "idEndereco", nullable = false)
+	private Endereco endereco;
+
+/*	@ManyToOne
 	@JoinColumn(name = "idContato")
 	private Contato contato;
-	
-	@ManyToOne
-	@JoinColumn(name = "idEndereco")
-	private Endereco endereco;
-	
+
 	@OneToMany(mappedBy = "cliente")
-	private Set<Pedido> pedidos = new HashSet <>();
-	
+	private Set<Pedido> pedidos = new HashSet<>();
+ */
 }

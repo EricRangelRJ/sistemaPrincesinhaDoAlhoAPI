@@ -1,4 +1,4 @@
-package br.com.princesinhadoalho.config;
+/*package br.com.princesinhadoalho.config;
 
 import java.util.Arrays;
 
@@ -61,3 +61,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return source;
 	}
 }
+*/

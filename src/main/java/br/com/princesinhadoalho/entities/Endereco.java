@@ -9,8 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -46,20 +44,20 @@ public class Endereco implements Serializable {
 	@Column(length = 500)
 	private String observacao;
 
-	@Column(length = 1)
 	private boolean condominio;
+
+	@OneToMany(mappedBy = "endereco")
+	private Set<Cliente> clientes = new HashSet<>();
+/*
+	@OneToMany(mappedBy = "endereco")
+	private Set<Condominio> condominios = new HashSet<>();
 	
 	@ManyToOne
 	@JoinColumn(name = "idTipoLogradouro", nullable = false)
 	private TipoLogradouro tipoLogradouro;
-	
-	@OneToMany(mappedBy = "endereco")
-	private Set<Cliente> clientes = new HashSet<>();
-	
-	@OneToMany(mappedBy = "endereco")
-	private Set<Condominio> condominios = new HashSet<>();
 
 	@OneToMany(mappedBy = "endereco")
-	private Set<Fornecedor> fornecedores = new HashSet<>(); 
-	
+	private Set<Fornecedor> fornecedores = new HashSet<>();
+*/
+
 }

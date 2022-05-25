@@ -7,4 +7,5 @@ public class ClientePutDTO {
 
 	private Integer idCliente;
 	private String nome;
+
 }

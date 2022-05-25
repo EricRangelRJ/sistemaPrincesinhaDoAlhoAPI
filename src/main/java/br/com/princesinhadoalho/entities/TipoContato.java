@@ -1,4 +1,4 @@
-package br.com.princesinhadoalho.entities;
+/*package br.com.princesinhadoalho.entities;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -35,4 +35,4 @@ public class TipoContato implements Serializable {
 	@OneToMany(mappedBy = "tipoContato")
 	private Set<Contato> contatos = new HashSet<>();
 
-}
+}*/

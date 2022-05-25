@@ -1,4 +1,4 @@
-package br.com.princesinhadoalho.entities;
+/*package br.com.princesinhadoalho.entities;
 
 import java.io.Serializable;
 
@@ -37,3 +37,4 @@ public class ItemPedido implements Serializable{
 	private Produto produto;
 	
 }
+*/

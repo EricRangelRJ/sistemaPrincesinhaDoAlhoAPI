@@ -8,7 +8,6 @@ public class ClientePostDTO {
 	private String nome;
 	private String dataNascimento;
 	private String cpf;
-	private Integer contato;
-	private Integer endereco;
+	private Integer idEndereco;	
 	
 }

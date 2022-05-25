@@ -1,4 +1,4 @@
-package br.com.princesinhadoalho.entities;
+/*package br.com.princesinhadoalho.entities;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -61,3 +61,4 @@ public class Produto implements Serializable {
 	private Set<ItemPedido> itensPedido = new HashSet<>();
 
 }
+*/

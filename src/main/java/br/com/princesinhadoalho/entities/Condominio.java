@@ -1,4 +1,4 @@
-package br.com.princesinhadoalho.entities;
+/*package br.com.princesinhadoalho.entities;
 
 import java.io.Serializable;
 
@@ -36,3 +36,4 @@ public class Condominio implements Serializable {
 	private Endereco endereco;
 
 }
+*/

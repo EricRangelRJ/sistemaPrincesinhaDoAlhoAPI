@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.princesinhadoalho.dtos.clientes.ClienteGetDTO;
-import br.com.princesinhadoalho.dtos.clientes.ClientePostDTO;
-import br.com.princesinhadoalho.dtos.clientes.ClientePutDTO;
+import br.com.princesinhadoalho.dtos.enderecos.EnderecoGetDTO;
+import br.com.princesinhadoalho.dtos.enderecos.EnderecoPostDTO;
+import br.com.princesinhadoalho.dtos.enderecos.EnderecoPutDTO;
 import br.com.princesinhadoalho.exceptions.ServiceException;
-import br.com.princesinhadoalho.services.ClienteService;
+import br.com.princesinhadoalho.services.EnderecoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -26,18 +26,18 @@ import lombok.AllArgsConstructor;
 @CrossOrigin
 @RestController
 @AllArgsConstructor
-@Api(tags = "Menu Clientes")
-@RequestMapping(value = "/api/clientes")
-public class ClientesController {
+@Api(tags = "Menu Enderecos")
+@RequestMapping(value = "/api/enderecos")
+public class EnderecosController {
 
-	private ClienteService service;
+	private final EnderecoService service;
 
 	@PostMapping
-	@ApiOperation(value = "Cadastrar clientes")
-	public ResponseEntity<ClienteGetDTO> cadastrar(@RequestBody ClientePostDTO dto) {
+	@ApiOperation(value = "cadastrar")
+	public ResponseEntity<EnderecoGetDTO> cadastrar(@RequestBody EnderecoPostDTO dto) {
 
 		try {
-			ClienteGetDTO getDto = service.cadastrar(dto);
+			EnderecoGetDTO getDto = service.cadastrar(dto);
 			return ResponseEntity.status(HttpStatus.CREATED).body(getDto);
 
 		} catch (ServiceException e) {
@@ -46,34 +46,33 @@ public class ClientesController {
 	}
 
 	@GetMapping
-	@ApiOperation(value = "Listar clientes cadastrados")
-	public ResponseEntity<List<ClienteGetDTO>> buscarClientes() {
+	@ApiOperation(value = "Buscar endereços")
+	public ResponseEntity<List<EnderecoGetDTO>> buscarEnderecos() {
 
 		try {
-			List<ClienteGetDTO> lista = service.buscarClientes();
-			return ResponseEntity.status(HttpStatus.OK).body(lista);
-
+			List<EnderecoGetDTO> lista = service.buscarEnderecos();
+			return ResponseEntity.ok(lista);
 		} catch (ServiceException e) {
 			return ResponseEntity.internalServerError().build();
 		}
 	}
 
-	@GetMapping("/{idCliente}")
-	@ApiOperation(value = "Buscar clientes pelo Id")
-	public ResponseEntity<ClienteGetDTO> buscarId(@PathVariable("idCliente") Integer idCliente) {
+	@GetMapping(value = "/{idEndereco}")
+	@ApiOperation(value = "Buscar por Id")
+	public ResponseEntity<EnderecoGetDTO> buscarId(@PathVariable("idEndereco") Integer idEndereco) {
 
 		try {
-			ClienteGetDTO getDto = service.buscarId(idCliente);
+			EnderecoGetDTO getDto = service.buscarId(idEndereco);
 			return ResponseEntity.ok(getDto);
-
 		} catch (ServiceException e) {
 			return ResponseEntity.internalServerError().build();
 		}
 	}
-
+	
+	
 	@PutMapping
-	@ApiOperation(value = "Atualizar cliente")
-	public ResponseEntity<String> put(@RequestBody ClientePutDTO dto) {
+	@ApiOperation(value = "atualizar")
+	public ResponseEntity<String> atualizar(@RequestBody EnderecoPutDTO dto) {
 
 		try {
 			String response = service.atualizar(dto);
@@ -84,17 +83,16 @@ public class ClientesController {
 		}
 	}
 
-	@DeleteMapping("/{idCliente}")
-	@ApiOperation(value = "Excluir cliente")
-	public ResponseEntity<String> excluir(@PathVariable Integer idCliente) {
+	@DeleteMapping(value = "/{idEndereco}")
+	@ApiOperation(value = "Excluir")
+	public ResponseEntity<String> excluir(@PathVariable("idEndereco") Integer idEndereco) {
 
 		try {
-			String response = service.excluir(idCliente);
+			String response = service.excluir(idEndereco);
 			return ResponseEntity.ok(response);
-			
 		} catch (ServiceException e) {
 			return ResponseEntity.internalServerError().build();
 		}
 	}
-
+	
 }
