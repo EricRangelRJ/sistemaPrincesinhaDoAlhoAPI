@@ -33,7 +33,7 @@ public class ClientesController {
 	private ClienteService service;
 
 	@PostMapping
-	@ApiOperation(value = "Cadastrar clientes")
+	@ApiOperation(value = "Cadastrar cliente")
 	public ResponseEntity<ClienteGetDTO> cadastrar(@RequestBody ClientePostDTO dto) {
 
 		try {
@@ -46,7 +46,7 @@ public class ClientesController {
 	}
 
 	@GetMapping
-	@ApiOperation(value = "Listar clientes cadastrados")
+	@ApiOperation(value = "Buscar clientes cadastrados")
 	public ResponseEntity<List<ClienteGetDTO>> buscarClientes() {
 
 		try {
@@ -59,7 +59,7 @@ public class ClientesController {
 	}
 
 	@GetMapping("/{idCliente}")
-	@ApiOperation(value = "Buscar clientes pelo Id")
+	@ApiOperation(value = "Buscar cliente pelo Id")
 	public ResponseEntity<ClienteGetDTO> buscarId(@PathVariable("idCliente") Integer idCliente) {
 
 		try {
@@ -85,7 +85,7 @@ public class ClientesController {
 	}
 
 	@DeleteMapping("/{idCliente}")
-	@ApiOperation(value = "Excluir cliente")
+	@ApiOperation(value = "Excluir cliente pelo Id")
 	public ResponseEntity<String> excluir(@PathVariable Integer idCliente) {
 
 		try {

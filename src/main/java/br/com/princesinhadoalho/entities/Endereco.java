@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -44,15 +46,13 @@ public class Endereco implements Serializable {
 	@Column(length = 500)
 	private String observacao;
 
-	private boolean condominio;
-
 	@OneToMany(mappedBy = "endereco")
 	private Set<Cliente> clientes = new HashSet<>();
-/*
-	@OneToMany(mappedBy = "endereco")
-	private Set<Condominio> condominios = new HashSet<>();
+
+	@OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
+	private Condominio nomeCondominio;
 	
-	@ManyToOne
+/*	@ManyToOne
 	@JoinColumn(name = "idTipoLogradouro", nullable = false)
 	private TipoLogradouro tipoLogradouro;
 

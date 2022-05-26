@@ -33,7 +33,7 @@ public class EnderecosController {
 	private final EnderecoService service;
 
 	@PostMapping
-	@ApiOperation(value = "cadastrar")
+	@ApiOperation(value = "Cadastrar endereço")
 	public ResponseEntity<EnderecoGetDTO> cadastrar(@RequestBody EnderecoPostDTO dto) {
 
 		try {
@@ -46,7 +46,7 @@ public class EnderecosController {
 	}
 
 	@GetMapping
-	@ApiOperation(value = "Buscar endereços")
+	@ApiOperation(value = "Buscar endereços cadastrados")
 	public ResponseEntity<List<EnderecoGetDTO>> buscarEnderecos() {
 
 		try {
@@ -58,7 +58,7 @@ public class EnderecosController {
 	}
 
 	@GetMapping(value = "/{idEndereco}")
-	@ApiOperation(value = "Buscar por Id")
+	@ApiOperation(value = "Buscar endereço por Id")
 	public ResponseEntity<EnderecoGetDTO> buscarId(@PathVariable("idEndereco") Integer idEndereco) {
 
 		try {
@@ -68,10 +68,9 @@ public class EnderecosController {
 			return ResponseEntity.internalServerError().build();
 		}
 	}
-	
-	
+
 	@PutMapping
-	@ApiOperation(value = "atualizar")
+	@ApiOperation(value = "Atualizar endereço")
 	public ResponseEntity<String> atualizar(@RequestBody EnderecoPutDTO dto) {
 
 		try {
@@ -84,7 +83,7 @@ public class EnderecosController {
 	}
 
 	@DeleteMapping(value = "/{idEndereco}")
-	@ApiOperation(value = "Excluir")
+	@ApiOperation(value = "Excluir endereço por Id")
 	public ResponseEntity<String> excluir(@PathVariable("idEndereco") Integer idEndereco) {
 
 		try {
@@ -94,5 +93,5 @@ public class EnderecosController {
 			return ResponseEntity.internalServerError().build();
 		}
 	}
-	
+
 }

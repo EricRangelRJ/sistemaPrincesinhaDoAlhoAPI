@@ -13,5 +13,5 @@ public class EnderecoGetDTO {
 	private String numero;
 	private String complemento;
 	private String observacao;
-	private boolean condominio; 
+	private String nomeCondominio;
 }

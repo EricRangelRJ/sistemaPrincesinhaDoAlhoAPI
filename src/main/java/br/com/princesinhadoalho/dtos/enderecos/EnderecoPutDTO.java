@@ -11,5 +11,6 @@ public class EnderecoPutDTO {
 	private String numero;
 	private String complemento;
 	private String observacao;
-	private boolean condominio; 
+	private String nomeCondominio;
+ 
 }

@@ -1,4 +1,4 @@
-/*package br.com.princesinhadoalho.entities;
+package br.com.princesinhadoalho.entities;
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "condominio")
+@Table(name = "condominios")
 public class Condominio implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -31,9 +31,8 @@ public class Condominio implements Serializable {
 	@Column(length = 100, nullable = false)
 	private String nomeCondominio;
 
-	@ManyToOne // Muitos Condomínios para um Endereço
-	@JoinColumn(name = "idEndereco", nullable = false)
+	@OneToOne 
+	@JoinColumn(name = "idEndereco", nullable = false, unique = true)
 	private Endereco endereco;
 
 }
-*/

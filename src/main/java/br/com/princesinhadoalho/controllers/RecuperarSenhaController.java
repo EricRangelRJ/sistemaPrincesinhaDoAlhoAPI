@@ -24,7 +24,7 @@ public class RecuperarSenhaController {
 	private final RecuperarSenhaService service;
 
 	@PostMapping
-	@ApiOperation(value = "recuperar")
+	@ApiOperation(value = "Recuperar senha")
 	public ResponseEntity<String> recuperar(@RequestBody RecuperarSenhaPostDTO dto) {
 
 		try {

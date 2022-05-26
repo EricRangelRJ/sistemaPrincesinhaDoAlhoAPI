@@ -34,7 +34,7 @@ public class UsuariosController {
 	private final UsuarioService service;
 
 	@PostMapping
-	@ApiOperation(value = "cadastrar")
+	@ApiOperation(value = "Cadastrar usuário")
 	public ResponseEntity<UsuarioGetDTO> cadastrar(@RequestBody UsuarioPostDTO dto) {
 
 		try {
@@ -47,7 +47,7 @@ public class UsuariosController {
 	}
 
 	@GetMapping
-	@ApiOperation(value = "Buscar todos")
+	@ApiOperation(value = "Buscar usuários cadastrados")
 	public ResponseEntity<List<UsuarioGetDTO>> buscarTodos() {
 
 		try {
@@ -59,7 +59,7 @@ public class UsuariosController {
 	}
 
 	@GetMapping(value = "/{idUsuario}")
-	@ApiOperation(value = "Buscar por Id")
+	@ApiOperation(value = "Buscar usuário por Id")
 	public ResponseEntity<UsuarioGetDTO> buscarId(@PathVariable("idUsuario") Integer idUsuario) {
 
 		try {
@@ -72,7 +72,7 @@ public class UsuariosController {
 	
 	
 	@PutMapping
-	@ApiOperation(value = "atualizar")
+	@ApiOperation(value = "Atualizar usuário")
 	public ResponseEntity<String> atualizar(@RequestBody UsuarioPutDTO dto) {
 
 		try {
@@ -85,7 +85,7 @@ public class UsuariosController {
 	}
 
 	@DeleteMapping(value = "/{idUsuario}")
-	@ApiOperation(value = "Excluir")
+	@ApiOperation(value = "Excluir usuário por Id")
 	public ResponseEntity<String> excluir(@PathVariable("idUsuario") Integer idUsuario) {
 
 		try {

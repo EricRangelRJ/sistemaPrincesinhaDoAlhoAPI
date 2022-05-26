@@ -1,4 +1,4 @@
-/*package br.com.princesinhadoalho.config;
+package br.com.princesinhadoalho.config;
 
 import java.util.Arrays;
 
@@ -37,6 +37,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable()
 				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
+				
+				.antMatchers("/api/clientes/**").permitAll()
+				.antMatchers("/api/enderecos/**").permitAll()
+						
 				// permitir o cadastro de usuário
 				.antMatchers("/api/usuarios/**").permitAll()
 				// permitir autenticação do usuário
@@ -61,4 +65,3 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return source;
 	}
 }
-*/

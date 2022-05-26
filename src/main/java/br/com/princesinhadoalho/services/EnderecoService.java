@@ -12,8 +12,11 @@ import org.springframework.stereotype.Service;
 import br.com.princesinhadoalho.dtos.enderecos.EnderecoGetDTO;
 import br.com.princesinhadoalho.dtos.enderecos.EnderecoPostDTO;
 import br.com.princesinhadoalho.dtos.enderecos.EnderecoPutDTO;
+import br.com.princesinhadoalho.entities.Condominio;
 import br.com.princesinhadoalho.entities.Endereco;
+import br.com.princesinhadoalho.exceptions.BadRequestException;
 import br.com.princesinhadoalho.exceptions.EntityNotFoundException;
+import br.com.princesinhadoalho.repositories.CondominioRepository;
 import br.com.princesinhadoalho.repositories.EnderecoRepository;
 import lombok.AllArgsConstructor;
 
@@ -22,15 +25,32 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class EnderecoService {
 
-	private EnderecoRepository repository;
+	private EnderecoRepository endRepository;
+	private CondominioRepository condRepository;
 	private ModelMapper mapper;
 
 	public EnderecoGetDTO cadastrar(EnderecoPostDTO dto) {
+		
+		Optional<Endereco> result = endRepository.findByCepAndNumero(dto.getCep(), dto.getNumero());
+		
+		if(result.isPresent()) {
+			throw new BadRequestException("Endereço já cadastrado.");
+		}
 
 		Endereco endereco = new Endereco();
-		mapper.map(dto, endereco);
+		endereco.setLogradouro(dto.getLogradouro());
+		endereco.setCep(dto.getCep());
+		endereco.setNumero(dto.getNumero());
+		endereco.setComplemento(dto.getComplemento());
+		endereco.setObservacao(dto.getObservacao());
 
-		repository.save(endereco);
+		Condominio condominio = new Condominio();
+		condominio.setNomeCondominio(dto.getNomeCondominio());
+		// associando o endereço ao condomínio
+		condominio.setEndereco(endereco);
+
+		endRepository.save(endereco);
+		condRepository.save(condominio);
 
 		EnderecoGetDTO getDto = new EnderecoGetDTO();
 		mapper.map(endereco, getDto);
@@ -40,7 +60,7 @@ public class EnderecoService {
 
 	public List<EnderecoGetDTO> buscarEnderecos() {
 
-		List<Endereco> list = repository.findAll();
+		List<Endereco> list = endRepository.findAll();
 		List<EnderecoGetDTO> listaGetDto = new ArrayList<EnderecoGetDTO>();
 
 		for (Endereco endereco : list) {
@@ -52,10 +72,10 @@ public class EnderecoService {
 
 		return listaGetDto;
 	}
-	
+
 	public EnderecoGetDTO buscarId(Integer idEndereco) {
 
-		Optional<Endereco> result = repository.findById(idEndereco);
+		Optional<Endereco> result = endRepository.findById(idEndereco);
 
 		if (result.isEmpty()) {
 			throw new EntityNotFoundException("Endereço não encontrado.");
@@ -68,26 +88,26 @@ public class EnderecoService {
 
 		return getDto;
 	}
-	
+
 	public String atualizar(EnderecoPutDTO dto) {
-		
-		Optional<Endereco> result = repository.findById(dto.getIdEndereco());
-		
+
+		Optional<Endereco> result = endRepository.findById(dto.getIdEndereco());
+
 		if (result.isEmpty()) {
-			throw new EntityNotFoundException("Usuário não encontrado.");
+			throw new EntityNotFoundException("Endereço não encontrado.");
 		}
-	
+
 		Endereco Endereco = result.get();
 		mapper.map(dto, Endereco);
 
-		repository.save(Endereco);
-		
+		endRepository.save(Endereco);
+
 		return "Endereço atualizado com sucesso.";
 	}
 
 	public String excluir(Integer idEndereco) {
 
-		Optional<Endereco> result = repository.findById(idEndereco);
+		Optional<Endereco> result = endRepository.findById(idEndereco);
 
 		if (result.isEmpty()) {
 			throw new EntityNotFoundException("Endereço não encontrado.");
@@ -95,7 +115,7 @@ public class EnderecoService {
 
 		Endereco Endereco = result.get();
 
-		repository.delete(Endereco);
+		endRepository.delete(Endereco);
 
 		return "Endereço excluído com sucesso.";
 	}
