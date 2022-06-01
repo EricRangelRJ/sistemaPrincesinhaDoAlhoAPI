@@ -73,11 +73,11 @@ public class ClientesController {
 
 	@PutMapping
 	@ApiOperation(value = "Atualizar cliente")
-	public ResponseEntity<String> put(@RequestBody ClientePutDTO dto) {
+	public ResponseEntity<ClienteGetDTO> put(@RequestBody ClientePutDTO dto) {
 
 		try {
-			String response = service.atualizar(dto);
-			return ResponseEntity.ok(response);
+			ClienteGetDTO getDto = service.atualizar(dto);
+			return ResponseEntity.ok(getDto);
 
 		} catch (ServiceException e) {
 			return ResponseEntity.internalServerError().build();
@@ -93,7 +93,7 @@ public class ClientesController {
 			return ResponseEntity.ok(response);
 			
 		} catch (ServiceException e) {
-			return ResponseEntity.internalServerError().build();
+			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
 	}
 

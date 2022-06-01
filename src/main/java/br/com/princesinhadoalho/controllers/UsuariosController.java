@@ -19,7 +19,6 @@ import br.com.princesinhadoalho.dtos.usuarios.UsuarioPostDTO;
 import br.com.princesinhadoalho.dtos.usuarios.UsuarioPutDTO;
 import br.com.princesinhadoalho.exceptions.ServiceException;
 import br.com.princesinhadoalho.services.UsuarioService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -73,11 +72,11 @@ public class UsuariosController {
 	
 	@PutMapping
 	@ApiOperation(value = "Atualizar usuário")
-	public ResponseEntity<String> atualizar(@RequestBody UsuarioPutDTO dto) {
+	public ResponseEntity<UsuarioGetDTO> atualizar(@RequestBody UsuarioPutDTO dto) {
 
 		try {
-			String response = service.atualizar(dto);
-			return ResponseEntity.ok(response);
+			UsuarioGetDTO getDto = service.atualizar(dto);
+			return ResponseEntity.ok(getDto);
 
 		} catch (ServiceException e) {
 			return ResponseEntity.internalServerError().build();
@@ -92,7 +91,7 @@ public class UsuariosController {
 			String response = service.excluir(idUsuario);
 			return ResponseEntity.ok(response);
 		} catch (ServiceException e) {
-			return ResponseEntity.internalServerError().build();
+			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
 	}
 }

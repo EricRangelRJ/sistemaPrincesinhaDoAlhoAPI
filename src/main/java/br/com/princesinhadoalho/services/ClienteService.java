@@ -88,7 +88,7 @@ public class ClienteService {
 		return getDto;
 	}
 	
-	public String atualizar(ClientePutDTO dto) {
+	public ClienteGetDTO atualizar(ClientePutDTO dto) {
 		
 		Optional<Cliente> result = clienteRepository.findById(dto.getIdCliente());
 		
@@ -101,7 +101,10 @@ public class ClienteService {
 
 		clienteRepository.save(cliente);
 		
-		return "Cliente " + result.get().getNome() + " atualizado com sucesso.";
+		ClienteGetDTO getDto = new ClienteGetDTO();
+		mapper.map(cliente, getDto);
+		
+		return getDto;
 	}
 
 	public String excluir(Integer idCliente) {

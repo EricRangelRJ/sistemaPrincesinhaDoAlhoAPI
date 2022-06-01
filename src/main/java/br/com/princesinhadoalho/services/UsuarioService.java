@@ -84,15 +84,15 @@ public class UsuarioService {
 
 		return getDto;
 	}
-	
-	public String atualizar(UsuarioPutDTO dto) {
-		
+
+	public UsuarioGetDTO atualizar(UsuarioPutDTO dto) {
+
 		Optional<Usuario> result = repository.findById(dto.getIdUsuario());
-		
+
 		if (result.isEmpty()) {
 			throw new EntityNotFoundException("Usuário não encontrado.");
 		}
-		
+
 		// Criptografando a senha do usuário
 		String senha = Cryptography.encrypt(dto.getSenha());
 
@@ -102,8 +102,11 @@ public class UsuarioService {
 		usuario.setSenha(senha);
 
 		repository.save(usuario);
-		
-		return "Usuário " + result.get().getNome() + " atualizado com sucesso.";
+
+		UsuarioGetDTO getDto = new UsuarioGetDTO();
+		mapper.map(usuario, getDto);
+
+		return getDto;
 	}
 
 	public String excluir(Integer idUsuario) {

@@ -50,7 +50,7 @@ public class Endereco implements Serializable {
 	private Set<Cliente> clientes = new HashSet<>();
 
 	@OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
-	private Condominio nomeCondominio;
+	private Condominio condominio;
 	
 /*	@ManyToOne
 	@JoinColumn(name = "idTipoLogradouro", nullable = false)

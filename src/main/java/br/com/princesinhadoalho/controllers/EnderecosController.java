@@ -71,11 +71,11 @@ public class EnderecosController {
 
 	@PutMapping
 	@ApiOperation(value = "Atualizar endereço")
-	public ResponseEntity<String> atualizar(@RequestBody EnderecoPutDTO dto) {
+	public ResponseEntity<EnderecoGetDTO> atualizar(@RequestBody EnderecoPutDTO dto) {
 
 		try {
-			String response = service.atualizar(dto);
-			return ResponseEntity.ok(response);
+			EnderecoGetDTO getDto = service.atualizar(dto);
+			return ResponseEntity.ok(getDto);
 
 		} catch (ServiceException e) {
 			return ResponseEntity.internalServerError().build();
@@ -90,7 +90,7 @@ public class EnderecosController {
 			String response = service.excluir(idEndereco);
 			return ResponseEntity.ok(response);
 		} catch (ServiceException e) {
-			return ResponseEntity.internalServerError().build();
+			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
 	}
 

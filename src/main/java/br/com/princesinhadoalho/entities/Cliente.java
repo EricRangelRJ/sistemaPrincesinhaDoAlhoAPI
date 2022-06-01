@@ -38,7 +38,7 @@ public class Cliente implements Serializable {
 	@Column(name = "dataNascimento")
 	private Date dataNascimento;
 
-	@Column(length = 14, unique = true)
+	@Column(length = 14)
 	private String cpf;
 	
 	@ManyToOne

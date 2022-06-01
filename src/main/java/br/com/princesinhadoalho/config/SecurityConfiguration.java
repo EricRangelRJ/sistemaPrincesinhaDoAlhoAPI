@@ -38,8 +38,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
 				
+				
+				/*PERMITIR PROVISORIAMENTE PARA TESTES*/
 				.antMatchers("/api/clientes/**").permitAll()
 				.antMatchers("/api/enderecos/**").permitAll()
+			
 						
 				// permitir o cadastro de usuário
 				.antMatchers("/api/usuarios/**").permitAll()
