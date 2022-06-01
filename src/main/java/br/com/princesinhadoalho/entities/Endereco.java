@@ -51,13 +51,8 @@ public class Endereco implements Serializable {
 
 	@OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
 	private Condominio condominio;
-	
-/*	@ManyToOne
-	@JoinColumn(name = "idTipoLogradouro", nullable = false)
-	private TipoLogradouro tipoLogradouro;
 
 	@OneToMany(mappedBy = "endereco")
 	private Set<Fornecedor> fornecedores = new HashSet<>();
-*/
 
 }
