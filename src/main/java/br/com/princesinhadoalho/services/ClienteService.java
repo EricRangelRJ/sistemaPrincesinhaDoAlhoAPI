@@ -45,6 +45,10 @@ public class ClienteService {
 	
 		Optional<Endereco> result2 = enderecoRepository.findById(dto.getIdEndereco());
 		
+		if (result2.isEmpty()) {
+			throw new EntityNotFoundException("Endereço não encontrado.");
+		}
+		
 		Endereco endereco = result2.get();
 		cliente.setEndereco(endereco);
 

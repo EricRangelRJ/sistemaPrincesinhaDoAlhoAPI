@@ -6,7 +6,7 @@ import lombok.Getter;
 public class FornecedorPutDTO {
 
 	private Integer idFornecedor;
-	private String cpfCnpj;
+//	private String cpfCnpj; Não permitido
 	private String nome;
 
 }

@@ -1,9 +1,7 @@
-/*package br.com.princesinhadoalho.entities;
+package br.com.princesinhadoalho.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "produto")
+@Table(name = "produtos")
 public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -34,31 +31,32 @@ public class Produto implements Serializable {
 	@Column(name = "idProduto")
 	private Integer idProduto;
 
-	@Column(length = 150, nullable = false)
+	@Column(length = 50, nullable = false)
+	private String nome;
+
+	@Column(length = 15, nullable = false, unique = true)
+	private String codigo;
+
+	@Column(length = 150)
 	private String descricao;
 
-	@Column(length = 20)
-	private Double valorCusto;
-
-	@Column(length = 20)
-	private Double valorVenda;
-
-	@Column(length = 1)
-	private Boolean ativo;
-
-	@Column(length = 10)
-	private Double margemLucro;
-
-	@Column(length = 15)
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
+
+	private Boolean ativo;
+
+	private Double valorCusto;
+
+	private Double valorVenda;
+
+	private Double margemLucro;
 
 	@ManyToOne
 	@JoinColumn(name = "idFornecedor", nullable = false)
 	private Fornecedor fornecedor;
-	
-	@OneToMany(mappedBy = "produto")
-	private Set<ItemPedido> itensPedido = new HashSet<>();
 
+	/*
+	 * @OneToMany(mappedBy = "produto") private Set<ItemPedido> itensPedido = new
+	 * HashSet<>();
+	 */
 }
-*/
