@@ -1,4 +1,4 @@
-/*package br.com.princesinhadoalho.entities;
+package br.com.princesinhadoalho.entities;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -30,30 +30,30 @@ public class Pedido implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idPedido")
 	private Integer idPedido;
+	
+	@Column(length = 10, nullable = false, unique = true)
+	private String numeroPedido;
 
-	@Column(length = 15)
+	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataPedido;
 
-	@Column(length = 15)
 	@Temporal(TemporalType.DATE)
 	private Date dataEntrega;
 
-	@Column(length = 15)
+	@Column(nullable = false)
 	private Double total;
 
 	@ManyToOne
 	@JoinColumn(name = "idCliente", nullable = false)
 	private Cliente cliente;
 	
-	@ManyToOne
+/*	@ManyToOne
 	@JoinColumn(name = "idVendedor", nullable = false)
 	private Vendedor vendedor;
 
 	@ManyToOne
 	@JoinColumn(name = "idSituacaoPedido", nullable = false)
 	private SituacaoPedido situacaoPedido;
-	
-	
-	
-}*/
+*/		
+}
