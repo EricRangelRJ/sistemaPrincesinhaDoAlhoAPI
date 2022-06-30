@@ -26,27 +26,39 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ProdutoService {
 
-	private ProdutoRepository produtoRepository;
-	private FornecedorRepository fornecedorRepository;
+	private final ProdutoRepository produtoRepository;
+	private final FornecedorRepository fornecedorRepository;
 
 	private ModelMapper mapper;
 
 	public ProdutoGetDTO cadastrar(ProdutoPostDTO dto) {
 
+		
 		Optional<Produto> result = produtoRepository.findByCodigo(dto.getCodigo());
-
 		if (result.isPresent()) {
 			throw new BadRequestException("Produto já cadastrado.");
 		}
-
-		Produto produto = new Produto();
-		mapper.map(dto, produto);
 		
-		Optional<Fornecedor> result2 = fornecedorRepository.findById(dto.getIdFornecedor());
+		Optional<Fornecedor> result2 = fornecedorRepository.findById(dto.getIdFornecedor());	
+		if (result2.isEmpty()) {
+			throw new EntityNotFoundException("Fornecedor não encontrado.");
+		}
 		
 		Fornecedor fornecedor = result2.get();
+		
+		Produto produto = new Produto();
+		
+		produto.setNome(dto.getNome());
+		produto.setCodigo(dto.getCodigo());
+		produto.setDescricao(dto.getDescricao());
+		produto.setDataCadastro(DateHelper.toDate(dto.getDataCadastro()));
+		produto.setAtivo(false);
+		produto.setPeso(25.5);
+		produto.setValorCusto(10.0);
+		produto.setValorVenda(15.0);
+		produto.setMargemLucro(5.0);
 		produto.setFornecedor(fornecedor);
-
+		
 		produtoRepository.save(produto);
 
 		ProdutoGetDTO getDto = new ProdutoGetDTO();

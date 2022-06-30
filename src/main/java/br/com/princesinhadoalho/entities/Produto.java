@@ -44,6 +44,8 @@ public class Produto implements Serializable {
 	private Date dataCadastro;
 
 	private Boolean ativo;
+	
+	private Double peso;
 
 	private Double valorCusto;
 

@@ -30,7 +30,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping(value = "/api/clientes")
 public class ClientesController {
 
-	private ClienteService service;
+	private final ClienteService service;
 
 	@PostMapping
 	@ApiOperation(value = "Cadastrar cliente")
@@ -40,7 +40,7 @@ public class ClientesController {
 			ClienteGetDTO getDto = service.cadastrar(dto);
 			return ResponseEntity.status(HttpStatus.CREATED).body(getDto);
 
-		} catch (ServiceException e) {
+		} catch (ServiceException | IllegalArgumentException | IllegalAccessException e) {
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -73,7 +73,7 @@ public class ClientesController {
 
 	@PutMapping
 	@ApiOperation(value = "Atualizar cliente")
-	public ResponseEntity<ClienteGetDTO> put(@RequestBody ClientePutDTO dto) {
+	public ResponseEntity<ClienteGetDTO> atualizar(@RequestBody ClientePutDTO dto) {
 
 		try {
 			ClienteGetDTO getDto = service.atualizar(dto);

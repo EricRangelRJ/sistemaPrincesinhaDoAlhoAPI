@@ -28,7 +28,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping(value = "/api/pedidos")
 public class PedidosController {
 
-	private PedidoService service;
+	private final PedidoService service;
 
 	@PostMapping
 	@ApiOperation(value = "Cadastrar pedido")

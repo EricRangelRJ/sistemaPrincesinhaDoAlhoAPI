@@ -25,9 +25,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class PedidoService {
 
-	private PedidoRepository pedidoRepository;
-	private ClienteRepository clienteRepository;
-	private ModelMapper mapper;
+	private final PedidoRepository pedidoRepository;
+	private final ClienteRepository clienteRepository;
+	private final ModelMapper mapper;
 
 	public PedidoGetDTO cadastrar(PedidoPostDTO dto) {
 

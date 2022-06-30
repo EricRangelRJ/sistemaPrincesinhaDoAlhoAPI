@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.com.princesinhadoalho.enums.Estado;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,28 +34,34 @@ public class Endereco implements Serializable {
 	@Column(name = "idEndereco")
 	private Integer idEndereco;
 
-	@Column(length = 100, nullable = false)
+	@Column(length = 60)
 	private String logradouro;
 
-	@Column(length = 15)
-	private String cep;
-
-	@Column(length = 10, nullable = false)
+	@Column(length = 10)
 	private String numero;
-
-	@Column(length = 100)
+	
+	@Column(length = 60)
 	private String complemento;
+	
+	@Column(length = 60)
+	private String condominio;
 
-	@Column(length = 500)
-	private String observacao;
+	@Column(length = 60)
+	private String bairro;
+	
+	@Column(length = 60)
+	private String municipio;
+	
+	@Enumerated(EnumType.STRING)
+	private Estado estado;
+	
+	@Column(length = 9)
+	private String cep;
 
 	@OneToMany(mappedBy = "endereco")
 	private Set<Cliente> clientes = new HashSet<>();
 
 	@OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
-	private Condominio condominio;
-
-	@OneToMany(mappedBy = "endereco")
-	private Set<Fornecedor> fornecedores = new HashSet<>();
-
+	private Fornecedor fornecedor;
+	
 }

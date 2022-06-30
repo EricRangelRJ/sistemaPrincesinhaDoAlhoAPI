@@ -12,13 +12,14 @@ import org.springframework.stereotype.Service;
 import br.com.princesinhadoalho.dtos.clientes.ClienteGetDTO;
 import br.com.princesinhadoalho.dtos.clientes.ClientePostDTO;
 import br.com.princesinhadoalho.dtos.clientes.ClientePutDTO;
+import br.com.princesinhadoalho.dtos.enderecos.EnderecoDTO;
 import br.com.princesinhadoalho.entities.Cliente;
 import br.com.princesinhadoalho.entities.Endereco;
 import br.com.princesinhadoalho.exceptions.BadRequestException;
 import br.com.princesinhadoalho.exceptions.EntityNotFoundException;
 import br.com.princesinhadoalho.helpers.DateHelper;
+import br.com.princesinhadoalho.reflections.EnderecoReflection;
 import br.com.princesinhadoalho.repositories.ClienteRepository;
-import br.com.princesinhadoalho.repositories.EnderecoRepository;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -26,39 +27,43 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ClienteService {
 
-	private ClienteRepository clienteRepository;
-	private EnderecoRepository enderecoRepository;
-	private ModelMapper mapper;
+	private final ClienteRepository clienteRepository;
+	private final EnderecoService enderecoService;
+	private final ModelMapper mapper;
 
-	public ClienteGetDTO cadastrar(ClientePostDTO dto) {
+	public ClienteGetDTO cadastrar(ClientePostDTO dto) throws IllegalArgumentException, IllegalAccessException {
 
+		// verificar se o CPF já está cadastrado
 		Optional<Cliente> result = clienteRepository.findByCpf(dto.getCpf());
-
 		if (result.isPresent()) {
-			throw new BadRequestException("Cpf já cadastrado.");
+			throw new BadRequestException("O CPF informado já encontra-se cadastrado. Tente outro.");
 		}
 
+		// convertendo o endereço do cliente para um enderecoDTO
+		EnderecoDTO enderecoDTO = new EnderecoDTO();
+		mapper.map(dto, enderecoDTO);
+
+		// verificando se existem campos NÃO nulos em enderecoDTO
+		EnderecoReflection endReflection = new EnderecoReflection();
+		boolean result2 = endReflection.reflection(enderecoDTO);
+
+		Endereco endereco = new Endereco();
+		// caso exista(TRUE)
+		if (result2) {
+			// cadastrando um endereço
+			endereco = enderecoService.cadastrar(enderecoDTO);
+		}
+
+		// cadastrando novo Cliente com ou sem endereço
 		Cliente cliente = new Cliente();
-		cliente.setNome(dto.getNome());
-		cliente.setDataNascimento(DateHelper.toDate(dto.getDataNascimento()));
-		cliente.setCpf(dto.getCpf());
-	
-		Optional<Endereco> result2 = enderecoRepository.findById(dto.getIdEndereco());
-		
-		if (result2.isEmpty()) {
-			throw new EntityNotFoundException("Endereço não encontrado.");
+		mapper.map(dto, cliente);
+		if (endereco.getIdEndereco() != null) {
+			cliente.setEndereco(endereco);
 		}
-		
-		Endereco endereco = result2.get();
-		cliente.setEndereco(endereco);
-
 		clienteRepository.save(cliente);
 
-		ClienteGetDTO getDto = new ClienteGetDTO();
-		mapper.map(cliente, getDto);
-		getDto.setDataNascimento(DateHelper.toString(cliente.getDataNascimento()));
-		
-		return getDto;
+		// convertendo o cliente em dto e retornando ao cotroller
+		return getCliente(cliente);
 	}
 
 	public List<ClienteGetDTO> buscarClientes() {
@@ -67,15 +72,14 @@ public class ClienteService {
 		List<ClienteGetDTO> listaGetDto = new ArrayList<ClienteGetDTO>();
 
 		for (Cliente cliente : list) {
-			ClienteGetDTO getDto = new ClienteGetDTO();
-			mapper.map(cliente, getDto);
+			ClienteGetDTO getDto = getCliente(cliente);
 
 			listaGetDto.add(getDto);
 		}
 
 		return listaGetDto;
 	}
-	
+
 	public ClienteGetDTO buscarId(Integer idCliente) {
 
 		Optional<Cliente> result = clienteRepository.findById(idCliente);
@@ -86,29 +90,56 @@ public class ClienteService {
 
 		Cliente cliente = result.get();
 
-		ClienteGetDTO getDto = new ClienteGetDTO();
-		mapper.map(cliente, getDto);
-
-		return getDto;
+		return getCliente(cliente);
 	}
-	
+
 	public ClienteGetDTO atualizar(ClientePutDTO dto) {
-		
+
 		Optional<Cliente> result = clienteRepository.findById(dto.getIdCliente());
-		
+
 		if (result.isEmpty()) {
 			throw new EntityNotFoundException("Cliente não encontrado.");
 		}
 		
+		// convertendo o endereço do cliente para um EnderecoDTO
+		EnderecoDTO enderecoDto = new EnderecoDTO();
+		mapper.map(dto, enderecoDto);
+
+		// verificando se existem campos preenchidos em enderecoDto
+		EnderecoReflection endReflection = new EnderecoReflection();
+		boolean result2 = endReflection.reflection(enderecoDto);
+		
+		// atualizando os dados do cliente
 		Cliente cliente = result.get();
 		mapper.map(dto, cliente);
 
+		// SITUAÇÃO 1: caso o cliente não possua endereço
+		if(cliente.getEndereco() == null) {
+			// se result2 = TRUE
+			if (result2) {
+				// cadastrar novo endereço para o cliente
+				Endereco endereco = enderecoService.cadastrar(enderecoDto);
+				cliente.setEndereco(endereco);
+			}
+		
+			clienteRepository.save(cliente);
+			
+			return getCliente(cliente);
+		}
+		
+		// SITUAÇÃO 2: caso o cliente já possua endereço
+		if (!result2) {
+			// se result2 = FALSE
+			throw new BadRequestException("Prencha pelo menos um campo de endereço.");
+		}
+		
+		// atualizando endereço do cliente
+		enderecoDto.setIdEndereco(cliente.getEndereco().getIdEndereco());
+		enderecoService.atualizar(enderecoDto);
+		
 		clienteRepository.save(cliente);
-		
-		ClienteGetDTO getDto = new ClienteGetDTO();
-		mapper.map(cliente, getDto);
-		
-		return getDto;
+
+		return getCliente(cliente);
 	}
 
 	public String excluir(Integer idCliente) {
@@ -121,9 +152,29 @@ public class ClienteService {
 
 		Cliente cliente = result.get();
 
-		clienteRepository.delete(cliente);
+		// Excluindo o endereço do Cliente no banco de dados(ManyToOne)
+		if (cliente.getEndereco() != null) {
+			Optional<List<Cliente>> result2 = clienteRepository.findByIdEnderecoJoinEndereco(
+					cliente.getEndereco().getIdEndereco());
+			List<Cliente> lista = result2.get();
 
-		return "Cliente " + result.get().getNome() + " excluído com sucesso.";
+			if (lista.size() == 1) {
+				enderecoService.excluir(cliente.getEndereco().getIdEndereco());
+			}
+		}
+		clienteRepository.delete(cliente);
+		
+		return "Cliente " + cliente.getNome() + " excluído com sucesso.";
 	}
 
+	// Método para converter um Cliente em getDto
+	public ClienteGetDTO getCliente(Cliente cliente) {
+		ClienteGetDTO getDto = new ClienteGetDTO();
+		mapper.map(cliente, getDto);
+		//converte a data em uma string
+		getDto.setDataNascimento(DateHelper.toString(cliente.getDataNascimento()));
+
+		return getDto;
+	}
+	
 }

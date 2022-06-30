@@ -11,5 +11,5 @@ import br.com.princesinhadoalho.entities.Fornecedor;
 public interface FornecedorRepository extends JpaRepository<Fornecedor, Integer>{
 	
 	public Optional<Fornecedor> findByCpfCnpj(String cpfCnpj);
-		
+	
 }

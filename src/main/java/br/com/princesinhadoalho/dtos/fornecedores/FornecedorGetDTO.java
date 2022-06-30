@@ -1,6 +1,6 @@
 package br.com.princesinhadoalho.dtos.fornecedores;
 
-import br.com.princesinhadoalho.dtos.enderecos.EnderecoGetDTO;
+import br.com.princesinhadoalho.dtos.enderecos.EnderecoDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +11,9 @@ public class FornecedorGetDTO {
 	private Integer idFornecedor;
 	private String nome;
 	private String cpfCnpj;
-	private EnderecoGetDTO endereco;
+	private String telefone1;
+	private String telefone2;
+	private String email;
+	private EnderecoDTO endereco;
 
 }

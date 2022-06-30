@@ -30,7 +30,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping(value = "/api/fornecedores")
 public class FornecedoresController {
 
-	private FornecedorService service;
+	private final FornecedorService service;
 
 	@PostMapping
 	@ApiOperation(value = "Cadastrar fornecedor")
@@ -73,7 +73,7 @@ public class FornecedoresController {
 
 	@PutMapping
 	@ApiOperation(value = "Atualizar fornecedor")
-	public ResponseEntity<FornecedorGetDTO> put(@RequestBody FornecedorPutDTO dto) {
+	public ResponseEntity<FornecedorGetDTO> atualizar(@RequestBody FornecedorPutDTO dto) {
 
 		try {
 			FornecedorGetDTO getDto = service.atualizar(dto);

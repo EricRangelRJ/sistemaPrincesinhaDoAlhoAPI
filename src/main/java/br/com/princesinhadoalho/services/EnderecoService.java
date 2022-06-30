@@ -9,13 +9,9 @@ import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import br.com.princesinhadoalho.dtos.enderecos.EnderecoGetDTO;
-import br.com.princesinhadoalho.dtos.enderecos.EnderecoPostDTO;
-import br.com.princesinhadoalho.dtos.enderecos.EnderecoPutDTO;
-import br.com.princesinhadoalho.entities.Condominio;
+import br.com.princesinhadoalho.dtos.enderecos.EnderecoDTO;
 import br.com.princesinhadoalho.entities.Endereco;
 import br.com.princesinhadoalho.exceptions.EntityNotFoundException;
-import br.com.princesinhadoalho.repositories.CondominioRepository;
 import br.com.princesinhadoalho.repositories.EnderecoRepository;
 import lombok.AllArgsConstructor;
 
@@ -24,54 +20,39 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class EnderecoService {
 
-	private EnderecoRepository endRepository;
-	private CondominioRepository condRepository;
-	private ModelMapper mapper;
+	private final EnderecoRepository endRepository;
+	private final ModelMapper mapper;
 
-	public EnderecoGetDTO cadastrar(EnderecoPostDTO dto) {
+	public Endereco cadastrar(EnderecoDTO dto) {
 
-		Endereco endereco = new Endereco();
-		Condominio condominio = new Condominio();
+		// buscando um endereço existente no banco
+		Optional<Endereco> result = endRepository.findByLogradouroAndNumeroAndCepAndComplemento(
+				dto.getLogradouro(), dto.getNumero(), dto.getCep(), dto.getComplemento());
 
-		if (dto.getNomeCondominio().isBlank()) {
-			// cadastrar endereço
-			endereco.setLogradouro(dto.getLogradouro());
-			endereco.setCep(dto.getCep());
-			endereco.setNumero(dto.getNumero());
-			endereco.setComplemento(dto.getComplemento());
-			endereco.setObservacao(dto.getObservacao());
-			endRepository.save(endereco);
-
-		} else {
-			// cadastrar endereço e condomínio
-			endereco.setLogradouro(dto.getLogradouro());
-			endereco.setCep(dto.getCep());
-			endereco.setNumero(dto.getNumero());
-			endereco.setComplemento(dto.getComplemento());
-			endereco.setObservacao(dto.getObservacao());
-
-			condominio.setNomeCondominio(dto.getNomeCondominio());
-			condominio.setEndereco(endereco);
-
-			endRepository.save(endereco);
-			condRepository.save(condominio);
+		// caso exista
+		if (result.isPresent()) {
+			Endereco endereco = result.get();
+			
+			return endereco;
 		}
 
-		EnderecoGetDTO getDto = new EnderecoGetDTO();
-		mapper.map(endereco, getDto);
-		getDto.setNomeCondominio(dto.getNomeCondominio());
-
-		return getDto;
+		// transferindo o dto para o endereco
+		Endereco endereco = new Endereco();
+		mapper.map(dto, endereco);
+		
+		// salvando no banco
+		endRepository.save(endereco);
+	
+		return endereco;
 	}
 
-	public List<EnderecoGetDTO> buscarEnderecos() {
+	public List<EnderecoDTO> buscarEnderecos() {
 
 		List<Endereco> list = endRepository.findAll();
-		List<EnderecoGetDTO> listaGetDto = new ArrayList<EnderecoGetDTO>();
+		List<EnderecoDTO> listaGetDto = new ArrayList<EnderecoDTO>();
 
 		for (Endereco endereco : list) {
-			EnderecoGetDTO getDto = new EnderecoGetDTO();
-			mapper.map(endereco, getDto);
+			EnderecoDTO getDto = new EnderecoDTO(endereco);
 
 			listaGetDto.add(getDto);
 		}
@@ -79,7 +60,7 @@ public class EnderecoService {
 		return listaGetDto;
 	}
 
-	public EnderecoGetDTO buscarId(Integer idEndereco) {
+	public EnderecoDTO buscarId(Integer idEndereco) {
 
 		Optional<Endereco> result = endRepository.findById(idEndereco);
 
@@ -89,105 +70,30 @@ public class EnderecoService {
 
 		Endereco endereco = result.get();
 
-		EnderecoGetDTO getDto = new EnderecoGetDTO();
-		mapper.map(endereco, getDto);
-
-		return getDto;
+		return new EnderecoDTO(endereco);
 	}
 
-	public EnderecoGetDTO atualizar(EnderecoPutDTO dto) {
+	public Endereco atualizar(EnderecoDTO dto) {
 
 		Optional<Endereco> result = endRepository.findById(dto.getIdEndereco());
-
+		
 		if (result.isEmpty()) {
 			throw new EntityNotFoundException("Endereço não encontrado.");
 		}
-
+		
 		Endereco endereco = result.get();
-		EnderecoGetDTO getDto = new EnderecoGetDTO();
+		mapper.map(dto, endereco);
 
-		// condominio inexistente
-		if (endereco.getCondominio() == null) {
+		endRepository.save(endereco);
 
-			// altera apenas o endereço
-			if (dto.getNomeCondominio().isBlank()) {
-				endereco.setLogradouro(dto.getLogradouro());
-				endereco.setCep(dto.getCep());
-				endereco.setNumero(dto.getNumero());
-				endereco.setComplemento(dto.getComplemento());
-				endereco.setObservacao(dto.getObservacao());
-
-				endRepository.save(endereco);
-
-				mapper.map(endereco, getDto);
-
-				// altera endereço e insere novo condomínio
-			} else {
-				endereco.setLogradouro(dto.getLogradouro());
-				endereco.setCep(dto.getCep());
-				endereco.setNumero(dto.getNumero());
-				endereco.setComplemento(dto.getComplemento());
-				endereco.setObservacao(dto.getObservacao());
-
-				Condominio condominio = new Condominio();
-				condominio.setNomeCondominio(dto.getNomeCondominio());
-				condominio.setEndereco(endereco);
-
-				endRepository.save(endereco);
-				condRepository.save(condominio);
-
-				mapper.map(endereco, getDto);
-				getDto.setNomeCondominio(condominio.getNomeCondominio());
-			}
-
-		}
-		// condominio existente
-		if (endereco.getCondominio() != null) {
-
-			// altera endereço e exclui condomínio
-			if (dto.getNomeCondominio().isBlank()) {
-
-				endereco.setLogradouro(dto.getLogradouro());
-				endereco.setCep(dto.getCep());
-				endereco.setNumero(dto.getNumero());
-				endereco.setComplemento(dto.getComplemento());
-				endereco.setObservacao(dto.getObservacao());
-
-				condRepository.delete(endereco.getCondominio());
-				endereco.setCondominio(null);
-
-				endRepository.save(endereco);
-
-				mapper.map(endereco, getDto);
-
-				// altera endereço e condomínio
-			} else {
-				endereco.setLogradouro(dto.getLogradouro());
-				endereco.setCep(dto.getCep());
-				endereco.setNumero(dto.getNumero());
-				endereco.setComplemento(dto.getComplemento());
-				endereco.setObservacao(dto.getObservacao());
-
-				Condominio condominio = result.get().getCondominio();
-				condominio.setNomeCondominio(dto.getNomeCondominio());
-				condominio.setEndereco(endereco);
-
-				endRepository.save(endereco);
-				condRepository.save(condominio);
-
-				mapper.map(endereco, getDto);
-				getDto.setNomeCondominio(condominio.getNomeCondominio());
-			}
-		}
-
-		return getDto;
+		return endereco;
 	}
 
 	public String excluir(Integer idEndereco) {
 
 		Optional<Endereco> result = endRepository.findById(idEndereco);
-
-		if (result.isEmpty()) {
+		
+		if(result.isEmpty()) {
 			throw new EntityNotFoundException("Endereço não encontrado.");
 		}
 
@@ -195,7 +101,7 @@ public class EnderecoService {
 
 		endRepository.delete(endereco);
 
-		return "Endereço excluído com sucesso.";
+		return "Endereço excluído com sucesso";
 	}
 
 }

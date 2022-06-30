@@ -47,10 +47,10 @@ public class UsuariosController {
 
 	@GetMapping
 	@ApiOperation(value = "Buscar usuários cadastrados")
-	public ResponseEntity<List<UsuarioGetDTO>> buscarTodos() {
+	public ResponseEntity<List<UsuarioGetDTO>> buscarUsuarios() {
 
 		try {
-			List<UsuarioGetDTO> lista = service.buscarTodos();
+			List<UsuarioGetDTO> lista = service.buscarUsuarios();
 			return ResponseEntity.ok(lista);
 		} catch (ServiceException e) {
 			return ResponseEntity.internalServerError().build();

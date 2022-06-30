@@ -34,27 +34,32 @@ public class Cliente implements Serializable {
 	@Column(name = "idCliente")
 	private Integer idCliente;
 
-	@Column(length = 100, nullable = false)
+	@Column(length = 60, nullable = false)
 	private String nome;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "dataNascimento")
-	private Date dataNascimento;
-
-	@Column(length = 14)
+	
+	@Column(length = 14, nullable = false)
 	private String cpf;
 	
+	@Temporal(TemporalType.DATE)
+	private Date dataNascimento;
+	
+	@Column(length = 15, nullable = false)
+	private String telefone1;
+	
+	@Column(length = 15)
+	private String telefone2;
+	
+	@Column(length = 60)
+	private String email;
+
+	@Column(columnDefinition = "TEXT")
+	private String observacao;
+
 	@ManyToOne
-	@JoinColumn(name = "idEndereco", nullable = false)
+	@JoinColumn(name = "idEndereco")
 	private Endereco endereco;
 	
 	@OneToMany(mappedBy = "cliente")
 	private Set<Pedido> pedidos = new HashSet<>();
 
-/*	@ManyToOne
-	@JoinColumn(name = "idContato")
-	private Contato contato;
-
-	
- */
 }

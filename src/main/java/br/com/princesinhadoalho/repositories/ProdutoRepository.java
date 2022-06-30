@@ -10,5 +10,5 @@ import br.com.princesinhadoalho.entities.Produto;
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
 	
-	Optional<Produto> findByCodigo(String codigo);
+	public Optional<Produto> findByCodigo(String codigo);
 }

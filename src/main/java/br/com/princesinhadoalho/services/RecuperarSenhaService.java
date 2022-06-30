@@ -21,7 +21,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class RecuperarSenhaService {
 
-	private UsuarioRepository repository;
+	private final UsuarioRepository repository;
 	private final MailSender mailSender;
 
 	public String recuperarSenha(RecuperarSenhaPostDTO dto) {

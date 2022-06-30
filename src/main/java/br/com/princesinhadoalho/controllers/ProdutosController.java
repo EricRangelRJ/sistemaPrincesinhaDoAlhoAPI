@@ -30,7 +30,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping(value = "/api/produtos")
 public class ProdutosController {
 
-	private ProdutoService service;
+	private final ProdutoService service;
 
 	@PostMapping
 	@ApiOperation(value = "Cadastrar produto")
@@ -73,7 +73,7 @@ public class ProdutosController {
 
 	@PutMapping
 	@ApiOperation(value = "Atualizar produto")
-	public ResponseEntity<ProdutoGetDTO> put(@RequestBody ProdutoPutDTO dto) {
+	public ResponseEntity<ProdutoGetDTO> atualizar(@RequestBody ProdutoPutDTO dto) {
 
 		try {
 			ProdutoGetDTO getDto = service.atualizar(dto);

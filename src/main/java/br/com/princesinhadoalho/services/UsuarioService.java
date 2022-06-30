@@ -53,7 +53,7 @@ public class UsuarioService {
 		return getDto;
 	}
 
-	public List<UsuarioGetDTO> buscarTodos() {
+	public List<UsuarioGetDTO> buscarUsuarios() {
 
 		List<UsuarioGetDTO> listaGetDto = new ArrayList<UsuarioGetDTO>();
 		List<Usuario> listaUsuarios = repository.findAll();
