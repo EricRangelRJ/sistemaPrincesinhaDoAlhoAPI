@@ -53,6 +53,11 @@ public class ClienteService {
 			// cadastrando um endereço
 			endereco = enderecoService.cadastrar(enderecoDTO);
 		}
+		
+		// caso a data esteja vazia
+		if (dto.getDataNascimento().isBlank()) {
+			dto.setDataNascimento(null);
+		}
 
 		// cadastrando novo Cliente com ou sem endereço
 		Cliente cliente = new Cliente();
@@ -109,6 +114,11 @@ public class ClienteService {
 		EnderecoReflection endReflection = new EnderecoReflection();
 		boolean result2 = endReflection.reflection(enderecoDto);
 		
+		// caso a data esteja vazia
+		if (dto.getDataNascimento().isBlank()) {
+			dto.setDataNascimento(null);
+		}
+		
 		// atualizando os dados do cliente
 		Cliente cliente = result.get();
 		mapper.map(dto, cliente);
@@ -152,12 +162,13 @@ public class ClienteService {
 
 		Cliente cliente = result.get();
 
-		// Excluindo o endereço do Cliente no banco de dados(ManyToOne)
+		// buscando uma lista de clientes associados ao endereço fornecido(ManyToOne)
 		if (cliente.getEndereco() != null) {
 			Optional<List<Cliente>> result2 = clienteRepository.findByIdEnderecoJoinEndereco(
 					cliente.getEndereco().getIdEndereco());
 			List<Cliente> lista = result2.get();
 
+			// excluindo o endereço caso ele pertença apenas ao cliente
 			if (lista.size() == 1) {
 				enderecoService.excluir(cliente.getEndereco().getIdEndereco());
 			}
@@ -171,9 +182,13 @@ public class ClienteService {
 	public ClienteGetDTO getCliente(Cliente cliente) {
 		ClienteGetDTO getDto = new ClienteGetDTO();
 		mapper.map(cliente, getDto);
-		//converte a data em uma string
-		getDto.setDataNascimento(DateHelper.toString(cliente.getDataNascimento()));
 
+		// converte a data em uma string
+		if (cliente.getDataNascimento() != null) {
+			getDto.setDataNascimento(DateHelper.toString(cliente.getDataNascimento()));
+
+			return getDto;
+		}
 		return getDto;
 	}
 	

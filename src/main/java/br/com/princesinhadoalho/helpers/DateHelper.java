@@ -9,13 +9,18 @@ public class DateHelper {
 
 	// converte uma data do tipo String numa data do tipo Date
 	public static Date toDate(String date) {
-
+		
+		// caso seja vazio
+		if(date == null) {
+			return null;
+		}
 		// receber uma data no padrão YYYY-MM-DD
 		int ano = Integer.parseInt(date.substring(0, 4));
 		int mes = Integer.parseInt(date.substring(5, 7));
 		int dia = Integer.parseInt(date.substring(8, 10)); 
 
-		Calendar cal = new GregorianCalendar(ano, mes - 1, dia);
+		//Calendar cal = new GregorianCalendar(ano, mes - 1, dia);
+		Calendar cal = new GregorianCalendar(ano, mes -1,dia);
 		return cal.getTime();
 	}
 

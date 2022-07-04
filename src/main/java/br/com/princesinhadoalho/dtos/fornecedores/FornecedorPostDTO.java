@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class FornecedorPostDTO {
 
-	private String nome;
+	private String nomeFornecedor;
 	private String cpfCnpj;
 	private String telefone1;
 	private String telefone2;

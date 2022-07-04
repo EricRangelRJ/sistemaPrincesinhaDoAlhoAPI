@@ -8,8 +8,8 @@ import lombok.Setter;
 public class FornecedorPutDTO {
 
 	private Integer idFornecedor;
-	private String nome;
-//	private String cpfCnpj; Não permitido
+	private String nomeFornecedor;
+//	private String cpfCnpj;
 	private String telefone1;
 	private String telefone2;
 	private String email;

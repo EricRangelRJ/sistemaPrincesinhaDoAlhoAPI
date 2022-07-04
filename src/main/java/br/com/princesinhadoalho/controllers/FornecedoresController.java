@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.princesinhadoalho.dtos.fornecedores.FornecedorDTO;
 import br.com.princesinhadoalho.dtos.fornecedores.FornecedorGetDTO;
 import br.com.princesinhadoalho.dtos.fornecedores.FornecedorPostDTO;
 import br.com.princesinhadoalho.dtos.fornecedores.FornecedorPutDTO;
@@ -52,6 +53,21 @@ public class FornecedoresController {
 		try {
 			List<FornecedorGetDTO> lista = service.buscarFornecedores();
 			return ResponseEntity.status(HttpStatus.OK).body(lista);
+
+		} catch (ServiceException e) {
+			return ResponseEntity.internalServerError().build();
+		}
+	}
+	
+
+	// buscando um Fornecedor e seus produtos
+	@GetMapping("/produtos/{idFornecedor}")
+	@ApiOperation(value = "Buscar produtos associados a fornecedores")
+	public ResponseEntity<FornecedorDTO> buscarProdutosByIdFornecedor(@PathVariable("idFornecedor") Integer idFornecedor) {
+
+		try {
+			FornecedorDTO getDto = service.buscarProdutosByIdFornecedor(idFornecedor);
+			return ResponseEntity.status(HttpStatus.OK).body(getDto);
 
 		} catch (ServiceException e) {
 			return ResponseEntity.internalServerError().build();

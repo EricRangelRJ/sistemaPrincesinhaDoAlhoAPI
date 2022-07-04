@@ -33,7 +33,7 @@ public class Fornecedor implements Serializable {
 	private Integer idFornecedor;
 
 	@Column(length = 100, nullable = false)
-	private String nome;
+	private String nomeFornecedor;
 	
 	@Column(length = 20, nullable = false, unique = true)
 	private String cpfCnpj;

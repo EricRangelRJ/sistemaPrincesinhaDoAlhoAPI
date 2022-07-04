@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,17 +48,5 @@ public class EnderecosController {
 			return ResponseEntity.internalServerError().build();
 		}
 	}	
-	
-	@DeleteMapping(value = "/{idEndereco}")
-	@ApiOperation(value = "Excluir endereço pelo Id")
-	public ResponseEntity<String> excluir(@PathVariable("idEndereco") Integer idEndereco){
-		
-		try {
-			String response = service.excluir(idEndereco);
-			return ResponseEntity.ok(response);
-		} catch (ServiceException e) {
-			return ResponseEntity.internalServerError().body(e.getMessage());
-		}
-	}
 
 }

@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.com.princesinhadoalho.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,18 +35,19 @@ public class Produto implements Serializable {
 	private Integer idProduto;
 
 	@Column(length = 50, nullable = false)
-	private String nome;
+	private String nomeProduto;
 
 	@Column(length = 15, nullable = false, unique = true)
 	private String codigo;
 
-	@Column(length = 150)
+	@Column(length = 255)
 	private String descricao;
 
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
 
-	private Boolean ativo;
+	@Enumerated(EnumType.STRING)
+	private Status ativo;
 	
 	private Double peso;
 
@@ -52,7 +56,7 @@ public class Produto implements Serializable {
 	private Double valorVenda;
 
 	private Double margemLucro;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "idFornecedor", nullable = false)
 	private Fornecedor fornecedor;

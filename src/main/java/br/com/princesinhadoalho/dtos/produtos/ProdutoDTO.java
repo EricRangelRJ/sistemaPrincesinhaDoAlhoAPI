@@ -5,17 +5,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ProdutoPostDTO {
+public class ProdutoDTO {
 
+	private Integer idProduto;
 	private String nomeProduto;
 	private String codigo;
 	private String descricao;
 	private String dataCadastro;
+	private String ativo;
 	private Double peso;
 	private Double valorCusto;
 	private Double valorVenda;
-    //private Double margemLucro;
+	private Double margemLucro;
 	
-	private Integer idFornecedor;
-
 }

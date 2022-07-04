@@ -11,4 +11,9 @@ import br.com.princesinhadoalho.entities.Produto;
 public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
 	
 	public Optional<Produto> findByCodigo(String codigo);
+	
+/*	// buscando uma lista de produtos associados ao fornecedor do produto
+	@Query("from Produto p join p.fornecedor f where f.idFornecedor = :param") //JPQL
+	List<Produto> findByIdFornecedorJoinFornecedor(@Param("param") Integer idFornecedor);
+*/
 }
