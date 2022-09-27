@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import br.com.princesinhadoalho.dtos.usuarios.AuthGetDTO;
@@ -13,7 +12,6 @@ import br.com.princesinhadoalho.entities.Usuario;
 import br.com.princesinhadoalho.exceptions.BadRequestException;
 import br.com.princesinhadoalho.repositories.UsuarioRepository;
 import br.com.princesinhadoalho.security.Cryptography;
-import br.com.princesinhadoalho.security.TokenSecurity;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -22,7 +20,6 @@ import lombok.AllArgsConstructor;
 public class AuthService {
 
 	private final UsuarioRepository repository;
-	private final ModelMapper mapper;
 	
 	public AuthGetDTO autenticar(AuthPostDTO dto) {
 		
@@ -38,14 +35,7 @@ public class AuthService {
 		
 		Usuario usuario = result.get();
 		
-		// Gereando um Token para o usuário
-		String token = TokenSecurity.generateToken(usuario.getEmail());
-		
-		AuthGetDTO getDto = new AuthGetDTO();
-		mapper.map(usuario, getDto);
-		getDto.setAccessToken(token);
-		
-		return getDto;
+		return new AuthGetDTO(usuario);
 		
 	}
 }

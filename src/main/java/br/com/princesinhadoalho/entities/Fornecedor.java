@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "fornecedores")
 public class Fornecedor implements Serializable {
-	private static final long serialVersionUID = 1788516841208424794L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,6 +53,17 @@ public class Fornecedor implements Serializable {
 	
 	@OneToMany(mappedBy = "fornecedor") 
 	private Set<Produto> produtos = new HashSet<>();
+	
+	public Fornecedor(Integer idFornecedor, String nomeFornecedor, String cpfCnpj, String telefone1, String telefone2,
+			String email, Endereco endereco) {
+		this.idFornecedor = idFornecedor;
+		this.nomeFornecedor = nomeFornecedor;
+		this.cpfCnpj = cpfCnpj;
+		this.telefone1 = telefone1;
+		this.telefone2 = telefone2;
+		this.email = email;
+		this.endereco = endereco;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -71,6 +82,12 @@ public class Fornecedor implements Serializable {
 	public int hashCode() {
 		return Objects.hash(cpfCnpj, email, telefone1, telefone2);
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Fornecedor [idFornecedor=" + idFornecedor + ", nomeFornecedor=" + nomeFornecedor + ", cpfCnpj="
+				+ cpfCnpj + ", telefone1=" + telefone1 + ", telefone2=" + telefone2 + ", email=" + email + ", endereco="
+				+ endereco + ", produtos=" + produtos + "]";
+	}
+
 }

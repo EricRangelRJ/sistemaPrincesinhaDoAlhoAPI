@@ -1,9 +1,10 @@
 package br.com.princesinhadoalho.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,7 +40,7 @@ public class Cliente implements Serializable {
 	@Column(length = 60, nullable = false)
 	private String nome;
 	
-	@Column(length = 14, nullable = false)
+	@Column(length = 14, nullable = false, unique = true)
 	private String cpf;
 	
 	@Temporal(TemporalType.DATE)
@@ -59,7 +62,44 @@ public class Cliente implements Serializable {
 	@JoinColumn(name = "idEndereco")
 	private Endereco endereco;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
-	private Set<Pedido> pedidos = new HashSet<>();
+	private List<Pedido> pedidos = new ArrayList<>();
 
+	public Cliente(Integer idCliente, String nome, String cpf, Date dataNascimento, String telefone1, String telefone2, String email,
+			String observacao, Endereco endereco) {
+		this.idCliente = idCliente;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.dataNascimento = dataNascimento;
+		this.telefone1 = telefone1;
+		this.telefone2 = telefone2;
+		this.email = email;
+		this.observacao = observacao;
+		this.endereco = endereco;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		return Objects.equals(cpf, other.cpf);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cpf);
+	}
+
+	@Override
+	public String toString() {
+		return "Cliente [idCliente=" + idCliente + ", nome=" + nome + ", cpf=" + cpf + ", dataNascimento="
+				+ dataNascimento + ", telefone1=" + telefone1 + ", email=" + email + ", endereco=" + endereco + "]";
+	}
+	
 }

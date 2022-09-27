@@ -26,7 +26,12 @@ public class DateHelper {
 
 	// converte uma data do tipo Date numa String
 	public static String toString(Date data) {
-
+		
+		// caso seja vazio
+		if (data == null) {
+			return null;
+		}
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(data);
 	}
@@ -34,6 +39,11 @@ public class DateHelper {
 	// converte uma data do tipo Date numa String padrão BR
 	public static String toStringPtBR(Date data) {
 
+		// caso seja vazio
+		if (data == null) {
+			return null;
+		}
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		return sdf.format(data);
 	}

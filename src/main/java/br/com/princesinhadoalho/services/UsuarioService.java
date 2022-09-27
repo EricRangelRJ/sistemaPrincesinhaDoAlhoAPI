@@ -16,7 +16,6 @@ import br.com.princesinhadoalho.entities.Usuario;
 import br.com.princesinhadoalho.exceptions.BadRequestException;
 import br.com.princesinhadoalho.exceptions.EntityNotFoundException;
 import br.com.princesinhadoalho.repositories.UsuarioRepository;
-import br.com.princesinhadoalho.security.Cryptography;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -36,13 +35,8 @@ public class UsuarioService {
 			throw new BadRequestException("Erro: Email já cadastrado!");
 		}
 
-		// Criptografando a senha do usuário
-		String senha = Cryptography.encrypt(dto.getSenha());
-
 		// inserindo os dados do Usuário
-		Usuario usuario = new Usuario();
-		mapper.map(dto, usuario);
-		usuario.setSenha(senha);
+		Usuario usuario = mapper.map(dto, Usuario.class);
 
 		// salvando
 		repository.save(usuario);
@@ -93,13 +87,9 @@ public class UsuarioService {
 			throw new EntityNotFoundException("Usuário não encontrado.");
 		}
 
-		// Criptografando a senha do usuário
-		String senha = Cryptography.encrypt(dto.getSenha());
-
 		// alterando os dados do Usuário encontrado
 		Usuario usuario = result.get();
 		mapper.map(dto, usuario);
-		usuario.setSenha(senha);
 
 		repository.save(usuario);
 

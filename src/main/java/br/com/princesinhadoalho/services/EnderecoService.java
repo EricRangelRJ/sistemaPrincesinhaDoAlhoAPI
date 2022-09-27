@@ -37,8 +37,7 @@ public class EnderecoService {
 		}
 
 		// transferindo o dto para o endereco
-		Endereco endereco = new Endereco();
-		mapper.map(dto, endereco);
+		Endereco endereco = mapper.map(dto, Endereco.class);
 		
 		// salvando no banco
 		endRepository.save(endereco);

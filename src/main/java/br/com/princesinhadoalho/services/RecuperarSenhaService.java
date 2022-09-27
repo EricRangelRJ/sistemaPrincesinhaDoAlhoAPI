@@ -10,7 +10,7 @@ import br.com.princesinhadoalho.dtos.usuarios.RecuperarSenhaPostDTO;
 import br.com.princesinhadoalho.entities.Usuario;
 import br.com.princesinhadoalho.exceptions.EntityNotFoundException;
 import br.com.princesinhadoalho.exceptions.ServiceException;
-import br.com.princesinhadoalho.helpers.PasswordHelper;
+import br.com.princesinhadoalho.helpers.RandomHelper;
 import br.com.princesinhadoalho.repositories.UsuarioRepository;
 import br.com.princesinhadoalho.security.Cryptography;
 import br.com.princesinhadoalho.senders.MailSender;
@@ -34,7 +34,7 @@ public class RecuperarSenhaService {
 		}
 
 		// gerar uma nova senha TEMPORÁRIA de forma randômica para o usuário..
-		String novaSenha = PasswordHelper.generateRandomPassword();
+		String novaSenha = RandomHelper.gerarPasswordAleatorio();
 
 		// Criptografa a nova senha e atribui ao usuário
 		Usuario usuario = result.get();

@@ -10,11 +10,15 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import br.com.princesinhadoalho.filters.JWTAuthorizationFilter;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class TokenSecurity {
 
 	public static String generateToken(String email) {
 
+		log.info("ENTROU EM GERAR TOKEN PARA O USUÁRIO..");
+		
 		// chave secreta para geração do TOKEN (Evitar falsificações)
 		String secretKey = JWTAuthorizationFilter.SECRET;
 

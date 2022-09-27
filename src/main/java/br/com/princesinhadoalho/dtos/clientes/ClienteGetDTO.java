@@ -1,11 +1,15 @@
 package br.com.princesinhadoalho.dtos.clientes;
 
 import br.com.princesinhadoalho.dtos.enderecos.EnderecoDTO;
+import br.com.princesinhadoalho.entities.Cliente;
+import br.com.princesinhadoalho.helpers.DateHelper;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class ClienteGetDTO {
 
 	private Integer idCliente;
@@ -19,5 +23,26 @@ public class ClienteGetDTO {
 	private EnderecoDTO endereco;
 	
 	
+	// Convertendo um cliente em Dto via construtor
+	public ClienteGetDTO(Cliente cliente) {
+		
+		this.idCliente = cliente.getIdCliente();
+		this.nome = cliente.getNome();
+		this.cpf = cliente.getCpf();
+		
+		if(cliente.getDataNascimento() != null) {
+			this.dataNascimento = DateHelper.toString(cliente.getDataNascimento());
+
+		}
+		this.telefone1 = cliente.getTelefone1();
+		this.telefone2 = cliente.getTelefone2();
+		this.email = cliente.getEmail();
+		this.observacao = cliente.getObservacao();
+		
+		if(cliente.getEndereco() != null) {
+			this.endereco = new EnderecoDTO(cliente.getEndereco());
+		}
+		
+	}
 
 }

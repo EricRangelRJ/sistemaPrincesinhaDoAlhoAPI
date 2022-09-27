@@ -1,6 +1,7 @@
 package br.com.princesinhadoalho.services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -15,10 +16,10 @@ import br.com.princesinhadoalho.dtos.produtos.ProdutoPostDTO;
 import br.com.princesinhadoalho.dtos.produtos.ProdutoPutDTO;
 import br.com.princesinhadoalho.entities.Fornecedor;
 import br.com.princesinhadoalho.entities.Produto;
-import br.com.princesinhadoalho.enums.Status;
+import br.com.princesinhadoalho.enums.Ativo;
 import br.com.princesinhadoalho.exceptions.BadRequestException;
 import br.com.princesinhadoalho.exceptions.EntityNotFoundException;
-import br.com.princesinhadoalho.helpers.DateHelper;
+import br.com.princesinhadoalho.helpers.RandomHelper;
 import br.com.princesinhadoalho.repositories.FornecedorRepository;
 import br.com.princesinhadoalho.repositories.ProdutoRepository;
 import lombok.AllArgsConstructor;
@@ -36,31 +37,31 @@ public class ProdutoService {
 	// CADASTRAR
 	public ProdutoGetDTO cadastrar(ProdutoPostDTO dto) {
 
-		Optional<Produto> result = produtoRepository.findByCodigo(dto.getCodigo());
+		Optional<Produto> result = produtoRepository.findByNomeProdutoAndDescricaoAndPesoAndValorVenda(
+				dto.getNomeProduto(), dto.getDescricao(), dto.getPeso(), dto.getValorVenda());
+		
+		
 		if (result.isPresent()) {
-			throw new BadRequestException("Produto já cadastrado. cód: " + dto.getCodigo());
+			throw new BadRequestException("Produto já cadastrado. cód: " + result.get().getCodigo());
 		}
 
-		// caso a data esteja vazia
-		if (dto.getDataCadastro().isBlank()) {
-			dto.setDataCadastro(null);
-		}
-		
 		Optional<Fornecedor> fornecedor = fornecedorRepository.findById(dto.getIdFornecedor());
 		Produto produto = new Produto();
 
 		produto.setNomeProduto(dto.getNomeProduto());
-		produto.setCodigo(dto.getCodigo());
+		produto.setCodigo(RandomHelper.gerarCodigoProdutoAleatorio());
 		produto.setDescricao(dto.getDescricao());
-		produto.setDataCadastro(DateHelper.toDate(dto.getDataCadastro()));
+		produto.setDataCadastro(Calendar.getInstance().getTime());
+		produto.setAtivo(Ativo.SIM);
 		produto.setPeso(dto.getPeso());
 		produto.setValorCusto(dto.getValorCusto());
 		produto.setValorVenda(dto.getValorVenda());
 		produto.setFornecedor(fornecedor.get());
+		produto.setMargemLucro(dto.getValorVenda() - dto.getValorCusto());
 
 		produtoRepository.save(produto);
 
-		return getProduto(produto);
+		return new ProdutoGetDTO(produto);
 	}
 
 	// BUSCAR TODOS OS PRODUTOS
@@ -70,8 +71,7 @@ public class ProdutoService {
 		List<ProdutoGetDTO> listaGetDto = new ArrayList<ProdutoGetDTO>();
 
 		for (Produto produto : list) {
-			ProdutoGetDTO getDto = new ProdutoGetDTO();
-			mapper.map(produto, getDto);
+			ProdutoGetDTO getDto = mapper.map(produto, ProdutoGetDTO.class);
 
 			listaGetDto.add(getDto);
 		}
@@ -90,10 +90,9 @@ public class ProdutoService {
 
 		Produto produto = result.get();
 
-		ProdutoGetDTO getDto = new ProdutoGetDTO();
-		mapper.map(produto, getDto);
+	//	ProdutoGetDTO getDto = mapper.map(produto, ProdutoGetDTO.class);
 
-		return getDto;
+		return new ProdutoGetDTO(produto);
 	}
 
 	// ATUALIZAR UM PRODUTO
@@ -104,19 +103,13 @@ public class ProdutoService {
 		if (result.isEmpty()) {
 			throw new EntityNotFoundException("Produto não encontrado.");
 		}
-
-		// caso a data esteja vazia
-		if (dto.getDataCadastro().isBlank()) {
-			dto.setDataCadastro(null);
-		}
 		
 		Optional<Fornecedor> fornecedor = fornecedorRepository.findById(dto.getIdFornecedor());
 		Produto produto = result.get();
 		
 		produto.setNomeProduto(dto.getNomeProduto());
 		produto.setDescricao(dto.getDescricao());
-		produto.setDataCadastro(DateHelper.toDate(dto.getDataCadastro()));
-		produto.setAtivo(Status.valueOf(dto.getAtivo()));
+		produto.setAtivo(Ativo.valueOf(dto.getAtivo()));
 		produto.setPeso(dto.getPeso());
 		produto.setValorCusto(dto.getValorCusto());
 		produto.setValorVenda(dto.getValorVenda());
@@ -124,7 +117,7 @@ public class ProdutoService {
 
 		produtoRepository.save(produto);
 
-		return getProduto(produto);
+		return new ProdutoGetDTO(produto);
 	}
 
 	// EXCLUIR UM PRODUTO
@@ -157,7 +150,7 @@ public class ProdutoService {
 		return "Produto " + result.get().getNomeProduto() + " excluído com sucesso.";
 	}
 
-	// CONVERTER UM Produto EM ProdutoGetDTO
+/*	// CONVERTER UM Produto EM ProdutoGetDTO
 	public ProdutoGetDTO getProduto(Produto produto) {
 		ProdutoGetDTO getDto = new ProdutoGetDTO();
 		mapper.map(produto, getDto);
@@ -172,5 +165,5 @@ public class ProdutoService {
 
 		return getDto;
 	}
-
+*/
 }

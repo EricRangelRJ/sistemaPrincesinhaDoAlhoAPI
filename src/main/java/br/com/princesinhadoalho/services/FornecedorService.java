@@ -42,8 +42,7 @@ public class FornecedorService {
 
 		List<Fornecedor> lista = fornecedorRepository.findAll();
 
-		Fornecedor result = new Fornecedor();
-		mapper.map(dto, result);
+		Fornecedor result = mapper.map(dto, Fornecedor.class);
 
 		for (Fornecedor result2 : lista) {
 			if (result.equals(result2)) {
@@ -60,8 +59,7 @@ public class FornecedorService {
 		}
 
 		// convertendo os camps referente à endereço para um enderecoDTO
-		EnderecoDTO enderecoDTO = new EnderecoDTO();
-		mapper.map(dto, enderecoDTO);
+		EnderecoDTO enderecoDTO = mapper.map(dto, EnderecoDTO.class);
 
 		// verificando se existem campos NÃO nulos em enderecoDTO
 		EnderecoReflection endReflection = new EnderecoReflection();
@@ -83,15 +81,14 @@ public class FornecedorService {
 		}
 
 		// Cadastrando novo Fornecedor
-		Fornecedor fornecedor = new Fornecedor();
-		mapper.map(dto, fornecedor);
+		Fornecedor fornecedor = mapper.map(dto, Fornecedor.class);
 		if (endereco.getIdEndereco() != null) {
 			fornecedor.setEndereco(endereco);
 		}
 		fornecedorRepository.save(fornecedor);
 
 		// convertendo o fornecedor em dto e retornando ao cotroller
-		return getFornecedor(fornecedor);
+		return new FornecedorGetDTO(fornecedor);
 	}
 
 	// BUSCAR TODOS OS FORNECEDORES
@@ -101,7 +98,7 @@ public class FornecedorService {
 		List<FornecedorGetDTO> listaGetDto = new ArrayList<FornecedorGetDTO>();
 
 		for (Fornecedor fornecedor : list) {
-			FornecedorGetDTO getDto = getFornecedor(fornecedor);
+			FornecedorGetDTO getDto = new FornecedorGetDTO(fornecedor);
 
 			listaGetDto.add(getDto);
 		}
@@ -120,7 +117,8 @@ public class FornecedorService {
 
 		Fornecedor fornecedor = result.get();
 
-		return getFornecedor(fornecedor);
+		return new FornecedorGetDTO(fornecedor);
+
 	}
 
 	// BUSCAR UM FORNECEDOR E SEUS PRODUTOS
@@ -134,8 +132,7 @@ public class FornecedorService {
 
 		Fornecedor fornecedor = result.get();
 
-		FornecedorDTO fornecedorDTO = new FornecedorDTO();
-		mapper.map(fornecedor, fornecedorDTO);
+		FornecedorDTO fornecedorDTO = mapper.map(fornecedor, FornecedorDTO.class);
 
 		return fornecedorDTO;
 	}
@@ -150,8 +147,7 @@ public class FornecedorService {
 		}
 
 		// convertendo o endereço do Fornecedor para um enderecoDTO
-		EnderecoDTO enderecoDto = new EnderecoDTO();
-		mapper.map(dto, enderecoDto);
+		EnderecoDTO enderecoDto = mapper.map(dto, EnderecoDTO.class);
 
 		// verificando se existem campos NÃO nulos em enderecoDTO
 		EnderecoReflection endReflection = new EnderecoReflection();
@@ -172,7 +168,7 @@ public class FornecedorService {
 
 			fornecedorRepository.save(fornecedor);
 
-			return getFornecedor(fornecedor);
+			return new FornecedorGetDTO(fornecedor);
 		}
 
 		// SITUAÇÃO 2: caso o fornecedor já possua endereço
@@ -187,7 +183,7 @@ public class FornecedorService {
 
 		fornecedorRepository.save(fornecedor);
 
-		return getFornecedor(fornecedor);
+		return new FornecedorGetDTO(fornecedor);
 	}
 
 	// EXCLUIR UM FORNECEDOR
@@ -215,13 +211,6 @@ public class FornecedorService {
 		// Excluindo o Fornecedor
 		fornecedorRepository.delete(fornecedor);
 		return "Fornecedor " + result.get().getNomeFornecedor() + " excluído com sucesso.";
-	}
-
-	// CONVERTER UM Fornecedor EM FornecedorGetDTO
-	public FornecedorGetDTO getFornecedor(Fornecedor fornecedor) {
-		FornecedorGetDTO getDto = new FornecedorGetDTO();
-		mapper.map(fornecedor, getDto);
-		return getDto;
 	}
 
 }

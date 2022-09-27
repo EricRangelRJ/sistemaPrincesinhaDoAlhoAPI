@@ -2,8 +2,12 @@ package br.com.princesinhadoalho.security;
 
 import java.security.MessageDigest;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Cryptography {
 
+	
 	// atributo para gerar a criptografia em MD5..
 		private static MessageDigest messageDigest = null;
 
@@ -32,9 +36,17 @@ public class Cryptography {
 
 		// método para realizar a criptografia..
 		public static String encrypt(String value) {
-			if (value != null) {
-				return new String(hexCodes(messageDigest.digest(value.getBytes()))).toLowerCase();
+			log.info("ENTROU EM CRIPTOGRAFAR SENHA DO USUÁRIO..");
+
+			try {
+				if (value != null) {
+					return new String(hexCodes(messageDigest.digest(value.getBytes()))).toLowerCase();	
+				}
+			} catch (Exception e) {
+				log.error("ERRO:", e);
+				
 			}
+			
 
 			return null;
 		}

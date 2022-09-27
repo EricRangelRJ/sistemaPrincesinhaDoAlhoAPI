@@ -22,7 +22,9 @@ import br.com.princesinhadoalho.services.ProdutoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @CrossOrigin
 @RestController
 @AllArgsConstructor
@@ -41,6 +43,7 @@ public class ProdutosController {
 			return ResponseEntity.status(HttpStatus.CREATED).body(getDto);
 
 		} catch (ServiceException e) {
+			log.error("ERRO:", e);
 			return ResponseEntity.internalServerError().build();
 		}
 	}

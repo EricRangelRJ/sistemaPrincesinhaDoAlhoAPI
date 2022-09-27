@@ -17,7 +17,6 @@ import br.com.princesinhadoalho.entities.Cliente;
 import br.com.princesinhadoalho.entities.Endereco;
 import br.com.princesinhadoalho.exceptions.BadRequestException;
 import br.com.princesinhadoalho.exceptions.EntityNotFoundException;
-import br.com.princesinhadoalho.helpers.DateHelper;
 import br.com.princesinhadoalho.reflections.EnderecoReflection;
 import br.com.princesinhadoalho.repositories.ClienteRepository;
 import lombok.AllArgsConstructor;
@@ -38,12 +37,11 @@ public class ClienteService {
 		if (result.isPresent()) {
 			throw new BadRequestException("O CPF informado já encontra-se cadastrado. Tente outro.");
 		}
-
-		// convertendo o endereço do cliente para um enderecoDTO
-		EnderecoDTO enderecoDTO = new EnderecoDTO();
-		mapper.map(dto, enderecoDTO);
-
-		// verificando se existem campos NÃO nulos em enderecoDTO
+		
+		// convertendo o endereço do cliente(dto) para um enderecoDTO
+		EnderecoDTO enderecoDTO = mapper.map(dto, EnderecoDTO.class);
+				
+		// verificando se existem campos preenchidos 
 		EnderecoReflection endReflection = new EnderecoReflection();
 		boolean result2 = endReflection.reflection(enderecoDTO);
 
@@ -60,15 +58,14 @@ public class ClienteService {
 		}
 
 		// cadastrando novo Cliente com ou sem endereço
-		Cliente cliente = new Cliente();
-		mapper.map(dto, cliente);
+		Cliente cliente = mapper.map(dto, Cliente.class);
 		if (endereco.getIdEndereco() != null) {
 			cliente.setEndereco(endereco);
 		}
 		clienteRepository.save(cliente);
 
 		// convertendo o cliente em dto e retornando ao cotroller
-		return getCliente(cliente);
+		return new ClienteGetDTO(cliente);
 	}
 
 	public List<ClienteGetDTO> buscarClientes() {
@@ -77,7 +74,7 @@ public class ClienteService {
 		List<ClienteGetDTO> listaGetDto = new ArrayList<ClienteGetDTO>();
 
 		for (Cliente cliente : list) {
-			ClienteGetDTO getDto = getCliente(cliente);
+			ClienteGetDTO getDto = new ClienteGetDTO(cliente);
 
 			listaGetDto.add(getDto);
 		}
@@ -95,7 +92,7 @@ public class ClienteService {
 
 		Cliente cliente = result.get();
 
-		return getCliente(cliente);
+		return new ClienteGetDTO(cliente);
 	}
 
 	public ClienteGetDTO atualizar(ClientePutDTO dto) {
@@ -106,10 +103,9 @@ public class ClienteService {
 			throw new EntityNotFoundException("Cliente não encontrado.");
 		}
 		
-		// convertendo o endereço do cliente para um EnderecoDTO
-		EnderecoDTO enderecoDto = new EnderecoDTO();
-		mapper.map(dto, enderecoDto);
-
+		// convertendo o endereço do cliente(dto) para um EnderecoDTO
+		EnderecoDTO enderecoDto = mapper.map(dto, EnderecoDTO.class);
+		
 		// verificando se existem campos preenchidos em enderecoDto
 		EnderecoReflection endReflection = new EnderecoReflection();
 		boolean result2 = endReflection.reflection(enderecoDto);
@@ -134,7 +130,7 @@ public class ClienteService {
 		
 			clienteRepository.save(cliente);
 			
-			return getCliente(cliente);
+			return new ClienteGetDTO(cliente);
 		}
 		
 		// SITUAÇÃO 2: caso o cliente já possua endereço
@@ -149,7 +145,7 @@ public class ClienteService {
 		
 		clienteRepository.save(cliente);
 
-		return getCliente(cliente);
+		return new ClienteGetDTO(cliente);
 	}
 
 	public String excluir(Integer idCliente) {
@@ -176,20 +172,6 @@ public class ClienteService {
 		clienteRepository.delete(cliente);
 		
 		return "Cliente " + cliente.getNome() + " excluído com sucesso.";
-	}
-
-	// Método para converter um Cliente em getDto
-	public ClienteGetDTO getCliente(Cliente cliente) {
-		ClienteGetDTO getDto = new ClienteGetDTO();
-		mapper.map(cliente, getDto);
-
-		// converte a data em uma string
-		if (cliente.getDataNascimento() != null) {
-			getDto.setDataNascimento(DateHelper.toString(cliente.getDataNascimento()));
-
-			return getDto;
-		}
-		return getDto;
 	}
 	
 }

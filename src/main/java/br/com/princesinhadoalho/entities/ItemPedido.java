@@ -1,40 +1,96 @@
-/*package br.com.princesinhadoalho.entities;
+package br.com.princesinhadoalho.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.princesinhadoalho.entities.pk.ItemPedidoPk;
 import lombok.NoArgsConstructor;
 
-@Data
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "itemPedido")
 public class ItemPedido implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idItemPedido;
+	@EmbeddedId
+	private ItemPedidoPk idItemPedido = new ItemPedidoPk();
 	
 	private Integer quantidade;
+	private Double preco;
+		
+	public ItemPedido(Pedido pedido, Produto produto, Integer quantidade, Double preco) {
+		idItemPedido.setPedido(pedido);
+		idItemPedido.setProduto(produto);
+		this.quantidade = quantidade;
+		this.preco = preco;
+		
+	}
+
+	@JsonIgnore
+	public Pedido getPedido() {
+		return idItemPedido.getPedido();
+	}
 	
-	private Double subTotal;
+	public void setPedido(Pedido pedido) {
+		idItemPedido.setPedido(pedido);
+	}
 	
-	private Float desconto;
+	@JsonIgnore
+	public Produto getProduto() {
+		return idItemPedido.getProduto();
+	}
 	
-	@ManyToOne
-	@JoinColumn(name = "IdProduto", nullable = false)
-	private Produto produto;
+	public void setProduto(Produto produto) {
+		idItemPedido.setProduto(produto);
+	}
 	
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public Double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(Double preco) {
+		this.preco = preco;
+	}
+
+	public Double getSubTotal() {
+		return quantidade * preco;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(idItemPedido);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ItemPedido other = (ItemPedido) obj;
+		return Objects.equals(idItemPedido, other.idItemPedido);
+	}
+	
+	@Override
+	public String toString() {
+		return "ItemPedido [idItemPedido=" + idItemPedido + ", quantidade=" + quantidade + ", preco=" + preco + "]";
+	}
+
+		
 }
-*/

@@ -3,10 +3,12 @@ package br.com.princesinhadoalho.dtos.enderecos;
 import br.com.princesinhadoalho.entities.Endereco;
 import br.com.princesinhadoalho.enums.Estado;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class EnderecoDTO {
 
 	private Integer idEndereco;
@@ -19,9 +21,7 @@ public class EnderecoDTO {
 	private Estado estado;
 	private String cep;
 		
-	public EnderecoDTO() {
-	}
-	
+	// convertendo um endereço em dto via construtor
 	public EnderecoDTO(Endereco endereco) {
 		this.idEndereco = endereco.getIdEndereco();
 		this.logradouro = endereco.getLogradouro();

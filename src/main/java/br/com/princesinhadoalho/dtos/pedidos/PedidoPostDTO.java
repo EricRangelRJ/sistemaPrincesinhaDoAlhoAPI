@@ -5,10 +5,8 @@ import lombok.Getter;
 @Getter
 public class PedidoPostDTO {
 
-	private String numeroPedido;
-	private String dataPedido;
-	private String dataEntrega;
-	private Double total;
+	private String situacao;
+	private Double desconto;
 	private Integer idCliente;
 
 }

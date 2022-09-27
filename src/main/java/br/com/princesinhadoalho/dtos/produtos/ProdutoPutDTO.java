@@ -9,9 +9,9 @@ public class ProdutoPutDTO {
 
 	private Integer idProduto;
 	private String nomeProduto;
-    //private String codigo;
+//  private String codigo;
 	private String descricao;
-	private String dataCadastro;
+//	private String dataCadastro;
 	private String ativo;
 	private Double peso;
 	private Double valorCusto;
