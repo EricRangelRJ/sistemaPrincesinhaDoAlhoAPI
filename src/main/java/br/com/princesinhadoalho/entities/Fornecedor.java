@@ -54,9 +54,8 @@ public class Fornecedor implements Serializable {
 	@OneToMany(mappedBy = "fornecedor") 
 	private Set<Produto> produtos = new HashSet<>();
 	
-	public Fornecedor(Integer idFornecedor, String nomeFornecedor, String cpfCnpj, String telefone1, String telefone2,
+	public Fornecedor(String nomeFornecedor, String cpfCnpj, String telefone1, String telefone2,
 			String email, Endereco endereco) {
-		this.idFornecedor = idFornecedor;
 		this.nomeFornecedor = nomeFornecedor;
 		this.cpfCnpj = cpfCnpj;
 		this.telefone1 = telefone1;

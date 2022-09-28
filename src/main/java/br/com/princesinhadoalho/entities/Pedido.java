@@ -75,6 +75,7 @@ public class Pedido implements Serializable {
 	private Cliente cliente;
 	
 	@Getter
+	@Setter
 	@JsonIgnore
 	@OneToMany(mappedBy = "idItemPedido.pedido")
 	private Set<ItemPedido> itens = new HashSet<>();
@@ -85,14 +86,12 @@ public class Pedido implements Serializable {
 
 	*/	
 	
-	public Pedido(Integer idPedido, String numeroPedido, Date dataPedido, 
-			SituacaoPedido situacao, Double desconto, Double total, Cliente cliente) {
-		this.idPedido = idPedido;
+	public Pedido(String numeroPedido, Date dataPedido, 
+			SituacaoPedido situacao, Double desconto, Cliente cliente) {
 		this.numeroPedido = numeroPedido;
 		this.dataPedido = dataPedido;
 		this.situacao = situacao;
 		this.desconto = desconto;
-		this.total = total;
 		this.cliente = cliente;
 	}
 	

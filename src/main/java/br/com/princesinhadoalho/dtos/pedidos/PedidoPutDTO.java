@@ -8,8 +8,8 @@ import lombok.Setter;
 public class PedidoPutDTO {
 
 	private Integer idPedido;
-//	private String numeroPedido;NÃO permitido
-//	private String dataPedido;
+//	private String numeroPedido; - NÃO PERMITIDO ALTERAR
+//	private String dataPedido;  - NÃO PERMITIDO ALTERAR
 	private String dataEntrega;
 	private String situacao;
 	private Double desconto;

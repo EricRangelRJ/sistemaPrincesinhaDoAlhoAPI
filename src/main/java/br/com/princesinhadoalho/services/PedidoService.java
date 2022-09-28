@@ -2,24 +2,32 @@ package br.com.princesinhadoalho.services;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import br.com.princesinhadoalho.dtos.itensPedido.ItemPedidoDTO;
 import br.com.princesinhadoalho.dtos.pedidos.PedidoGetDTO;
 import br.com.princesinhadoalho.dtos.pedidos.PedidoPostDTO;
 import br.com.princesinhadoalho.dtos.pedidos.PedidoPutDTO;
 import br.com.princesinhadoalho.entities.Cliente;
+import br.com.princesinhadoalho.entities.ItemPedido;
 import br.com.princesinhadoalho.entities.Pedido;
+import br.com.princesinhadoalho.entities.Produto;
 import br.com.princesinhadoalho.enums.SituacaoPedido;
+import br.com.princesinhadoalho.exceptions.BadRequestException;
 import br.com.princesinhadoalho.exceptions.EntityNotFoundException;
 import br.com.princesinhadoalho.helpers.RandomHelper;
 import br.com.princesinhadoalho.repositories.ClienteRepository;
+import br.com.princesinhadoalho.repositories.ItemPedidoRepository;
 import br.com.princesinhadoalho.repositories.PedidoRepository;
+import br.com.princesinhadoalho.repositories.ProdutoRepository;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -29,6 +37,8 @@ public class PedidoService {
 
 	private final PedidoRepository pedidoRepository;
 	private final ClienteRepository clienteRepository;
+	private ProdutoRepository produtoRepository;
+	private ItemPedidoRepository itemPedidoRepository;
 //	private final ItemPedidoService itemPedidoService;
 	private final ModelMapper mapper;
 
@@ -60,11 +70,41 @@ public class PedidoService {
 		pedido.setDesconto(dto.getDesconto());
 		pedido.setDataPedido(Calendar.getInstance().getTime());
 		pedido.setSituacao(SituacaoPedido.valueOf(dto.getSituacao()));
-			
-	//	itemPedidoService.cadastrar(null);
+		
 		pedidoRepository.save(pedido);
+
+		List<ItemPedidoDTO> itens = dto.getItens();
+		Set<ItemPedido> lista = new HashSet<ItemPedido>();
 		
+		double total = 0.0;
 		
+		for (ItemPedidoDTO itemDto : itens) {
+			
+			Optional<Produto> prod = produtoRepository.findById(itemDto.getProduto().getIdProduto());
+			Produto produto = prod.get();
+			
+			if(produto.getAtivo() != "SIM") {
+				throw new BadRequestException("O produto: " + produto.getNomeProduto()+ " - cód:" + produto.getCodigo() + ", não está ativo no momento.");
+			}
+
+			ItemPedido item = new ItemPedido(pedido, produto, itemDto.getQuantidade(), produto.getValorVenda());
+						
+			lista.add(item);
+			
+			
+			total += item.getSubTotal();
+		
+		}
+		
+		if(total < dto.getDesconto()) {
+			throw new BadRequestException("O valor do desconto não pode ser superior ao valor total do pedido.");
+		}
+		
+		itemPedidoRepository.saveAll(lista);
+		
+		pedido.setItens(lista);
+		pedidoRepository.save(pedido);
+	
 		return new PedidoGetDTO(pedido);
 	}
 

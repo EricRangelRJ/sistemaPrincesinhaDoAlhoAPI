@@ -8,8 +8,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,12 +20,11 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.princesinhadoalho.enums.Ativo;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,33 +33,51 @@ public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Getter
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idProduto")
 	private Integer idProduto;
 
+	@Getter
+	@Setter
 	@Column(length = 50, nullable = false)
 	private String nomeProduto;
 
+	@Getter
+	@Setter
 	@Column(length = 15, nullable = false, unique = true)
 	private String codigo;
 
+	@Getter
+	@Setter
 	@Column(length = 255)
 	private String descricao;
 
+	@Getter
+	@Setter
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
 
-	@Enumerated(EnumType.STRING)
-	private Ativo ativo;
+	@Setter
+	private boolean ativo;
 	
+	@Getter
+	@Setter
 	private Double peso;
 
+	@Getter
+	@Setter
 	private Double valorCusto;
 
+	@Getter
+	@Setter
 	private Double valorVenda;
 
+	@Getter
 	private Double margemLucro;
 	
+	@Getter
+	@Setter
 	@ManyToOne
 	@JoinColumn(name = "idFornecedor", nullable = false)
 	private Fornecedor fornecedor;
@@ -70,10 +85,8 @@ public class Produto implements Serializable {
 	@OneToMany(mappedBy = "idItemPedido.produto") 
 	private Set<ItemPedido> itens = new HashSet<>();
 	
-	public Produto(Integer idProduto, String nomeProduto, String codigo, String descricao, Date dataCadastro,
-			Ativo ativo, Double peso, Double valorCusto, Double valorVenda, Double margemLucro, Fornecedor fornecedor) {
-		super();
-		this.idProduto = idProduto;
+	public Produto(String nomeProduto, String codigo, String descricao, Date dataCadastro, boolean ativo, Double peso, Double valorCusto,
+			Double valorVenda, Fornecedor fornecedor) {
 		this.nomeProduto = nomeProduto;
 		this.codigo = codigo;
 		this.descricao = descricao;
@@ -82,8 +95,32 @@ public class Produto implements Serializable {
 		this.peso = peso;
 		this.valorCusto = valorCusto;
 		this.valorVenda = valorVenda;
-		this.margemLucro = margemLucro;
+		this.margemLucro = valorVenda - valorCusto;
 		this.fornecedor = fornecedor;
+	}
+	
+	public void atualizar(String nomeProduto, String descricao, boolean ativo, Double peso, Double valorCusto,
+			Double valorVenda, Fornecedor fornecedor) {
+		this.nomeProduto = nomeProduto;
+		this.descricao = descricao;
+		this.ativo = ativo;
+		this.peso = peso;
+		this.valorCusto = valorCusto;
+		this.valorVenda = valorVenda;
+		this.margemLucro = valorVenda - valorCusto;
+		this.fornecedor = fornecedor;
+	}
+	
+	public String getAtivo() {
+		if(this.ativo) {
+			return "SIM";
+		}
+		return "NÃO";
+	}
+	
+	public void setMargemLucro(Double valorCusto, Double valorVenda) {
+		this.margemLucro = 0.0;
+		this.margemLucro = valorVenda - valorCusto;
 	}
 	
 	@JsonIgnore
@@ -95,6 +132,11 @@ public class Produto implements Serializable {
 		return set;
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(descricao, fornecedor, nomeProduto, peso);
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -109,14 +151,9 @@ public class Produto implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(descricao, fornecedor, nomeProduto, peso);
-	}
-
-	@Override
 	public String toString() {
 		return "Produto [idProduto=" + idProduto + ", nomeProduto=" + nomeProduto + ", codigo=" + codigo
 				+ ", fornecedor=" + fornecedor + "]";
 	}
-	
+
 }

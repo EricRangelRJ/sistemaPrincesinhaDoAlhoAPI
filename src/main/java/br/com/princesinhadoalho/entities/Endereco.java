@@ -66,9 +66,8 @@ public class Endereco implements Serializable {
 	@OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
 	private Fornecedor fornecedor;
 
-	public Endereco(Integer idEndereco, String logradouro, String numero, String complemento, String condominio, String bairro,
+	public Endereco(String logradouro, String numero, String complemento, String condominio, String bairro,
 			String municipio, Estado estado, String cep) {
-		this.idEndereco = idEndereco;
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.complemento = complemento;
@@ -77,6 +76,11 @@ public class Endereco implements Serializable {
 		this.municipio = municipio;
 		this.estado = estado;
 		this.cep = cep;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(cep, complemento, idEndereco, logradouro, numero);
 	}
 
 	@Override
@@ -93,9 +97,4 @@ public class Endereco implements Serializable {
 				&& Objects.equals(numero, other.numero);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(cep, complemento, idEndereco, logradouro, numero);
-	}
-	
 }

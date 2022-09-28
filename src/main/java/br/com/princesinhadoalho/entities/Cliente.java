@@ -18,8 +18,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -62,13 +60,11 @@ public class Cliente implements Serializable {
 	@JoinColumn(name = "idEndereco")
 	private Endereco endereco;
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 
-	public Cliente(Integer idCliente, String nome, String cpf, Date dataNascimento, String telefone1, String telefone2, String email,
+	public Cliente(String nome, String cpf, Date dataNascimento, String telefone1, String telefone2, String email,
 			String observacao, Endereco endereco) {
-		this.idCliente = idCliente;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;

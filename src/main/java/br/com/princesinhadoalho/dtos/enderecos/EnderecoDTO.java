@@ -33,4 +33,5 @@ public class EnderecoDTO {
 		this.estado = endereco.getEstado();
 		this.cep = endereco.getCep();
 	}
+
 }

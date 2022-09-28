@@ -2,7 +2,7 @@ package br.com.princesinhadoalho.dtos.produtos;
 
 import br.com.princesinhadoalho.dtos.fornecedores.FornecedorGetDTO;
 import br.com.princesinhadoalho.entities.Produto;
-import br.com.princesinhadoalho.enums.Ativo;
+import br.com.princesinhadoalho.helpers.DateHelper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +17,7 @@ public class ProdutoGetDTO {
 	private String codigo;
 	private String descricao;
 	private String dataCadastro;
-	private Ativo ativo;
+	private String ativo;
 	private Double peso;
 	private Double valorCusto;
 	private Double valorVenda;
@@ -30,7 +30,7 @@ public class ProdutoGetDTO {
 		this.nomeProduto = produto.getNomeProduto();
 		this.codigo = produto.getCodigo();
 		this.descricao = produto.getDescricao();
-		this.dataCadastro = produto.getDataCadastro().toString();
+		this.dataCadastro = DateHelper.toString(produto.getDataCadastro());
 		this.ativo =  produto.getAtivo();
 		this.peso = produto.getPeso();
 		this.valorCusto = produto.getValorCusto();

@@ -57,6 +57,7 @@ public class ProdutosController {
 			return ResponseEntity.status(HttpStatus.OK).body(lista);
 
 		} catch (ServiceException e) {
+			log.error("ERRO:", e);
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -70,6 +71,7 @@ public class ProdutosController {
 			return ResponseEntity.ok(getDto);
 
 		} catch (ServiceException e) {
+			log.error("ERRO:", e);
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -83,6 +85,7 @@ public class ProdutosController {
 			return ResponseEntity.ok(getDto);
 
 		} catch (ServiceException e) {
+			log.error("ERRO:", e);
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -96,6 +99,7 @@ public class ProdutosController {
 			return ResponseEntity.ok(response);
 			
 		} catch (ServiceException e) {
+			log.error("ERRO:", e);
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
 	}
