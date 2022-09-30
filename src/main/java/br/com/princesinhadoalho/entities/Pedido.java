@@ -20,8 +20,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import br.com.princesinhadoalho.enums.SituacaoPedido;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -76,23 +74,23 @@ public class Pedido implements Serializable {
 	
 	@Getter
 	@Setter
-	@JsonIgnore
 	@OneToMany(mappedBy = "idItemPedido.pedido")
 	private Set<ItemPedido> itens = new HashSet<>();
 	
-	/*	@ManyToOne
+	@Getter
+	@Setter
+	@ManyToOne
 	@JoinColumn(name = "idVendedor", nullable = false)
 	private Vendedor vendedor;
-
-	*/	
 	
 	public Pedido(String numeroPedido, Date dataPedido, 
-			SituacaoPedido situacao, Double desconto, Cliente cliente) {
+			SituacaoPedido situacao, Double desconto, Cliente cliente, Vendedor vendedor) {
 		this.numeroPedido = numeroPedido;
 		this.dataPedido = dataPedido;
 		this.situacao = situacao;
 		this.desconto = desconto;
 		this.cliente = cliente;
+		this.vendedor = vendedor;
 	}
 	
 	// método para calcular o total do pedido
@@ -125,7 +123,8 @@ public class Pedido implements Serializable {
 	@Override
 	public String toString() {
 		return "Pedido [idPedido=" + idPedido + ", numeroPedido=" + numeroPedido + ", dataPedido=" + dataPedido
-				+ ", total=" + total + ", cliente=" + cliente + ", itens=" + itens + "]";
+				+ ", dataEntrega=" + dataEntrega + ", situacao=" + situacao + ", desconto=" + desconto + ", total="
+				+ total + ", cliente=" + cliente + ", itens=" + itens + ", vendedor=" + vendedor + "]";
 	}
-	
+
 }

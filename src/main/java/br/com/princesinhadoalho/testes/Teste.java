@@ -14,6 +14,7 @@ import br.com.princesinhadoalho.entities.Fornecedor;
 import br.com.princesinhadoalho.entities.ItemPedido;
 import br.com.princesinhadoalho.entities.Pedido;
 import br.com.princesinhadoalho.entities.Produto;
+import br.com.princesinhadoalho.entities.Vendedor;
 import br.com.princesinhadoalho.enums.Estado;
 import br.com.princesinhadoalho.enums.SituacaoPedido;
 import br.com.princesinhadoalho.helpers.DateHelper;
@@ -24,6 +25,7 @@ import br.com.princesinhadoalho.repositories.FornecedorRepository;
 import br.com.princesinhadoalho.repositories.ItemPedidoRepository;
 import br.com.princesinhadoalho.repositories.PedidoRepository;
 import br.com.princesinhadoalho.repositories.ProdutoRepository;
+import br.com.princesinhadoalho.repositories.VendedorRepository;
 import lombok.AllArgsConstructor;
 
 @Configuration
@@ -37,6 +39,7 @@ public class Teste implements CommandLineRunner{
 	private final ProdutoRepository produtoRepository;
 	private final PedidoRepository pedidoRepository;
 	private final ItemPedidoRepository itemPedidoRepository;
+	private final VendedorRepository vendedorRepository;
 	
 
 	@Override
@@ -84,11 +87,17 @@ public class Teste implements CommandLineRunner{
 
 		produtoRepository.saveAll(Arrays.asList(prod1, prod2, prod3,prod4));
 		
+		// CADASTRANDO VENDEDORES
+		Vendedor vend1 = new Vendedor(null, "Eric",  null, null);
+		Vendedor vend2 = new Vendedor(null, "Bruna",  null, null);
+		
+		vendedorRepository.saveAll(Arrays.asList(vend1, vend2));
+		
 		// CADASTRANDO PEDIDOS	
-		Pedido ped1 = new Pedido(RandomHelper.gerarNumeroPedidoAleatorio(),DateHelper.toDate("2005-05-02"), SituacaoPedido.AGUARDANDO_PAGAMENTO, 20.0, cli4);
-		Pedido ped2 = new Pedido(RandomHelper.gerarNumeroPedidoAleatorio(),DateHelper.toDate("1999-05-02"), SituacaoPedido.PAGO, 40.0, cli2);
-		Pedido ped3 = new Pedido(RandomHelper.gerarNumeroPedidoAleatorio(),DateHelper.toDate("1999-05-02"), SituacaoPedido.PAGO, 50.0, cli3);
-		Pedido ped4 = new Pedido(RandomHelper.gerarNumeroPedidoAleatorio(),DateHelper.toDate("1999-05-02"), SituacaoPedido.PAGO, 10.0, cli1);
+		Pedido ped1 = new Pedido(RandomHelper.gerarNumeroPedidoAleatorio(),DateHelper.toDate("2005-05-02"), SituacaoPedido.AGUARDANDO_PAGAMENTO, 20.0, cli4, vend1);
+		Pedido ped2 = new Pedido(RandomHelper.gerarNumeroPedidoAleatorio(),DateHelper.toDate("1999-05-02"), SituacaoPedido.PAGO, 40.0, cli2, vend1);
+		Pedido ped3 = new Pedido(RandomHelper.gerarNumeroPedidoAleatorio(),DateHelper.toDate("1999-05-02"), SituacaoPedido.PAGO, 50.0, cli3, vend2);
+		Pedido ped4 = new Pedido(RandomHelper.gerarNumeroPedidoAleatorio(),DateHelper.toDate("1999-05-02"), SituacaoPedido.PAGO, 10.0, cli1, vend2);
 	
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2, ped3, ped4));
 

@@ -1,7 +1,8 @@
 package br.com.princesinhadoalho.services;
 
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -12,22 +13,20 @@ import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import br.com.princesinhadoalho.dtos.itensPedido.ItemPedidoDTO;
+import br.com.princesinhadoalho.dtos.itensPedido.ItemPedidoPostDTO;
 import br.com.princesinhadoalho.dtos.pedidos.PedidoGetDTO;
 import br.com.princesinhadoalho.dtos.pedidos.PedidoPostDTO;
 import br.com.princesinhadoalho.dtos.pedidos.PedidoPutDTO;
 import br.com.princesinhadoalho.entities.Cliente;
 import br.com.princesinhadoalho.entities.ItemPedido;
 import br.com.princesinhadoalho.entities.Pedido;
-import br.com.princesinhadoalho.entities.Produto;
+import br.com.princesinhadoalho.entities.Vendedor;
 import br.com.princesinhadoalho.enums.SituacaoPedido;
-import br.com.princesinhadoalho.exceptions.BadRequestException;
 import br.com.princesinhadoalho.exceptions.EntityNotFoundException;
 import br.com.princesinhadoalho.helpers.RandomHelper;
 import br.com.princesinhadoalho.repositories.ClienteRepository;
-import br.com.princesinhadoalho.repositories.ItemPedidoRepository;
 import br.com.princesinhadoalho.repositories.PedidoRepository;
-import br.com.princesinhadoalho.repositories.ProdutoRepository;
+import br.com.princesinhadoalho.repositories.VendedorRepository;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -37,9 +36,8 @@ public class PedidoService {
 
 	private final PedidoRepository pedidoRepository;
 	private final ClienteRepository clienteRepository;
-	private ProdutoRepository produtoRepository;
-	private ItemPedidoRepository itemPedidoRepository;
-//	private final ItemPedidoService itemPedidoService;
+	private final VendedorRepository vendedorRepository;
+	private final ItemPedidoService itemPedidoService;
 	private final ModelMapper mapper;
 
 	public PedidoGetDTO cadastrar(PedidoPostDTO dto) {
@@ -47,64 +45,48 @@ public class PedidoService {
 		// Gerando um número aleatório para o pedido
 		String numeroPedido = RandomHelper.gerarNumeroPedidoAleatorio();
 		
-		Optional<Pedido> result = pedidoRepository.findByNumeroPedido(numeroPedido);
+		Optional<Pedido> ped = pedidoRepository.findByNumeroPedido(numeroPedido);
 		
 		// Garantindo que o número do pedido não se repita
-		if(result.isPresent()) {
-			String numero = result.get().getNumeroPedido();
+		if(ped.isPresent()) {
+			String numero = ped.get().getNumeroPedido();
 			
 			 while (numero.contentEquals(numeroPedido)) {
 					numeroPedido = RandomHelper.gerarNumeroPedidoAleatorio();
 			}
 		}	
 		
-		Optional<Cliente> result2 = clienteRepository.findById(dto.getIdCliente());	
-		if (result2.isEmpty()) {
+		Optional<Cliente> cli = clienteRepository.findById(dto.getIdCliente());	
+		if (cli.isEmpty()) {
 			throw new EntityNotFoundException("Cliente não encontrado.");
 		}	
-		Cliente cliente = result2.get();
-
-		Pedido pedido = new Pedido();
-		pedido.setCliente(cliente);
-		pedido.setNumeroPedido(numeroPedido);
-		pedido.setDesconto(dto.getDesconto());
-		pedido.setDataPedido(Calendar.getInstance().getTime());
-		pedido.setSituacao(SituacaoPedido.valueOf(dto.getSituacao()));
+		
+		Optional<Vendedor> vend = vendedorRepository.findById(dto.getIdVendedor());	
+		if (vend.isEmpty()) {
+			throw new EntityNotFoundException("Vendedor não encontrado.");
+		}	
+		
+		Cliente cliente = cli.get();
+		Vendedor vendedor = vend.get();
+		Date dataPedido = Date.from(Instant.now());
+		Double desconto = dto.getDesconto();
+		SituacaoPedido situacao = SituacaoPedido.valueOf(dto.getSituacao());
+		
+		Pedido pedido = new Pedido(numeroPedido, dataPedido, situacao, desconto, cliente, vendedor);
 		
 		pedidoRepository.save(pedido);
 
-		List<ItemPedidoDTO> itens = dto.getItens();
-		Set<ItemPedido> lista = new HashSet<ItemPedido>();
-		
-		double total = 0.0;
-		
-		for (ItemPedidoDTO itemDto : itens) {
-			
-			Optional<Produto> prod = produtoRepository.findById(itemDto.getProduto().getIdProduto());
-			Produto produto = prod.get();
-			
-			if(produto.getAtivo() != "SIM") {
-				throw new BadRequestException("O produto: " + produto.getNomeProduto()+ " - cód:" + produto.getCodigo() + ", não está ativo no momento.");
-			}
+		List<ItemPedidoPostDTO> lista = dto.getItens();
 
-			ItemPedido item = new ItemPedido(pedido, produto, itemDto.getQuantidade(), produto.getValorVenda());
-						
-			lista.add(item);
+		if(lista != null && lista.size() > 0) {
+			Set<ItemPedido> itens = new HashSet<ItemPedido>();
 			
+			itens = itemPedidoService.cadastrar(pedido, lista);
 			
-			total += item.getSubTotal();
-		
+			// adicionando os ítens ao pedido
+			pedido.setItens(itens);
 		}
 		
-		if(total < dto.getDesconto()) {
-			throw new BadRequestException("O valor do desconto não pode ser superior ao valor total do pedido.");
-		}
-		
-		itemPedidoRepository.saveAll(lista);
-		
-		pedido.setItens(lista);
-		pedidoRepository.save(pedido);
-	
 		return new PedidoGetDTO(pedido);
 	}
 
@@ -123,7 +105,6 @@ public class PedidoService {
 			}	
 		}
 		
-
 		return listaGetDto;
 	}
 	
@@ -153,8 +134,7 @@ public class PedidoService {
 		Pedido pedido = result.get();
 		mapper.map(dto, pedido);
 		
-		return new PedidoGetDTO(pedido);
-		
+		return new PedidoGetDTO(pedido);	
 	}
 	
 	public String cancelar(Integer idPedido) {
@@ -173,5 +153,4 @@ public class PedidoService {
 		return "Pedido Nº " + result.get().getNumeroPedido() + " cancelado com sucesso.";
 	}
 	
-
 }

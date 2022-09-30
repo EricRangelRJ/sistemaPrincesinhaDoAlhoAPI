@@ -7,8 +7,6 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import br.com.princesinhadoalho.entities.pk.ItemPedidoPk;
 import lombok.NoArgsConstructor;
 
@@ -32,7 +30,6 @@ public class ItemPedido implements Serializable{
 		
 	}
 
-	@JsonIgnore
 	public Pedido getPedido() {
 		return idItemPedido.getPedido();
 	}
@@ -41,7 +38,6 @@ public class ItemPedido implements Serializable{
 		idItemPedido.setPedido(pedido);
 	}
 	
-	@JsonIgnore
 	public Produto getProduto() {
 		return idItemPedido.getProduto();
 	}

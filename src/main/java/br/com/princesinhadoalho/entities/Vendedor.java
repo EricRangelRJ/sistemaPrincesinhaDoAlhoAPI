@@ -1,4 +1,4 @@
-/*package br.com.princesinhadoalho.entities;
+package br.com.princesinhadoalho.entities;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -13,30 +13,40 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
+@ToString
 @Table(name = "vendedor")
 public class Vendedor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Getter
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idVendedor")
 	private Integer idVendedor;
 
+	@Getter
+	@Setter
 	@Column(length = 100, nullable = false)
-	private String nomeCompleto;
+	private String nome;
 
-	@Column(length = 50, nullable = false)
+	@Getter
+	@Setter
+	@Column(length = 50)
 	private String apelido;
 	
+	@Getter
+	@Setter
 	@OneToMany(mappedBy = "vendedor")
 	private Set<Pedido> pedidos = new HashSet<>();
 
 }
-**/

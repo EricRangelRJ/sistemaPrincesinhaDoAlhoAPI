@@ -18,8 +18,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -123,7 +121,6 @@ public class Produto implements Serializable {
 		this.margemLucro = valorVenda - valorCusto;
 	}
 	
-	@JsonIgnore
 	public Set<Pedido> getPedidos(){
 		Set<Pedido> set = new HashSet<>();
 		for(ItemPedido x : itens) {

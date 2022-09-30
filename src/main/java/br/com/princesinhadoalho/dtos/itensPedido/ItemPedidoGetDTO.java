@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ItemPedidoDTO {
+public class ItemPedidoGetDTO {
 	
 	private Integer quantidade;
 	private Double preco;
@@ -17,7 +17,7 @@ public class ItemPedidoDTO {
 	private ProdutoGetDTO produto;
 	
 	// Convertendo um ItemPedido em Dto via construtor
-	public ItemPedidoDTO(ItemPedido item) {
+	public ItemPedidoGetDTO(ItemPedido item) {
 		this.quantidade = item.getQuantidade();
 		this.preco = item.getPreco();
 		this.subTotal = item.getSubTotal();

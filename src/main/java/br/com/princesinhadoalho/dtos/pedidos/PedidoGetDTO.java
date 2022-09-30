@@ -4,7 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import br.com.princesinhadoalho.dtos.clientes.ClienteGetDTO;
-import br.com.princesinhadoalho.dtos.itensPedido.ItemPedidoDTO;
+import br.com.princesinhadoalho.dtos.itensPedido.ItemPedidoGetDTO;
+import br.com.princesinhadoalho.dtos.vendedores.VendedorGetDTO;
 import br.com.princesinhadoalho.entities.ItemPedido;
 import br.com.princesinhadoalho.entities.Pedido;
 import br.com.princesinhadoalho.helpers.DateHelper;
@@ -17,10 +18,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PedidoGetDTO {
 	
-	public void setItens(Set<ItemPedidoDTO> itens) {
-		this.itens = itens;
-	}
-
 	private Integer idPedido;
 	private String numeroPedido;
 	private String dataPedido;
@@ -29,7 +26,8 @@ public class PedidoGetDTO {
 	private Double desconto;
 	private Double total;
 	private ClienteGetDTO cliente;
-	private Set<ItemPedidoDTO> itens;
+	private VendedorGetDTO vendedor;
+	private Set<ItemPedidoGetDTO> itens;
 		
 	// Convertendo um Pedido em Dto via construtor
 	public PedidoGetDTO(Pedido pedido) {
@@ -41,11 +39,12 @@ public class PedidoGetDTO {
 		this.desconto = pedido.getDesconto();
 		this.total = pedido.getTotal();
 		this.cliente = new ClienteGetDTO(pedido.getCliente());
+		this.vendedor = new VendedorGetDTO(pedido.getVendedor());
 		
-		Set<ItemPedidoDTO> listaDto = new HashSet<>();
+		Set<ItemPedidoGetDTO> listaDto = new HashSet<>();
 		
 		for (ItemPedido itemPedido : pedido.getItens()) {
-			ItemPedidoDTO itemDto = new ItemPedidoDTO(itemPedido);
+			ItemPedidoGetDTO itemDto = new ItemPedidoGetDTO(itemPedido);
 			
 			listaDto.add(itemDto);
 		}

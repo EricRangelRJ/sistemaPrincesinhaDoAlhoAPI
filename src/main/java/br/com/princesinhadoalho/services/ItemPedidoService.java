@@ -1,20 +1,19 @@
-/*package br.com.princesinhadoalho.services;
+package br.com.princesinhadoalho.services;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import br.com.princesinhadoalho.dtos.itensPedido.ItemPedidoDTO;
-import br.com.princesinhadoalho.dtos.pedidos.PedidoGetDTO;
+import br.com.princesinhadoalho.dtos.itensPedido.ItemPedidoPostDTO;
 import br.com.princesinhadoalho.entities.ItemPedido;
 import br.com.princesinhadoalho.entities.Pedido;
 import br.com.princesinhadoalho.entities.Produto;
-import br.com.princesinhadoalho.exceptions.EntityNotFoundException;
+import br.com.princesinhadoalho.exceptions.BadRequestException;
 import br.com.princesinhadoalho.repositories.ItemPedidoRepository;
 import br.com.princesinhadoalho.repositories.ProdutoRepository;
 import lombok.AllArgsConstructor;
@@ -26,68 +25,37 @@ public class ItemPedidoService {
 
 	private final ItemPedidoRepository itemPedidoRepository;
 	private final ProdutoRepository produtoRepository;
-	private final ModelMapper mapper;
 
-	public ItemPedido cadastrar(ItemPedidoDTO dto) {
-
-		Optional<Produto> result = produtoRepository.findById(idProduto);
-		if (result.isEmpty()) {
-			throw new EntityNotFoundException("Produto não encontrado.");
-		}
-		Produto produto = result.get();
-				
-		ItemPedido itemPedido = new ItemPedido(pedido, produto, dto.getQuantidade(), produto.getValorVenda());
+	public Set<ItemPedido> cadastrar(Pedido pedido, List<ItemPedidoPostDTO> lista) {
 		
-		itemPedidoRepository.save(item);
-	
-		return item;
-	}
-	
-/*	public List<PedidoGetDTO> buscarPedidos() {
+		Set<ItemPedido> itens = new HashSet<ItemPedido>();
+		
+		double total = 0.0;
+		
+		for (ItemPedidoPostDTO itemDto : lista) {
+			
+			Optional<Produto> prod = produtoRepository.findById(itemDto.getIdProduto());
+			Produto produto = prod.get();
+			
+			if(produto.getAtivo() != "SIM") {
+				throw new BadRequestException("O produto: " + produto.getNomeProduto()+ " - cód:" + produto.getCodigo() + ", não está ativo no momento.");
+			}
 
-		List<Pedido> list = pedidoRepository.findAll();
-		List<PedidoGetDTO> listaGetDto = new ArrayList<PedidoGetDTO>();
-
-		for (Pedido pedido : list) {
-			PedidoGetDTO getDto = new PedidoGetDTO();
-			mapper.map(pedido, getDto);
-
-			listaGetDto.add(getDto);
+			ItemPedido item = new ItemPedido(pedido, produto, itemDto.getQuantidade(), produto.getValorVenda());
+						
+			itens.add(item);
+			
+			// calculando o valor total do pedido, sem o desconto
+			total += item.getSubTotal();
 		}
-
-		return listaGetDto;
-	}
-	
-	public PedidoGetDTO buscarId(Integer idPedido) {
-
-		Optional<Pedido> result = pedidoRepository.findById(idPedido);
-
-		if (result.isEmpty()) {
-			throw new EntityNotFoundException("Pedido não encontrado.");
+		
+		if(total < pedido.getDesconto()) {
+			throw new BadRequestException("O valor do desconto não pode ser superior ao valor total do pedido.");
 		}
-
-		Pedido pedido = result.get();
-
-		PedidoGetDTO getDto = new PedidoGetDTO();
-		mapper.map(pedido, getDto);
-
-		return getDto;
+		
+		// salvando os ítens do pedido
+		itemPedidoRepository.saveAll(itens);
+		
+		return itens;
 	}
-	
-	public String excluir(Integer idPedido) {
-
-		Optional<Pedido> result = pedidoRepository.findById(idPedido);
-
-		if (result.isEmpty()) {
-			throw new EntityNotFoundException("Pedido não encontrado.");
-		}
-
-		Pedido pedido = result.get();
-
-		pedidoRepository.delete(pedido);
-
-		return "Pedido Nº " + result.get().getNumeroPedido() + " excluído com sucesso.";
-	}
-*
 }
-*/

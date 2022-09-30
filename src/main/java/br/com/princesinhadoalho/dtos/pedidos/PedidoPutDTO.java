@@ -14,4 +14,6 @@ public class PedidoPutDTO {
 	private String situacao;
 	private Double desconto;
 	private Integer idCliente;
+	private Integer idVendedor;
+
 }
