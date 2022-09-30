@@ -1,5 +1,7 @@
 package br.com.princesinhadoalho.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +27,7 @@ public class RecuperarSenhaController {
 
 	@PostMapping
 	@ApiOperation(value = "Recuperar senha")
-	public ResponseEntity<String> recuperar(@RequestBody RecuperarSenhaPostDTO dto) {
+	public ResponseEntity<String> recuperar(@Valid @RequestBody RecuperarSenhaPostDTO dto) {
 
 		try {
 			String response = service.recuperarSenha(dto);

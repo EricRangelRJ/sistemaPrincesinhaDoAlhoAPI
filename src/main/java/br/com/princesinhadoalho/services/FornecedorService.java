@@ -11,7 +11,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import br.com.princesinhadoalho.dtos.enderecos.EnderecoDTO;
-import br.com.princesinhadoalho.dtos.fornecedores.FornecedorDTO;
 import br.com.princesinhadoalho.dtos.fornecedores.FornecedorGetDTO;
 import br.com.princesinhadoalho.dtos.fornecedores.FornecedorPostDTO;
 import br.com.princesinhadoalho.dtos.fornecedores.FornecedorPutDTO;
@@ -47,13 +46,13 @@ public class FornecedorService {
 		for (Fornecedor result2 : lista) {
 			if (result.equals(result2)) {
 				if (result.getCpfCnpj().equalsIgnoreCase(result2.getCpfCnpj())) {
-					throw new BadRequestException(" cpf ou cnpj já cadastrado.");
+					throw new BadRequestException("cpf ou cnpj já cadastrado.");
 				} else if (result.getTelefone1().equalsIgnoreCase(result2.getTelefone1())) {
-					throw new BadRequestException(" telefone1 já cadastrado.");
+					throw new BadRequestException("telefone1 já cadastrado.");
 				} else if (result.getTelefone2().equalsIgnoreCase(result2.getTelefone2())) {
-					throw new BadRequestException(" telefone2 já cadastrado.");
+					throw new BadRequestException("telefone2 já cadastrado.");
 				} else if (result.getEmail().equalsIgnoreCase(result2.getEmail())) {
-					throw new BadRequestException(" email já cadastrado.");
+					throw new BadRequestException("email já cadastrado.");
 				}
 			}
 		}
@@ -119,22 +118,6 @@ public class FornecedorService {
 
 		return new FornecedorGetDTO(fornecedor);
 
-	}
-
-	// BUSCAR UM FORNECEDOR E SEUS PRODUTOS
-	public FornecedorDTO buscarProdutosByIdFornecedor(Integer idFornecedor) {
-
-		Optional<Fornecedor> result = fornecedorRepository.findById(idFornecedor);
-
-		if (result.isEmpty()) {
-			throw new EntityNotFoundException("Fornecedor não encontrado.");
-		}
-
-		Fornecedor fornecedor = result.get();
-
-		FornecedorDTO fornecedorDTO = mapper.map(fornecedor, FornecedorDTO.class);
-
-		return fornecedorDTO;
 	}
 
 	// ATUALIZAR UM FORNECEDOR

@@ -2,6 +2,8 @@ package br.com.princesinhadoalho.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.princesinhadoalho.dtos.fornecedores.FornecedorDTO;
 import br.com.princesinhadoalho.dtos.fornecedores.FornecedorGetDTO;
 import br.com.princesinhadoalho.dtos.fornecedores.FornecedorPostDTO;
 import br.com.princesinhadoalho.dtos.fornecedores.FornecedorPutDTO;
@@ -35,7 +36,7 @@ public class FornecedoresController {
 
 	@PostMapping
 	@ApiOperation(value = "Cadastrar fornecedor")
-	public ResponseEntity<FornecedorGetDTO> cadastrar(@RequestBody FornecedorPostDTO dto) {
+	public ResponseEntity<FornecedorGetDTO> cadastrar(@Valid @RequestBody FornecedorPostDTO dto) {
 
 		try {
 			FornecedorGetDTO getDto = service.cadastrar(dto);
@@ -59,21 +60,6 @@ public class FornecedoresController {
 		}
 	}
 	
-
-	// buscando um Fornecedor e seus produtos
-	@GetMapping("/produtos/{idFornecedor}")
-	@ApiOperation(value = "Buscar produtos associados a fornecedores")
-	public ResponseEntity<FornecedorDTO> buscarProdutosByIdFornecedor(@PathVariable("idFornecedor") Integer idFornecedor) {
-
-		try {
-			FornecedorDTO getDto = service.buscarProdutosByIdFornecedor(idFornecedor);
-			return ResponseEntity.status(HttpStatus.OK).body(getDto);
-
-		} catch (ServiceException e) {
-			return ResponseEntity.internalServerError().build();
-		}
-	}
-
 	@GetMapping("/{idFornecedor}")
 	@ApiOperation(value = "Buscar fornecedor pelo Id")
 	public ResponseEntity<FornecedorGetDTO> buscarId(@PathVariable("idFornecedor") Integer idFornecedor) {
@@ -89,7 +75,7 @@ public class FornecedoresController {
 
 	@PutMapping
 	@ApiOperation(value = "Atualizar fornecedor")
-	public ResponseEntity<FornecedorGetDTO> atualizar(@RequestBody FornecedorPutDTO dto) {
+	public ResponseEntity<FornecedorGetDTO> atualizar(@Valid @RequestBody FornecedorPutDTO dto) {
 
 		try {
 			FornecedorGetDTO getDto = service.atualizar(dto);

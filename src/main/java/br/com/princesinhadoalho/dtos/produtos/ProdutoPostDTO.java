@@ -1,5 +1,8 @@
 package br.com.princesinhadoalho.dtos.produtos;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,6 +10,7 @@ import lombok.Setter;
 @Setter
 public class ProdutoPostDTO {
 
+	@NotBlank(message = "{nome.not.blank}")
 	private String nomeProduto;
 //	private String codigo;    - GERADO ALEATORIAMENTE
 	private String descricao;
@@ -16,6 +20,7 @@ public class ProdutoPostDTO {
 	private Double valorCusto;
 	private Double valorVenda;
 	
+	@NotNull
 	private Integer idFornecedor;
 
 }

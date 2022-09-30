@@ -1,5 +1,7 @@
 package br.com.princesinhadoalho.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +28,7 @@ public class AuthController {
 
 	@PostMapping
 	@ApiOperation(value = "autenticar")
-	public ResponseEntity<AuthGetDTO> autenticar(@RequestBody AuthPostDTO dto) {
+	public ResponseEntity<AuthGetDTO> autenticar(@Valid @RequestBody AuthPostDTO dto) {
 
 		try {
 			AuthGetDTO getDto = service.autenticar(dto);

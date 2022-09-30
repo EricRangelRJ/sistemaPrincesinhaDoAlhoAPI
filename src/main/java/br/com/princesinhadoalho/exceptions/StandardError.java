@@ -9,8 +9,10 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class StandardError implements Serializable {
@@ -18,9 +20,9 @@ public class StandardError implements Serializable {
 
 	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant timestamp;
-	private Integer status;
+	private Integer statusCode;
 	private String error;
 	private String message;
 	private String path;
-
+	
 }

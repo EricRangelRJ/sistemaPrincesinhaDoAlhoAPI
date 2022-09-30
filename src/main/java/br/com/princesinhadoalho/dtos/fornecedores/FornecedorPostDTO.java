@@ -1,5 +1,10 @@
 package br.com.princesinhadoalho.dtos.fornecedores;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,11 +12,25 @@ import lombok.Setter;
 @Setter
 public class FornecedorPostDTO {
 
+	@NotBlank(message = "{nome.not.blank}")
 	private String nomeFornecedor;
+	
+	@NotBlank(message = "{cpf.not.blank}")
+	@Size(min= 11, max = 14, message = "{cpfCnpj.size}")
+	@Pattern(regexp = "^\\d+$", message = "{number.pattern}")
 	private String cpfCnpj;
+	
+	@NotBlank(message = "{telefone.not.blank}")
+	@Size(min= 8, max = 11, message = "{telefone.size}")
+	@Pattern(regexp = "^\\d+$", message = "{number.pattern}")
 	private String telefone1;
+	
 	private String telefone2;
+	
+	@Email(message = "{email.email}")
 	private String email;
+	
+	
 	private String logradouro;
 	private String numero;
 	private String complemento;

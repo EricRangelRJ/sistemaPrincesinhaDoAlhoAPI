@@ -130,9 +130,19 @@ public class PedidoService {
 		if (result.isEmpty()) {
 			throw new EntityNotFoundException("Pedido não encontrado.");
 		}
+		
+		Optional<Vendedor> result2 = vendedorRepository.findById(dto.getIdVendedor());
+		
+		if (result2.isEmpty()) {
+			throw new EntityNotFoundException("Vendedor não encontrado.");
+		}
+		
 
 		Pedido pedido = result.get();
+		Vendedor vendedor = result2.get();
+		
 		mapper.map(dto, pedido);
+		pedido.setVendedor(vendedor);
 		
 		return new PedidoGetDTO(pedido);	
 	}

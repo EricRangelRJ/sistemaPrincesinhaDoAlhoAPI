@@ -2,6 +2,8 @@ package br.com.princesinhadoalho.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,7 +36,7 @@ public class ClientesController {
 
 	@PostMapping
 	@ApiOperation(value = "Cadastrar cliente")
-	public ResponseEntity<ClienteGetDTO> cadastrar(@RequestBody ClientePostDTO dto) {
+	public ResponseEntity<ClienteGetDTO> cadastrar(@Valid @RequestBody ClientePostDTO dto) {
 
 		try {
 			ClienteGetDTO getDto = service.cadastrar(dto);
@@ -73,7 +75,7 @@ public class ClientesController {
 
 	@PutMapping
 	@ApiOperation(value = "Atualizar cliente")
-	public ResponseEntity<ClienteGetDTO> atualizar(@RequestBody ClientePutDTO dto) {
+	public ResponseEntity<ClienteGetDTO> atualizar(@Valid @RequestBody ClientePutDTO dto) {
 
 		try {
 			ClienteGetDTO getDto = service.atualizar(dto);
