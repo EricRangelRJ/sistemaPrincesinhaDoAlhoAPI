@@ -53,7 +53,7 @@ public class RecuperarSenhaService {
 	private String enviarNovaSenha(Usuario usuario, String novaSenha) {
 
 		try {
-			String assunto = "Nova senha gerada com sucesso";
+			String assunto = "Nova senha gerada com sucesso - SISTEMA PRINCESINHA DO ALHO";
 			String mensagem = "Olá, " + usuario.getNome() + "\n\n"
 					+ "Sua nova senha foi gerada com sucesso, para acessar o sistema utilize a senha: " + novaSenha
 					+ "\n\n" + "Att, \n" + "Equipe Princesinha do Alho.";
