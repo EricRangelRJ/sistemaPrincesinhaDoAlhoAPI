@@ -14,6 +14,7 @@ import br.com.princesinhadoalho.entities.Fornecedor;
 import br.com.princesinhadoalho.entities.ItemPedido;
 import br.com.princesinhadoalho.entities.Pedido;
 import br.com.princesinhadoalho.entities.Produto;
+import br.com.princesinhadoalho.entities.Usuario;
 import br.com.princesinhadoalho.entities.Vendedor;
 import br.com.princesinhadoalho.enums.Estado;
 import br.com.princesinhadoalho.enums.SituacaoPedido;
@@ -25,6 +26,7 @@ import br.com.princesinhadoalho.repositories.FornecedorRepository;
 import br.com.princesinhadoalho.repositories.ItemPedidoRepository;
 import br.com.princesinhadoalho.repositories.PedidoRepository;
 import br.com.princesinhadoalho.repositories.ProdutoRepository;
+import br.com.princesinhadoalho.repositories.UsuarioRepository;
 import br.com.princesinhadoalho.repositories.VendedorRepository;
 import lombok.AllArgsConstructor;
 
@@ -33,6 +35,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class Teste implements CommandLineRunner{
 	
+	private final UsuarioRepository usuarioRepository;
 	private final EnderecoRepository enderecoRepository;
 	private final ClienteRepository clienteRepository;
 	private final FornecedorRepository fornecedorRepository;
@@ -44,7 +47,11 @@ public class Teste implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-
+		
+		// CADASTRANDO USUÁRIOS
+		Usuario usu1 = new Usuario("Teste", "t1@gmail.com", "1234");
+		usuarioRepository.saveAll(Arrays.asList(usu1));
+		
 		// CADASTRANDO ENDEREÇOS
 		Endereco end1 = new Endereco("Rua Albert", "99", null, null, "Bnh", "Mesquita", Estado.RJ, "33333-666"); 
 		Endereco end2 = new Endereco("Rua Alves", "40", null, null, "Barra Funda", "São Paulo", Estado.SP, "11111-111");
