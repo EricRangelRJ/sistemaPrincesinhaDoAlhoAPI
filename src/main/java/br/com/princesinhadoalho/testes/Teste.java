@@ -64,9 +64,11 @@ public class Teste implements CommandLineRunner{
 		Cliente cli1 = new Cliente("Bia Souza", "111111111-11", DateHelper.toDate("1999-05-02"), "999999999", null, "bia@bol.com", null, end2);
 		Cliente cli2 = new Cliente("Edy Silva", "222222222-22", DateHelper.toDate("2002-08-10"), "888888888", null, "edy@bol.com", null, end1);
 		Cliente cli3 = new Cliente("Tom Melo", "333333333-33", DateHelper.toDate("1995-01-15"), "777777777", null, "tom@bol.com", "Sem endereço", null);
-		Cliente cli4 = new Cliente("Ana Silva", "444444444-44", DateHelper.toDate("1989-09-02"), "666666666", null, "ana@bol.com", null, end1);
+		Cliente cli4 = new Cliente("Ana Silva", "444444444-44", null, "666666666", null, "ana@bol.com", null, end3);
+		Cliente cli5 = new Cliente("Tião Silva", "55555555-55", DateHelper.toDate("1989-09-02"), "555555555", null, "tiao@bol.com", null, end4);
+		Cliente cli6 = new Cliente("Caio Silva", "66666666-66", DateHelper.toDate("1989-09-02"), "444444444", null, "caio@bol.com", null, null);
 				
-		clienteRepository.saveAll(Arrays.asList(cli1, cli2, cli3, cli4));
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2, cli3, cli4, cli5, cli6));
 		
 		// CADASTRANDO FORNECEDORES
 		Fornecedor forn1 = new Fornecedor("Sadia", "05.565.279/0001-74", "3263-3666", null, "sadia@bol.com", end3);
@@ -102,21 +104,23 @@ public class Teste implements CommandLineRunner{
 		
 		// CADASTRANDO PEDIDOS	
 		Pedido ped1 = new Pedido(RandomHelper.gerarNumeroPedidoAleatorio(),DateHelper.toDate("2005-05-02"), SituacaoPedido.AGUARDANDO_PAGAMENTO, 20.0, cli4, vend1);
-		Pedido ped2 = new Pedido(RandomHelper.gerarNumeroPedidoAleatorio(),DateHelper.toDate("1999-05-02"), SituacaoPedido.PAGO, 40.0, cli2, vend1);
+		Pedido ped2 = new Pedido(RandomHelper.gerarNumeroPedidoAleatorio(),DateHelper.toDate("1999-05-02"), SituacaoPedido.PAGO, 12.5, cli2, vend1);
 		Pedido ped3 = new Pedido(RandomHelper.gerarNumeroPedidoAleatorio(),DateHelper.toDate("1999-05-02"), SituacaoPedido.PAGO, 50.0, cli3, vend2);
 		Pedido ped4 = new Pedido(RandomHelper.gerarNumeroPedidoAleatorio(),DateHelper.toDate("1999-05-02"), SituacaoPedido.PAGO, 10.0, cli1, vend2);
-	
-		pedidoRepository.saveAll(Arrays.asList(ped1, ped2, ped3, ped4));
+		Pedido ped5 = new Pedido(null, RandomHelper.gerarNumeroPedidoAleatorio(), DateHelper.toDate("2022-11-09"), DateHelper.toDate("2022-11-11"), SituacaoPedido.PAGO, 5.0, null, cli6, null, vend2);
+		
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2, ped3, ped4, ped5));
 
 		// CADASTRANDO ITEM DE PEDIDO
 		ItemPedido item1 = new ItemPedido(ped1, prod1, 1, prod1.getValorVenda());
-		ItemPedido item2 = new ItemPedido(ped1, prod2, 1, prod2.getValorVenda());
-		ItemPedido item3 = new ItemPedido(ped1, prod3, 2, prod3.getValorVenda());
+		ItemPedido item2 = new ItemPedido(ped1, prod2, 2, prod2.getValorVenda());
+		ItemPedido item3 = new ItemPedido(ped1, prod3, 3, prod3.getValorVenda());
 		ItemPedido item4 = new ItemPedido(ped2, prod1, 2, prod1.getValorVenda());
 		ItemPedido item5 = new ItemPedido(ped3, prod2, 3, prod2.getValorVenda());
 		ItemPedido item6 = new ItemPedido(ped4, prod4,10, prod4.getValorVenda());
+		ItemPedido item7 = new ItemPedido(ped5, prod4,10, prod4.getValorVenda());
 	
-		itemPedidoRepository.saveAll(Arrays.asList(item1, item2,item3, item4, item5, item6));
+		itemPedidoRepository.saveAll(Arrays.asList(item1, item2,item3, item4, item5, item6, item7));
 	
 	}
 
