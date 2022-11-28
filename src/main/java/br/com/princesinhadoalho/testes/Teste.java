@@ -61,7 +61,7 @@ public class Teste implements CommandLineRunner{
 		enderecoRepository.saveAll(Arrays.asList(end1, end2, end3, end4));
 		
 		// CADASTRANDO CLIENTES
-		Cliente cli1 = new Cliente("Bia Souza", "111111111-11", DateHelper.toDate("1999-05-02"), "999999999", null, "bia@bol.com", null, end2);
+		Cliente cli1 = new Cliente("Bia Souza", "111111111-11", DateHelper.toDate("1999-05-02"), "999999999", "3333-3333", "bia@bol.com", "Cliente chata a bessa kk", end2);
 		Cliente cli2 = new Cliente("Edy Silva", "222222222-22", DateHelper.toDate("2002-08-10"), "888888888", null, "edy@bol.com", null, end1);
 		Cliente cli3 = new Cliente("Tom Melo", "333333333-33", DateHelper.toDate("1995-01-15"), "777777777", null, "tom@bol.com", "Sem endereço", null);
 		Cliente cli4 = new Cliente("Ana Silva", "444444444-44", null, "666666666", null, "ana@bol.com", null, end3);
@@ -71,7 +71,7 @@ public class Teste implements CommandLineRunner{
 		clienteRepository.saveAll(Arrays.asList(cli1, cli2, cli3, cli4, cli5, cli6));
 		
 		// CADASTRANDO FORNECEDORES
-		Fornecedor forn1 = new Fornecedor("Sadia", "05.565.279/0001-74", "3263-3666", null, "sadia@bol.com", end3);
+		Fornecedor forn1 = new Fornecedor("Sadia", "05.565.279/0001-74", "3263-3666", "2690-0000", "sadia@bol.com", end3);
 		Fornecedor forn2 = new Fornecedor("Lg", "15.565.279/0001-02", "3769-0001", null, "lg@bol.com", end4);
 		Fornecedor forn3 = new Fornecedor("Consul", "28.565.279/0001-38", "2598-0322", null, "consul@bol.com", null);
 		
@@ -97,8 +97,8 @@ public class Teste implements CommandLineRunner{
 		produtoRepository.saveAll(Arrays.asList(prod1, prod2, prod3,prod4));
 		
 		// CADASTRANDO VENDEDORES
-		Vendedor vend1 = new Vendedor(null, "Eric",  null, null);
-		Vendedor vend2 = new Vendedor(null, "Bruna",  null, null);
+		Vendedor vend1 = new Vendedor(null, "Eric",  "dev", null);
+		Vendedor vend2 = new Vendedor(null, "Bruna", null , null);
 		
 		vendedorRepository.saveAll(Arrays.asList(vend1, vend2));
 		
