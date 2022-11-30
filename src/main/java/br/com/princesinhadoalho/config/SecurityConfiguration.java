@@ -40,16 +40,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				
 				
 				/*PERMITIR PROVISORIAMENTE PARA TESTES*/
-				.antMatchers("/api/clientes/**").permitAll()
-				.antMatchers("/api/enderecos/**").permitAll()
-				.antMatchers("/api/fornecedores/**").permitAll()
-				.antMatchers("/api/produtos/**").permitAll()
-				.antMatchers("/api/pedidos/**").permitAll()
-				.antMatchers("/api/vendedores/**").permitAll()
+				/*
+				 * .antMatchers("/api/clientes/**").permitAll()
+				 * .antMatchers("/api/enderecos/**").permitAll()
+				 * .antMatchers("/api/fornecedores/**").permitAll()
+				 * .antMatchers("/api/produtos/**").permitAll()
+				 * .antMatchers("/api/pedidos/**").permitAll()
+				 * .antMatchers("/api/vendedores/**").permitAll()
+				 */
 
-
-			
-						
+	
 				// permitir o cadastro de usuário
 				.antMatchers("/api/usuarios/**").permitAll()
 				// permitir autenticação do usuário
