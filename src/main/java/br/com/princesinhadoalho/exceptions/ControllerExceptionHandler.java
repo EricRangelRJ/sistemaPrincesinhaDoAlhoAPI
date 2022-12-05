@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
-	// Status code 500
+		// Status code 500
 		@ExceptionHandler(ServiceException.class)
 		public ResponseEntity<StandardError> exception(Exception e, HttpServletRequest request) {
 
@@ -52,6 +52,18 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 			StandardError standardError = new StandardError(Instant.now(), status, error, e.getMessage(),
 					request.getRequestURI());
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(standardError);
+		}
+		
+		// Status code 409
+		@ExceptionHandler(ConstraintViolationException.class)
+		public ResponseEntity<StandardError> constraint(ConstraintViolationException e, HttpServletRequest request) {
+
+			Integer status = HttpStatus.CONFLICT.value();
+			String error = "ERRO";
+
+			StandardError standardError = new StandardError(Instant.now(), status, error, e.getMessage(),
+					request.getRequestURI());
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(standardError);
 		}
 
 		// Mensagens de validação

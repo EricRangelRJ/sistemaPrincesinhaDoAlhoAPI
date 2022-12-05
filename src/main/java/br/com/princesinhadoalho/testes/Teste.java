@@ -53,26 +53,26 @@ public class Teste implements CommandLineRunner{
 		usuarioRepository.saveAll(Arrays.asList(usu1));
 		
 		// CADASTRANDO ENDEREÇOS
-		Endereco end1 = new Endereco("Rua Albert", "99", null, null, "Bnh", "Mesquita", Estado.RJ, "33333-666"); 
-		Endereco end2 = new Endereco("Rua Alves", "40", null, null, "Barra Funda", "São Paulo", Estado.SP, "11111-111");
-		Endereco end3 = new Endereco("Rua Kennedy", "10", null, null, "Pampulha", "Belo Horizonte", Estado.MG, "22222-222");
-		Endereco end4 = new Endereco("Rua Rufino", "23", "Edificio Solar, Sala 99", "Palmeiras", "Abranches", "Curitiba", Estado.PR, "33333-333");
+		Endereco endCliente1 = new Endereco("Rua Albert", "99", null, null, "Bnh", "Mesquita", Estado.RJ, "33333-666"); 
+		Endereco endCliente2 = new Endereco("Rua Alves", "40", null, null, "Barra Funda", "São Paulo", Estado.SP, "11111-111");
+		Endereco endFornecedor1 = new Endereco("Rua Kennedy", "10", null, null, "Pampulha", "Belo Horizonte", Estado.MG, "22222-222");
+		Endereco endFornecedor2 = new Endereco("Rua Rufino", "23", "Edificio Solar, Sala 99", "Palmeiras", "Abranches", "Curitiba", Estado.PR, "33333-333");
 		
-		enderecoRepository.saveAll(Arrays.asList(end1, end2, end3, end4));
+		enderecoRepository.saveAll(Arrays.asList(endCliente1, endCliente2, endFornecedor1, endFornecedor2));
 		
 		// CADASTRANDO CLIENTES
-		Cliente cli1 = new Cliente("Bia Souza", "111111111-11", DateHelper.toDate("1999-05-02"), "999999999", "3333-3333", "bia@bol.com", "Cliente chata a bessa kk", end2);
-		Cliente cli2 = new Cliente("Edy Silva", "222222222-22", DateHelper.toDate("2002-08-10"), "888888888", null, "edy@bol.com", null, end1);
-		Cliente cli3 = new Cliente("Tom Melo", "333333333-33", DateHelper.toDate("1995-01-15"), "777777777", null, "tom@bol.com", "Sem endereço", null);
-		Cliente cli4 = new Cliente("Ana Silva", "444444444-44", null, "666666666", null, "ana@bol.com", null, end3);
-		Cliente cli5 = new Cliente("Tião Silva", "55555555-55", DateHelper.toDate("1989-09-02"), "555555555", null, "tiao@bol.com", null, end4);
+		Cliente cli1 = new Cliente("Bia Souza", "111111111-11", DateHelper.toDate("1999-05-02"), "999999999", "3333-3333", "bia@bol.com", "Cliente chata a bessa kk", endCliente1);
+		Cliente cli2 = new Cliente("Edy Silva", "222222222-22", DateHelper.toDate("2002-08-10"), "888888888", null, "edy@bol.com", null, endCliente2);
+		Cliente cli3 = new Cliente("Tom Melo", "333333333-33", DateHelper.toDate("1995-01-15"), "777777777", null, "tom@bol.com", "Sem endereço", endCliente1);
+		Cliente cli4 = new Cliente("Ana Silva", "444444444-44", null, "666666666", null, "ana@bol.com", null, endCliente1);
+		Cliente cli5 = new Cliente("Tião Silva", "55555555-55", DateHelper.toDate("1989-09-02"), "555555555", null, "tiao@bol.com", null, endCliente2);
 		Cliente cli6 = new Cliente("Caio Silva", "66666666-66", DateHelper.toDate("1989-09-02"), "444444444", null, "caio@bol.com", null, null);
 				
 		clienteRepository.saveAll(Arrays.asList(cli1, cli2, cli3, cli4, cli5, cli6));
 		
 		// CADASTRANDO FORNECEDORES
-		Fornecedor forn1 = new Fornecedor("Sadia", "05.565.279/0001-74", "3263-3666", "2690-0000", "sadia@bol.com", end3);
-		Fornecedor forn2 = new Fornecedor("Lg", "15.565.279/0001-02", "3769-0001", null, "lg@bol.com", end4);
+		Fornecedor forn1 = new Fornecedor("Sadia", "05.565.279/0001-74", "3263-3666", "2690-0000", "sadia@bol.com", endFornecedor1);
+		Fornecedor forn2 = new Fornecedor("Lg", "15.565.279/0001-02", "3769-0001", null, "lg@bol.com", endFornecedor2);
 		Fornecedor forn3 = new Fornecedor("Consul", "28.565.279/0001-38", "2598-0322", null, "consul@bol.com", null);
 		
 		fornecedorRepository.saveAll(Arrays.asList(forn1, forn2, forn3));

@@ -16,6 +16,7 @@ import br.com.princesinhadoalho.dtos.enderecos.EnderecoDTO;
 import br.com.princesinhadoalho.entities.Cliente;
 import br.com.princesinhadoalho.entities.Endereco;
 import br.com.princesinhadoalho.exceptions.BadRequestException;
+import br.com.princesinhadoalho.exceptions.ConstraintViolationException;
 import br.com.princesinhadoalho.exceptions.EntityNotFoundException;
 import br.com.princesinhadoalho.reflections.EnderecoReflection;
 import br.com.princesinhadoalho.repositories.ClienteRepository;
@@ -160,8 +161,9 @@ public class ClienteService {
 
 		// buscando uma lista de clientes associados ao endereço fornecido(ManyToOne)
 		if (cliente.getEndereco() != null) {
-			Optional<List<Cliente>> result2 = clienteRepository.findByIdEnderecoJoinEndereco(
-					cliente.getEndereco().getIdEndereco());
+
+			Optional<List<Cliente>> result2 = clienteRepository
+					.findByIdEnderecoJoinEndereco(cliente.getEndereco().getIdEndereco());
 			List<Cliente> lista = result2.get();
 
 			// excluindo o endereço caso ele pertença apenas ao cliente
@@ -169,9 +171,17 @@ public class ClienteService {
 				enderecoService.excluir(cliente.getEndereco().getIdEndereco());
 			}
 		}
-		clienteRepository.delete(cliente);
-		
-		return "Cliente " + cliente.getNome() + " excluído com sucesso.";
+
+		// verificando se o cliente possui pedido(caso possua, não será permitido a sua exclusão)
+		if (cliente.getPedidos().size() > 0) {
+			throw new ConstraintViolationException("Não é possível excluir o(a) cliente " + cliente.getNome()
+					+ " pois ele(a) possui um ou mais pedidos cadastrados.");
+
+		} else {
+			clienteRepository.delete(cliente);
+			return "Cliente " + cliente.getNome() + " excluído com sucesso.";
+		}
+
 	}
-	
+
 }
