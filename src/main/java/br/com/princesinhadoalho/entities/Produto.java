@@ -18,11 +18,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,51 +34,35 @@ public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Getter
+	@Setter(value = AccessLevel.NONE)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idProduto")
 	private Integer idProduto;
 
-	@Getter
-	@Setter
 	@Column(length = 50, nullable = false)
 	private String nomeProduto;
 
-	@Getter
-	@Setter
 	@Column(length = 15, nullable = false, unique = true)
 	private String codigo;
 
-	@Getter
-	@Setter
 	@Column(length = 255)
 	private String descricao;
 
-	@Getter
-	@Setter
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
 
-	@Setter
+	@Setter(value = AccessLevel.NONE)
 	private boolean ativo;
 	
-	@Getter
-	@Setter
 	private Double peso;
 
-	@Getter
-	@Setter
 	private Double valorCusto;
 
-	@Getter
-	@Setter
 	private Double valorVenda;
 
-	@Getter
+	@Setter(value = AccessLevel.NONE)
 	private Double margemLucro;
 	
-	@Getter
-	@Setter
 	@ManyToOne
 	@JoinColumn(name = "idFornecedor", nullable = false)
 	private Fornecedor fornecedor;

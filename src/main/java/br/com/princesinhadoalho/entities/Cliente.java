@@ -102,4 +102,6 @@ public class Cliente implements Serializable {
 				+ dataNascimento + ", telefone1=" + telefone1 + ", email=" + email + ", endereco=" + endereco + "]";
 	}
 	
+	
+	
 }

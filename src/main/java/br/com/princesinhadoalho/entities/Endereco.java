@@ -18,11 +18,14 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.princesinhadoalho.enums.Estado;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,6 +34,7 @@ public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Setter(value = AccessLevel.NONE)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idEndereco")
 	private Integer idEndereco;
@@ -94,6 +98,14 @@ public class Endereco implements Serializable {
 		return Objects.equals(cep, other.cep) && Objects.equals(complemento, other.complemento)
 				&& Objects.equals(idEndereco, other.idEndereco) && Objects.equals(logradouro, other.logradouro)
 				&& Objects.equals(numero, other.numero);
+	}
+
+	@Override
+	public String toString() {
+		return "Endereco [idEndereco=" + idEndereco + ", logradouro=" + logradouro + ", numero=" + numero
+				+ ", complemento=" + complemento + ", condominio=" + condominio + ", bairro=" + bairro + ", municipio="
+				+ municipio + ", estado=" + estado + ", cep=" + cep + ", clientes=" + clientes + ", fornecedor="
+				+ fornecedor + "]";
 	}
 
 }

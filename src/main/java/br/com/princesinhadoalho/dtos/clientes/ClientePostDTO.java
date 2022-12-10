@@ -34,7 +34,6 @@ public class ClientePostDTO {
 	
 	private String observacao;
 	private String logradouro;
-	
 	private String numero;
 	private String complemento;
 	private String condominio;

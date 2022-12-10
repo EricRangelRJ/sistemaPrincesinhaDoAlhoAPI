@@ -39,16 +39,22 @@ public class ClienteService {
 			throw new BadRequestException("O CPF informado já encontra-se cadastrado. Tente outro.");
 		}
 		
+		// verificar se o telefone1 já está cadastrado
+		Optional<Cliente> result2 = clienteRepository.findByTelefone1(dto.getTelefone1());
+		if (result2.isPresent()) {
+			throw new BadRequestException("O telefone principal informado já encontra-se cadastrado. Tente outro.");
+		}
+		
 		// convertendo o endereço do cliente(dto) para um enderecoDTO
 		EnderecoDTO enderecoDTO = mapper.map(dto, EnderecoDTO.class);
 				
 		// verificando se existem campos preenchidos 
 		EnderecoReflection endReflection = new EnderecoReflection();
-		boolean result2 = endReflection.reflection(enderecoDTO);
+		boolean result3 = endReflection.reflection(enderecoDTO);
 
 		Endereco endereco = new Endereco();
 		// caso exista(TRUE)
-		if (result2) {
+		if (result3) {
 			// cadastrando um endereço
 			endereco = enderecoService.cadastrar(enderecoDTO);
 		}

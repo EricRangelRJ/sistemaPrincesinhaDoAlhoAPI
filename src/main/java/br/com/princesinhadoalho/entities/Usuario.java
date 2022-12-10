@@ -11,12 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import br.com.princesinhadoalho.security.Cryptography;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+@Setter
+@Getter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,20 +27,17 @@ public class Usuario implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Getter
+	@Setter(value = AccessLevel.NONE)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idUsuario;
 	
-	@Setter
-	@Getter
 	@Column(length = 50, nullable = false)
 	private String nome;
 	
-	@Setter
-	@Getter
 	@Column(length = 50, nullable = false, unique = true)
 	private String email;
 	
+	@Setter(value = AccessLevel.NONE)
 	@Column(length = 100, nullable = false)
 	private String senha;
 	
@@ -71,4 +70,10 @@ public class Usuario implements Serializable{
 		return Objects.hash(idUsuario);
 	}
 
+	@Override
+	public String toString() {
+		return "Usuario [idUsuario=" + idUsuario + ", nome=" + nome + ", email=" + email + ", senha=" + senha + "]";
+	}
+
+	
 }

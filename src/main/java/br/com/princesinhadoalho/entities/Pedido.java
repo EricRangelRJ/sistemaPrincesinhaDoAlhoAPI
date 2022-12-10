@@ -21,11 +21,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import br.com.princesinhadoalho.enums.SituacaoPedido;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,51 +37,36 @@ public class Pedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Getter
+	@Setter(value = AccessLevel.NONE)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idPedido")
 	private Integer idPedido;
 	
-	@Getter
-	@Setter
 	@Column(length = 10, nullable = false, unique = true)
 	private String numeroPedido;
 
-	@Getter
-	@Setter
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataPedido;
 
-	@Getter
-	@Setter
 	@Temporal(TemporalType.DATE)
 	private Date dataEntrega;
 
-	@Getter
-	@Setter
 	@Enumerated(EnumType.STRING)
 	private SituacaoPedido situacao;
 	
-	@Setter
-	@Getter
 	private Double desconto = 0.0;
 	
+	@Setter(value = AccessLevel.NONE)
 	private Double total = 0.0;
 	
-	@Getter
-	@Setter
 	@ManyToOne
 	@JoinColumn(name = "idCliente", nullable = false)
 	private Cliente cliente;
 	
-	@Getter
-	@Setter
 	@OneToMany(mappedBy = "idItemPedido.pedido")
 	private Set<ItemPedido> itens = new HashSet<>();
 	
-	@Getter
-	@Setter
 	@ManyToOne
 	@JoinColumn(name = "idVendedor", nullable = false)
 	private Vendedor vendedor;

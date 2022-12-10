@@ -7,5 +7,5 @@ import br.com.princesinhadoalho.entities.ItemPedido;
 
 @Repository
 public interface ItemPedidoRepository extends JpaRepository<ItemPedido, Integer>{
-			
+	   			       
 }

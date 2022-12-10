@@ -15,8 +15,13 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 	
 	public Optional<Cliente> findByCpf(String cpf);
 	
+	public Optional<Cliente> findByTelefone1(String tefefone1);
+
+	
 	// buscando uma lista de clientes associados ao endereço fornecido
 	@Query("from Cliente c join c.endereco e where e.idEndereco = :param") //JPQL
 	Optional<List<Cliente>> findByIdEnderecoJoinEndereco(@Param("param") Integer idEndereco);
+	
+	
 	
 }

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,6 +20,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,23 +32,17 @@ public class Vendedor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Getter
+	@Setter(value = AccessLevel.NONE)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idVendedor")
 	private Integer idVendedor;
 
-	@Getter
-	@Setter
 	@Column(length = 100, nullable = false)
 	private String nome;
 
-	@Getter
-	@Setter
 	@Column(length = 50)
 	private String apelido;
 	
-	@Getter
-	@Setter
 	@OneToMany(mappedBy = "vendedor")
 	private Set<Pedido> pedidos = new HashSet<>();
 
