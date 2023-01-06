@@ -34,10 +34,10 @@ public class ClienteService {
 	public ClienteGetDTO cadastrar(ClientePostDTO dto) throws IllegalArgumentException, IllegalAccessException {
 
 		// verificar se o CPF já está cadastrado
-		Optional<Cliente> result = clienteRepository.findByCpf(dto.getCpf());
-		if (result.isPresent()) {
-			throw new BadRequestException("O CPF informado já encontra-se cadastrado. Tente outro.");
-		}
+		//Optional<Cliente> result = clienteRepository.findByCpf(dto.getCpf());
+//		if (result.isPresent()) {
+//			throw new BadRequestException("O CPF informado já encontra-se cadastrado. Tente outro.");
+//		}
 		
 		// convertendo o endereço do cliente(dto) para um enderecoDTO
 		EnderecoDTO enderecoDTO = mapper.map(dto, EnderecoDTO.class);

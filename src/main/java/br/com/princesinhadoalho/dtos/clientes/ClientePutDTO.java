@@ -22,9 +22,9 @@ public class ClientePutDTO {
 	@Setter
 	private String dataNascimento;
 	
-	@NotBlank(message = "{telefone.not.blank}")
-	@Size(min= 8, max = 11, message = "{telefone.size}")
-	@Pattern(regexp = "^\\d+$", message = "{number.pattern}")
+	//@NotBlank(message = "{telefone.not.blank}")
+	//@Size(min= 8, max = 11, message = "{telefone.size}")
+	//@Pattern(regexp = "^\\d+$", message = "{number.pattern}")
 	private String telefone1;
 	
 	private String telefone2;
