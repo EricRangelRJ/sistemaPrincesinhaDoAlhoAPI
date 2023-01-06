@@ -1,53 +1,58 @@
-//package br.com.princesinhadoalho.testes;
-//
-//import java.time.Instant;
-//import java.util.Arrays;
-//import java.util.Date;
-//
-//import org.springframework.boot.CommandLineRunner;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.context.annotation.Profile;
-//
-//import br.com.princesinhadoalho.entities.Cliente;
-//import br.com.princesinhadoalho.entities.Endereco;
-//import br.com.princesinhadoalho.entities.Fornecedor;
-//import br.com.princesinhadoalho.entities.ItemPedido;
-//import br.com.princesinhadoalho.entities.Pedido;
-//import br.com.princesinhadoalho.entities.Produto;
-//import br.com.princesinhadoalho.entities.Usuario;
-//import br.com.princesinhadoalho.entities.Vendedor;
-//import br.com.princesinhadoalho.enums.Estado;
-//import br.com.princesinhadoalho.enums.SituacaoPedido;
-//import br.com.princesinhadoalho.helpers.DateHelper;
-//import br.com.princesinhadoalho.helpers.RandomHelper;
-//import br.com.princesinhadoalho.repositories.ClienteRepository;
-//import br.com.princesinhadoalho.repositories.EnderecoRepository;
-//import br.com.princesinhadoalho.repositories.FornecedorRepository;
-//import br.com.princesinhadoalho.repositories.ItemPedidoRepository;
-//import br.com.princesinhadoalho.repositories.PedidoRepository;
-//import br.com.princesinhadoalho.repositories.ProdutoRepository;
-//import br.com.princesinhadoalho.repositories.UsuarioRepository;
-//import br.com.princesinhadoalho.repositories.VendedorRepository;
-//import lombok.AllArgsConstructor;
-//
-//@Configuration
-//@Profile("test")
-//@AllArgsConstructor
-//public class Teste implements CommandLineRunner{
-//	
-//	private final UsuarioRepository usuarioRepository;
-//	private final EnderecoRepository enderecoRepository;
-//	private final ClienteRepository clienteRepository;
-//	private final FornecedorRepository fornecedorRepository;
-//	private final ProdutoRepository produtoRepository;
-//	private final PedidoRepository pedidoRepository;
-//	private final ItemPedidoRepository itemPedidoRepository;
-//	private final VendedorRepository vendedorRepository;
-//	
-//
-//	@Override
-//	public void run(String... args) throws Exception {
-//		
+package br.com.princesinhadoalho.testes;
+
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+
+import br.com.princesinhadoalho.entities.Cliente;
+import br.com.princesinhadoalho.entities.ClienteEntity;
+import br.com.princesinhadoalho.entities.Endereco;
+import br.com.princesinhadoalho.entities.EnderecoEntity;
+import br.com.princesinhadoalho.entities.Fornecedor;
+import br.com.princesinhadoalho.entities.ItemPedido;
+import br.com.princesinhadoalho.entities.Pedido;
+import br.com.princesinhadoalho.entities.Produto;
+import br.com.princesinhadoalho.entities.Usuario;
+import br.com.princesinhadoalho.entities.Vendedor;
+import br.com.princesinhadoalho.enums.Estado;
+import br.com.princesinhadoalho.enums.SituacaoPedido;
+import br.com.princesinhadoalho.helpers.DateHelper;
+import br.com.princesinhadoalho.helpers.RandomHelper;
+import br.com.princesinhadoalho.repositories.ClienteRepository;
+import br.com.princesinhadoalho.repositories.ClienteRepository2;
+import br.com.princesinhadoalho.repositories.EnderecoRepository;
+import br.com.princesinhadoalho.repositories.FornecedorRepository;
+import br.com.princesinhadoalho.repositories.ItemPedidoRepository;
+import br.com.princesinhadoalho.repositories.PedidoRepository;
+import br.com.princesinhadoalho.repositories.ProdutoRepository;
+import br.com.princesinhadoalho.repositories.UsuarioRepository;
+import br.com.princesinhadoalho.repositories.VendedorRepository;
+import lombok.AllArgsConstructor;
+
+@Configuration
+@Profile("test")
+@AllArgsConstructor
+public class Teste implements CommandLineRunner{
+	
+	private final UsuarioRepository usuarioRepository;
+	private final EnderecoRepository enderecoRepository;
+	private final ClienteRepository clienteRepository;
+	private final ClienteRepository2 clienteRepository2;
+	private final FornecedorRepository fornecedorRepository;
+	private final ProdutoRepository produtoRepository;
+	private final PedidoRepository pedidoRepository;
+	private final ItemPedidoRepository itemPedidoRepository;
+	private final VendedorRepository vendedorRepository;
+	
+
+	@Override
+	public void run(String... args) throws Exception {
+		
 //		// CADASTRANDO USUÁRIOS
 //		Usuario usu1 = new Usuario("Teste", "t1@gmail.com", "1234");
 //		usuarioRepository.saveAll(Arrays.asList(usu1));
@@ -59,17 +64,27 @@
 //		Endereco endFornecedor2 = new Endereco("Rua Rufino", "23", "Edificio Solar, Sala 99", "Palmeiras", "Abranches", "Curitiba", Estado.PR, "33333-333");
 //		
 //		enderecoRepository.saveAll(Arrays.asList(endCliente1, endCliente2, endFornecedor1, endFornecedor2));
-//		
-//		// CADASTRANDO CLIENTES
+		
+		// CADASTRANDO CLIENTES
 //		Cliente cli1 = new Cliente("Bia Souza", "111111111-11", DateHelper.toDate("1999-05-02"), "999999999", "3333-3333", "bia@bol.com", "Cliente chata a bessa kk", endCliente1);
 //		Cliente cli2 = new Cliente("Edy Silva", "222222222-22", DateHelper.toDate("2002-08-10"), "888888888", null, "edy@bol.com", null, endCliente2);
 //		Cliente cli3 = new Cliente("Tom Melo", "333333333-33", DateHelper.toDate("1995-01-15"), "777777777", null, "tom@bol.com", "Sem endereço", endCliente1);
 //		Cliente cli4 = new Cliente("Ana Silva", "444444444-44", null, "666666666", null, "ana@bol.com", null, endCliente1);
 //		Cliente cli5 = new Cliente("Tião Silva", "55555555-55", DateHelper.toDate("1989-09-02"), "555555555", null, "tiao@bol.com", null, endCliente2);
 //		Cliente cli6 = new Cliente("Caio Silva", "66666666-66", DateHelper.toDate("1989-09-02"), "444444444", null, "caio@bol.com", null, null);
-//				
-//		clienteRepository.saveAll(Arrays.asList(cli1, cli2, cli3, cli4, cli5, cli6));
-//		
+
+		ClienteEntity cli1 = new ClienteEntity();
+		cli1.setCpf("023516513");
+		cli1.setDataCadastro(new Date());
+		cli1.setEmail("scas@oijojo");
+		cli1.setEnderecos(null);
+		cli1.setNome("nomesdasdsa");
+		cli1.setObservacao("fcsfsfwefwefwef");
+		cli1.setDataNascimento(DateHelper.toDate("1985-09-06"));
+			
+		clienteRepository2.save(cli1);
+		
+		
 //		// CADASTRANDO FORNECEDORES
 //		Fornecedor forn1 = new Fornecedor("Sadia", "05.565.279/0001-74", "3263-3666", "2690-0000", "sadia@bol.com", endFornecedor1);
 //		Fornecedor forn2 = new Fornecedor("Lg", "15.565.279/0001-02", "3769-0001", null, "lg@bol.com", endFornecedor2);
@@ -121,7 +136,7 @@
 //		ItemPedido item7 = new ItemPedido(ped5, prod4,10, prod4.getValorVenda());
 //	
 //		itemPedidoRepository.saveAll(Arrays.asList(item1, item2,item3, item4, item5, item6, item7));
-//	
-//	}
-//
-//}
+	
+	}
+
+}
