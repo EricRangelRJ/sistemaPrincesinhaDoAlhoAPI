@@ -18,6 +18,7 @@ import br.com.princesinhadoalho.dtos.pedidos.PedidoGetDTO;
 import br.com.princesinhadoalho.dtos.pedidos.PedidoPostDTO;
 import br.com.princesinhadoalho.dtos.pedidos.PedidoPutDTO;
 import br.com.princesinhadoalho.entities.Cliente;
+import br.com.princesinhadoalho.entities.ClienteEntity;
 import br.com.princesinhadoalho.entities.ItemPedido;
 import br.com.princesinhadoalho.entities.Pedido;
 import br.com.princesinhadoalho.entities.Vendedor;
@@ -56,7 +57,7 @@ public class PedidoService {
 			}
 		}	
 		
-		Optional<Cliente> cli = clienteRepository.findById(dto.getIdCliente());	
+		Optional<ClienteEntity> cli = clienteRepository.findById(dto.getIdCliente());	
 		if (cli.isEmpty()) {
 			throw new EntityNotFoundException("Cliente não encontrado.");
 		}	
@@ -66,7 +67,7 @@ public class PedidoService {
 			throw new EntityNotFoundException("Vendedor não encontrado.");
 		}	
 		
-		Cliente cliente = cli.get();
+		ClienteEntity cliente = cli.get();
 		Vendedor vendedor = vend.get();
 		Date dataPedido = Date.from(Instant.now());
 		Double desconto = dto.getDesconto();

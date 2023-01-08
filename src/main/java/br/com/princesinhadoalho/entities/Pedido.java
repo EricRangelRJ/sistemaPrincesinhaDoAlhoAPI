@@ -70,7 +70,7 @@ public class Pedido implements Serializable {
 	@Setter
 	@ManyToOne
 	@JoinColumn(name = "idCliente", nullable = false)
-	private Cliente cliente;
+	private ClienteEntity cliente;
 	
 	@Getter
 	@Setter
@@ -84,7 +84,7 @@ public class Pedido implements Serializable {
 	private Vendedor vendedor;
 	
 	public Pedido(String numeroPedido, Date dataPedido, 
-			SituacaoPedido situacao, Double desconto, Cliente cliente, Vendedor vendedor) {
+			SituacaoPedido situacao, Double desconto, ClienteEntity cliente, Vendedor vendedor) {
 		this.numeroPedido = numeroPedido;
 		this.dataPedido = dataPedido;
 		this.situacao = situacao;

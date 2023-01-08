@@ -8,15 +8,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import br.com.princesinhadoalho.entities.Cliente;
+import br.com.princesinhadoalho.entities.ClienteEntity;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
+public interface ClienteRepository extends JpaRepository<ClienteEntity, Integer>{
 	
-	public Optional<Cliente> findByCpf(String cpf);
+	public Optional<ClienteEntity> findByCpf(String cpf);
 	
-	// buscando uma lista de clientes associados ao endereço fornecido
-	@Query("from Cliente c join c.endereco e where e.idEndereco = :param") //JPQL
-	Optional<List<Cliente>> findByIdEnderecoJoinEndereco(@Param("param") Integer idEndereco);
+//	// buscando uma lista de ClienteEntitys associados ao endereço fornecido
+//	@Query("from ClienteEntity c join c.endereco e where e.idEndereco = :param") //JPQL
+//	Optional<List<ClienteEntity>> findByIdEnderecoJoinEndereco(@Param("param") Integer idEndereco);
 	
 }

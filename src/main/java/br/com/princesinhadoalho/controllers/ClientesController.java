@@ -88,7 +88,7 @@ public class ClientesController {
 
 	@DeleteMapping("/{idCliente}")
 	@ApiOperation(value = "Excluir cliente pelo Id")
-	public ResponseEntity<String> excluir(@PathVariable Integer idCliente) {
+	public ResponseEntity<String> excluir(@PathVariable Integer idCliente) throws Exception {
 
 		try {
 			String response = service.excluir(idCliente);

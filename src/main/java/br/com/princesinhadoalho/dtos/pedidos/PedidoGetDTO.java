@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import br.com.princesinhadoalho.dtos.clientes.ClienteGetDTO;
+import br.com.princesinhadoalho.dtos.clientes.ClienteGetDTO2;
 import br.com.princesinhadoalho.dtos.itensPedido.ItemPedidoGetDTO;
 import br.com.princesinhadoalho.dtos.vendedores.VendedorGetDTO;
 import br.com.princesinhadoalho.entities.ItemPedido;
@@ -25,7 +26,7 @@ public class PedidoGetDTO {
 	private String situacao;
 	private Double desconto;
 	private Double total;
-	private ClienteGetDTO cliente;
+	private ClienteGetDTO2 cliente;
 	private VendedorGetDTO vendedor;
 	private Set<ItemPedidoGetDTO> itens;
 		
@@ -38,7 +39,7 @@ public class PedidoGetDTO {
 		this.situacao = pedido.getSituacao().toString();
 		this.desconto = pedido.getDesconto();
 		this.total = pedido.getTotal();
-		this.cliente = new ClienteGetDTO(pedido.getCliente());
+		//this.cliente = new ClienteGetDTO(pedido.getCliente());
 		this.vendedor = new VendedorGetDTO(pedido.getVendedor());
 		
 		Set<ItemPedidoGetDTO> listaDto = new HashSet<>();

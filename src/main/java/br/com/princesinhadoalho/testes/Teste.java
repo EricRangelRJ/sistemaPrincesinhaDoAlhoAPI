@@ -108,7 +108,7 @@ public class Teste implements CommandLineRunner{
 //		String cod4 = RandomHelper.gerarCodigoProdutoAleatorio();
 //		Date data4 = Date.from(Instant.now());	
 //		Produto prod4 = new Produto("Mouse", cod4, "Verde", data4, true, 25.0, 30.0, 45.0, forn3);
-//
+//be
 //		produtoRepository.saveAll(Arrays.asList(prod1, prod2, prod3,prod4));
 //		
 //		// CADASTRANDO VENDEDORES
