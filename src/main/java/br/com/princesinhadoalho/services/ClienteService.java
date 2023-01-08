@@ -63,11 +63,7 @@ public class ClienteService {
 		if (result.isEmpty()) {
 			throw new EntityNotFoundException("Cliente não encontrado.");
 		}
-
 		ClienteEntity cliente = result.get();
-
-		clienteRepository.delete(cliente);
-
 		return new ClienteGetDTO(cliente);
 	}
 

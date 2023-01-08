@@ -39,9 +39,6 @@ public class ClienteGetDTO2 {
 		this.email = cliente.getEmail();
 		this.observacao = cliente.getObservacao();
 		
-		if(cliente.getEndereco() != null) {
-			this.endereco = new EnderecoDTO(cliente.getEndereco());
-		}
 		
 	}
 

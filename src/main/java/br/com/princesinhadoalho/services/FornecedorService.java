@@ -14,7 +14,7 @@ import br.com.princesinhadoalho.dtos.enderecos.EnderecoDTO;
 import br.com.princesinhadoalho.dtos.fornecedores.FornecedorGetDTO;
 import br.com.princesinhadoalho.dtos.fornecedores.FornecedorPostDTO;
 import br.com.princesinhadoalho.dtos.fornecedores.FornecedorPutDTO;
-import br.com.princesinhadoalho.entities.Endereco;
+import br.com.princesinhadoalho.entities.EnderecoEntity;
 import br.com.princesinhadoalho.entities.Fornecedor;
 import br.com.princesinhadoalho.entities.Produto;
 import br.com.princesinhadoalho.exceptions.BadRequestException;
@@ -64,18 +64,10 @@ public class FornecedorService {
 		EnderecoReflection endReflection = new EnderecoReflection();
 		boolean result3 = endReflection.reflection(enderecoDTO);
 
-		Endereco endereco = new Endereco();
+		EnderecoEntity endereco = new EnderecoEntity();
 		// caso exista
 		if (result3) {
 
-			// buscando um endereço existente no banco
-			Optional<Endereco> result4 = endRepository.findByLogradouroAndNumeroAndCepAndComplemento(
-					dto.getLogradouro(), dto.getNumero(), dto.getCep(), dto.getComplemento());
-
-			if (result4.isPresent()) {
-				throw new BadRequestException(" Endereço já cadastrado.");
-			}
-			// cadastrando um endereço
 			endereco = enderecoService.cadastrar(enderecoDTO);
 		}
 
@@ -145,7 +137,7 @@ public class FornecedorService {
 			// se result2 = TRUE
 			if (result2) {
 				// cadastrar novo endereço para o fornecedor
-				Endereco endereco = enderecoService.cadastrar(enderecoDto);
+				EnderecoEntity endereco = enderecoService.cadastrar(enderecoDto);
 				fornecedor.setEndereco(endereco);
 			}
 

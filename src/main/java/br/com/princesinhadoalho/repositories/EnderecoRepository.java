@@ -5,11 +5,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.princesinhadoalho.entities.Endereco;
+import br.com.princesinhadoalho.entities.EnderecoEntity;
 
 @Repository
-public interface EnderecoRepository extends JpaRepository<Endereco, Integer>{
+public interface EnderecoRepository extends JpaRepository<EnderecoEntity, Integer>{
 	
-	public Optional<Endereco> findByLogradouroAndNumeroAndCepAndComplemento(String logradouro, String numero, String cep, String Complemento);
+	public Optional<EnderecoEntity> findByLogradouroAndNumeroAndCepAndComplemento(String logradouro, String numero, String cep, String Complemento);
 	
 }

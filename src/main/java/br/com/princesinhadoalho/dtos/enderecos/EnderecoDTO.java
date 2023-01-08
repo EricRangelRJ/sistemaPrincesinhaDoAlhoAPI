@@ -1,6 +1,5 @@
 package br.com.princesinhadoalho.dtos.enderecos;
 
-import br.com.princesinhadoalho.entities.Endereco;
 import br.com.princesinhadoalho.entities.EnderecoEntity;
 import br.com.princesinhadoalho.enums.Estado;
 import lombok.Getter;
@@ -22,6 +21,7 @@ public class EnderecoDTO {
 	private Estado estado;
 	private String cep;
 	private Character isEnderecoDeEntrega;
+	
 		
 	// convertendo um endereço em dto via construtor
 	public EnderecoDTO(EnderecoEntity endereco) {
@@ -34,7 +34,6 @@ public class EnderecoDTO {
 		this.municipio = endereco.getMunicipio();
 		this.estado = endereco.getEstado();
 		this.cep = endereco.getCep();
-		this.isEnderecoDeEntrega = endereco.getIsEnderecoDeEntrega();
 	}
 
 }

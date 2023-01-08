@@ -49,13 +49,13 @@ public class Fornecedor implements Serializable {
 
 	@OneToOne
 	@JoinColumn(name = "idEndereco", unique = true)
-	private Endereco endereco;
+	private EnderecoEntity endereco;
 	
 	@OneToMany(mappedBy = "fornecedor") 
 	private Set<Produto> produtos = new HashSet<>();
 	
 	public Fornecedor(String nomeFornecedor, String cpfCnpj, String telefone1, String telefone2,
-			String email, Endereco endereco) {
+			String email, EnderecoEntity endereco) {
 		this.nomeFornecedor = nomeFornecedor;
 		this.cpfCnpj = cpfCnpj;
 		this.telefone1 = telefone1;
