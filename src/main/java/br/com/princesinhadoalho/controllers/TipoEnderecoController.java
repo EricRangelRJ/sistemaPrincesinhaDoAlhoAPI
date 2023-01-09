@@ -28,7 +28,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @Api(tags = "Menu Tipo Endereco")
-@RequestMapping(value = "/api/tipo_Endereco")
+@RequestMapping(value = "/api/tipo_endereco")
 public class TipoEnderecoController {
 
 	private final TipoEnderecoService service;
