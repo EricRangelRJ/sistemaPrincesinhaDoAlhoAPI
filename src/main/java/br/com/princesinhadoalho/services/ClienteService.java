@@ -1,6 +1,7 @@
 package br.com.princesinhadoalho.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +15,7 @@ import br.com.princesinhadoalho.dtos.clientes.ClientePostDTO;
 import br.com.princesinhadoalho.dtos.clientes.ClientePutDTO;
 import br.com.princesinhadoalho.entities.ClienteEntity;
 import br.com.princesinhadoalho.exceptions.EntityNotFoundException;
+import br.com.princesinhadoalho.helpers.DateHelper;
 import br.com.princesinhadoalho.repositories.ClienteRepository;
 import lombok.AllArgsConstructor;
 
@@ -39,8 +41,9 @@ public class ClienteService {
 		}
 		// cadastrando novo Cliente com ou sem endereço
 		ClienteEntity cliente = mapper.map(dto, ClienteEntity.class);
+	    cliente.setDataCadastro(new Date());
 		clienteRepository.save(cliente);
-		// convertendo o cliente em dto e retornando ao cotroller
+		// convertedo o cliente em dto e retornando ao cotroller
 		return new ClienteGetDTO(cliente);
 	}
 
