@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.princesinhadoalho.dtos.clientes.ClienteGetDTO;
@@ -15,8 +16,8 @@ import br.com.princesinhadoalho.dtos.clientes.ClientePostDTO;
 import br.com.princesinhadoalho.dtos.clientes.ClientePutDTO;
 import br.com.princesinhadoalho.entities.ClienteEntity;
 import br.com.princesinhadoalho.exceptions.EntityNotFoundException;
-import br.com.princesinhadoalho.helpers.DateHelper;
 import br.com.princesinhadoalho.repositories.ClienteRepository;
+import br.com.princesinhadoalho.repositories.EnderecoRepository;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -25,6 +26,10 @@ import lombok.AllArgsConstructor;
 public class ClienteService {
 
 	private final ClienteRepository clienteRepository;
+	@Autowired
+	private final EnderecoRepository enderecoRepository;
+	
+	private final EnderecoService enderecoService;
 	private final ModelMapper mapper;
 
 	public ClienteGetDTO cadastrar(ClientePostDTO dto) throws IllegalArgumentException, IllegalAccessException {
@@ -42,9 +47,14 @@ public class ClienteService {
 		// cadastrando novo Cliente com ou sem endereço
 		ClienteEntity cliente = mapper.map(dto, ClienteEntity.class);
 	    cliente.setDataCadastro(new Date());
-		clienteRepository.save(cliente);
+		ClienteEntity clienteSalvo =  clienteRepository.save(cliente);
+		
+		if(!cliente.getEmail().isEmpty()) {
+			enderecoService.cadastrarWithCliente(clienteSalvo, dto.getEndereco());
+		}
+		
 		// convertedo o cliente em dto e retornando ao cotroller
-		return new ClienteGetDTO(cliente);
+		return new ClienteGetDTO(clienteSalvo);
 	}
 
 	public List<ClienteGetDTO> buscarClientes() {

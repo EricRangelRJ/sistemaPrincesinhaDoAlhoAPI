@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import br.com.princesinhadoalho.dtos.enderecos.EnderecoDTO;
+import br.com.princesinhadoalho.dtos.enderecos.EnderecoPostDTO;
 import br.com.princesinhadoalho.dtos.fornecedores.FornecedorGetDTO;
 import br.com.princesinhadoalho.dtos.fornecedores.FornecedorPostDTO;
 import br.com.princesinhadoalho.dtos.fornecedores.FornecedorPutDTO;
@@ -58,7 +59,7 @@ public class FornecedorService {
 		}
 
 		// convertendo os camps referente à endereço para um enderecoDTO
-		EnderecoDTO enderecoDTO = mapper.map(dto, EnderecoDTO.class);
+		EnderecoPostDTO enderecoDTO = mapper.map(dto, EnderecoPostDTO.class);
 
 		// verificando se existem campos NÃO nulos em enderecoDTO
 		EnderecoReflection endReflection = new EnderecoReflection();
@@ -122,7 +123,7 @@ public class FornecedorService {
 		}
 
 		// convertendo o endereço do Fornecedor para um enderecoDTO
-		EnderecoDTO enderecoDto = mapper.map(dto, EnderecoDTO.class);
+		EnderecoPostDTO enderecoDto = mapper.map(dto, EnderecoPostDTO.class);
 
 		// verificando se existem campos NÃO nulos em enderecoDTO
 		EnderecoReflection endReflection = new EnderecoReflection();
@@ -153,8 +154,8 @@ public class FornecedorService {
 		}
 
 		// atualizando endereço do fornecedor
-		enderecoDto.setIdEndereco(fornecedor.getEndereco().getIdEndereco());
-		enderecoService.atualizar(enderecoDto);
+//		enderecoDto.setIdEndereco(fornecedor.getEndereco().getIdEndereco());
+//		enderecoService.atualizar(enderecoDto);
 
 		fornecedorRepository.save(fornecedor);
 

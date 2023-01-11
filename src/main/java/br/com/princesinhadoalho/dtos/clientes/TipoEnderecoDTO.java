@@ -12,11 +12,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TipoEnderecoDTO {
 
+	private Integer idTipoEndereco;
 	private String descricao;
 
 	// Convertendo um tipo Endereco em Dto via construtor
 	public TipoEnderecoDTO(TipoEnderecoEntity tipoEndereco) {
 
 		this.descricao = tipoEndereco.getDescricao();
+		this.idTipoEndereco = tipoEndereco.getIdTipoEndereco();
 	}
 }

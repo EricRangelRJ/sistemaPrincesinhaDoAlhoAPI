@@ -3,10 +3,11 @@ package br.com.princesinhadoalho.reflections;
 import java.lang.reflect.Field;
 
 import br.com.princesinhadoalho.dtos.enderecos.EnderecoDTO;
+import br.com.princesinhadoalho.dtos.enderecos.EnderecoPostDTO;
 
 public class EnderecoReflection {
 
-	public boolean reflection(EnderecoDTO enderecoDTO) {
+	public boolean reflection(EnderecoPostDTO enderecoDTO) {
 		
 		Class<EnderecoDTO> enderecoClass = EnderecoDTO.class;
 		Field[] fields = enderecoClass.getDeclaredFields();

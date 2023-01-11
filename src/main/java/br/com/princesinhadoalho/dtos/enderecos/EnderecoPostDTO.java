@@ -11,9 +11,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class EnderecoDTO {
+public class EnderecoPostDTO {
 
-	private Integer idEndereco;
 	private String logradouro;
 	private String numero;
 	private String complemento;
@@ -28,8 +27,7 @@ public class EnderecoDTO {
 	
 		
 	// convertendo um endereço em dto via construtor
-	public EnderecoDTO(EnderecoEntity endereco) {
-		this.idEndereco = endereco.getIdEndereco();
+	public EnderecoPostDTO(EnderecoEntity endereco) {
 		this.logradouro = endereco.getLogradouro();
 		this.numero = endereco.getNumero();
 		this.complemento = endereco.getComplemento();

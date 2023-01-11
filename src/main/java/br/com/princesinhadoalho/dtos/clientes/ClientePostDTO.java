@@ -3,6 +3,7 @@ package br.com.princesinhadoalho.dtos.clientes;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import br.com.princesinhadoalho.dtos.enderecos.EnderecoPostDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +25,8 @@ public class ClientePostDTO {
 	private String email;
 	
 	private String observacao;
+	
+	private EnderecoPostDTO endereco;
 	
 }
 

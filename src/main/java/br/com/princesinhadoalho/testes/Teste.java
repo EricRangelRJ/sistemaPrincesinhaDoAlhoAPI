@@ -73,16 +73,16 @@ public class Teste implements CommandLineRunner{
 //		Cliente cli5 = new Cliente("Tião Silva", "55555555-55", DateHelper.toDate("1989-09-02"), "555555555", null, "tiao@bol.com", null, endCliente2);
 //		Cliente cli6 = new Cliente("Caio Silva", "66666666-66", DateHelper.toDate("1989-09-02"), "444444444", null, "caio@bol.com", null, null);
 
-		ClienteEntity cli1 = new ClienteEntity();
-		cli1.setCpf("023516513");
-		cli1.setDataCadastro(new Date());
-		cli1.setEmail("scas@oijojo");
-		cli1.setEnderecos(null);
-		cli1.setNome("nomesdasdsa");
-		cli1.setObservacao("fcsfsfwefwefwef");
-		cli1.setDataNascimento(DateHelper.toDate("1985-09-06"));
-			
-		clienteRepository2.save(cli1);
+//		ClienteEntity cli1 = new ClienteEntity();
+//		cli1.setCpf("023516513");
+//		cli1.setDataCadastro(new Date());
+//		cli1.setEmail("scas@oijojo");
+//		cli1.setEnderecos(null);
+//		cli1.setNome("nomesdasdsa");
+//		cli1.setObservacao("fcsfsfwefwefwef");
+//		cli1.setDataNascimento(DateHelper.toDate("1985-09-06"));
+//			
+//		clienteRepository2.save(cli1);
 		
 		
 //		// CADASTRANDO FORNECEDORES

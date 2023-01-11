@@ -12,11 +12,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TipoLogradouroDTO {
 
+	private Integer idTipoLogradouro;
 	private String descricao;
 
 	// Convertendo um tipo logradouro em Dto via construtor
 	public TipoLogradouroDTO(TipoLogradouroEntity tipoLogradouro) {
 
+		this.idTipoLogradouro = tipoLogradouro.getIdTipoLogadouro();
 		this.descricao = tipoLogradouro.getDescricao();
 	}
 }
