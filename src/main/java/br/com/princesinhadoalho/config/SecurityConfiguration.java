@@ -49,7 +49,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				  .antMatchers("/api/vendedores/**").permitAll()
 				  .antMatchers("/api/tipo_logradouro/**").permitAll()
 				  .antMatchers("/api/tipo_endereco/**").permitAll()
-				 
+				  .antMatchers("/api/fornecedores/**").permitAll()
+				  .antMatchers("/api/**").permitAll()
 
 	
 				// permitir o cadastro de usuário
