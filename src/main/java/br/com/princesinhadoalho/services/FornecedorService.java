@@ -10,7 +10,6 @@ import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import br.com.princesinhadoalho.dtos.enderecos.EnderecoDTO;
 import br.com.princesinhadoalho.dtos.enderecos.EnderecoPostDTO;
 import br.com.princesinhadoalho.dtos.fornecedores.FornecedorGetDTO;
 import br.com.princesinhadoalho.dtos.fornecedores.FornecedorPostDTO;

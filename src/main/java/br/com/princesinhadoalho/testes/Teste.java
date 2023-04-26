@@ -1,28 +1,9 @@
 package br.com.princesinhadoalho.testes;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import br.com.princesinhadoalho.entities.Cliente;
-import br.com.princesinhadoalho.entities.ClienteEntity;
-import br.com.princesinhadoalho.entities.Endereco;
-import br.com.princesinhadoalho.entities.EnderecoEntity;
-import br.com.princesinhadoalho.entities.Fornecedor;
-import br.com.princesinhadoalho.entities.ItemPedido;
-import br.com.princesinhadoalho.entities.Pedido;
-import br.com.princesinhadoalho.entities.Produto;
-import br.com.princesinhadoalho.entities.Usuario;
-import br.com.princesinhadoalho.entities.Vendedor;
-import br.com.princesinhadoalho.enums.Estado;
-import br.com.princesinhadoalho.enums.SituacaoPedido;
-import br.com.princesinhadoalho.helpers.DateHelper;
-import br.com.princesinhadoalho.helpers.RandomHelper;
 import br.com.princesinhadoalho.repositories.ClienteRepository;
 import br.com.princesinhadoalho.repositories.ClienteRepository2;
 import br.com.princesinhadoalho.repositories.EnderecoRepository;

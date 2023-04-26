@@ -49,7 +49,7 @@ public class Fornecedor implements Serializable {
 
 	@OneToOne
 	@JoinColumn(name = "idEndereco", unique = true)
-	private Endereco endereco;
+	private EnderecoEntity endereco;
 	
 	@OneToMany(mappedBy = "fornecedor") 
 	private Set<Produto> produtos = new HashSet<>();

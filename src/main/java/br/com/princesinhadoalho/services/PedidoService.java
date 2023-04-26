@@ -17,7 +17,6 @@ import br.com.princesinhadoalho.dtos.itensPedido.ItemPedidoPostDTO;
 import br.com.princesinhadoalho.dtos.pedidos.PedidoGetDTO;
 import br.com.princesinhadoalho.dtos.pedidos.PedidoPostDTO;
 import br.com.princesinhadoalho.dtos.pedidos.PedidoPutDTO;
-import br.com.princesinhadoalho.entities.Cliente;
 import br.com.princesinhadoalho.entities.ClienteEntity;
 import br.com.princesinhadoalho.entities.ItemPedido;
 import br.com.princesinhadoalho.entities.Pedido;

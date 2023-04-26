@@ -3,7 +3,6 @@ package br.com.princesinhadoalho.dtos.pedidos;
 import java.util.HashSet;
 import java.util.Set;
 
-import br.com.princesinhadoalho.dtos.clientes.ClienteGetDTO;
 import br.com.princesinhadoalho.dtos.clientes.ClienteGetDTO2;
 import br.com.princesinhadoalho.dtos.itensPedido.ItemPedidoGetDTO;
 import br.com.princesinhadoalho.dtos.vendedores.VendedorGetDTO;

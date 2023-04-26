@@ -2,7 +2,7 @@ package br.com.princesinhadoalho.dtos.enderecos;
 
 import br.com.princesinhadoalho.dtos.clientes.TipoEnderecoDTO;
 import br.com.princesinhadoalho.dtos.clientes.TipoLogradouroDTO;
-import br.com.princesinhadoalho.entities.Endereco;
+import br.com.princesinhadoalho.entities.EnderecoEntity;
 import br.com.princesinhadoalho.enums.Estado;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,16 +28,16 @@ public class EnderecoDTO {
 	
 		
 	// convertendo um endereço em dto via construtor
-	public EnderecoDTO(Endereco endereco) {
-		this.idEndereco = endereco.getIdEndereco();
-		this.logradouro = endereco.getLogradouro();
-		this.numero = endereco.getNumero();
-		this.complemento = endereco.getComplemento();
-		this.condominio = endereco.getCondominio();
-		this.bairro = endereco.getBairro();
-		this.municipio = endereco.getMunicipio();
-		this.estado = endereco.getEstado();
-		this.cep = endereco.getCep();
+	public EnderecoDTO(EnderecoEntity enderecoEntity) {
+		this.idEndereco = enderecoEntity.getIdEndereco();
+		this.logradouro = enderecoEntity.getLogradouro();
+		this.numero = enderecoEntity.getNumero();
+		this.complemento = enderecoEntity.getComplemento();
+		this.condominio = enderecoEntity.getCondominio();
+		this.bairro = enderecoEntity.getBairro();
+		this.municipio = enderecoEntity.getMunicipio();
+		this.estado = enderecoEntity.getEstado();
+		this.cep = enderecoEntity.getCep();
 	}
 
 }
