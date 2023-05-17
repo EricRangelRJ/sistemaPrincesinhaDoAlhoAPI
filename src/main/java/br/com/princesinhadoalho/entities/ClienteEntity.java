@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -56,7 +57,7 @@ public class ClienteEntity implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCadastro;
 	
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.REMOVE)
 	private List<EnderecoEntity> enderecos;
 	
 	@Override
