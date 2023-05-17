@@ -36,7 +36,7 @@ public class ClientesController {
 
 	@PostMapping
 	@ApiOperation(value = "Cadastrar cliente")
-	public ResponseEntity<ClienteGetDTO> cadastrar(@Valid @RequestBody ClientePostDTO dto) {
+	public ResponseEntity<ClienteGetDTO> cadastrar(@RequestBody ClientePostDTO dto) {
 
 		try {
 			ClienteGetDTO getDto = service.cadastrar(dto);
