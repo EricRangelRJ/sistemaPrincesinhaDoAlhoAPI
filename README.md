@@ -50,5 +50,5 @@ http://localhost:8080/parking-management/api/swagger-ui/index.html#/
 ⚠️ É essencial adquirir o Bearer Token por meio da etapa prévia de autenticação, realizando o login através da rota (/signin). Utilize a rota (/user) para efetuar o cadastro do seu usuário. 
 
 ## 😎 Collection para testes
-[Fiap - Parking Management.postman_collection](https://github.com/brunolimadev/community-management/files/13210986/fiap-community-manager.postman_collection.json)
+[Fiap - Parking Management.postman_collection](https://raw.githubusercontent.com/EricRangelRJ/sistemaPrincesinhaDoAlhoAPI/Collection/src/test/resources/Parking-management.postman_collection.json)
 
