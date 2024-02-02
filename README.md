@@ -1,21 +1,21 @@
-# ⭐ Pós Tech (Fase 2) - **Gestão de Estacionamentos**
+# ⭐Nome do Projeto
 
 ---
 
 ### Descrição:
 
 
-O projeto "Gestão de Estacionamentos" surge com o objetivo de aprimorar o sistema de parquímetro atualmente em uso, conforme especificado no Tech Challenge, com a finalidade de proporcionar uma experiência mais confiável. A nova solução para parquímetros, desenvolvida pela nossa equipe, mantém as regras de negócio existentes, ao mesmo tempo em que incorpora uma abordagem tecnológica inovadora.
+O projeto xxxxxxxxx surge com o objetivo de a A nova solução para parquímetros, desenvolvida pela nossa equipe, mantém as regras de negócio existentes, ao mesmo tempo em que incorpora uma abordagem tecnológica inovadora.
 
-Ao adotar as mais recentes tecnologias do mercado, nosso sistema se destaca pela sua ênfase na otimização das operações de gravação e leitura de dados. Utilizando APIs modernas e um banco de dados NoSQL, a solução oferece melhorias significativas na eficiência operacional. Essa abordagem não apenas aprimora o desempenho atual do sistema, mas também contribui para a escalabilidade iminente, garantindo que o sistema possa crescer de maneira eficaz para atender às demandas futuras. 
+Ao adotar as mais recentes tecnologias do mercado, nosso sistema se destaca pela sua ênfase na otimização das operações de gravação e leitura de dados. Utilizando APIs modernas e ......
 
 ## 💥 Como executar o projeto?
 
 1. Instalar as dependências do do projeto através do maven.
-2. Utiliza banco de dados NoSql MongoDB com suas definições no arquivos de propriedades do Spring.
+2. Utiliza banco de dados ....
 3. Utiliza sistema de autenticação e autorização baseado em tokens JWT (Spring Security). 
-4. Context-path: **/parking-management/api**.
-5. Executar a aplicação através da classe **CommunityManagementApplication.java**.
+4. Context-path: .....
+5. Executar a aplicação através da classe **......**.
 
 
 ## 🚀 Tecnologias Utilizadas 
@@ -25,30 +25,25 @@ Ao adotar as mais recentes tecnologias do mercado, nosso sistema se destaca pela
 - **Java:** versão 17
 - **Autenticação JWT** versão 4.4.0
 - **SpringDoc - Swagger** versão 2.3.0
-- **MongoDB**
 - **Lombok**
 
 ### 🔒 APIs Externas
 
-- [Via CEP](https://viacep.com.br/)
-- [Brasil API](https://brasilapi.com.br/)
-- Base de dados de vagas zona azul na cidade de São Paulo
+- Descrição das APIs
 
 ## 🛠️ Ferramentas Utilizadas
 - [GitHub](https://github.com/)
 - [IntelliJ IDEA](https://www.jetbrains.com/idea/)
 - [Postman](https://www.postman.com/)
-- [Draw.io](https://app.diagrams.net/)
-- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 
 
 
 ### 🔒 Swagger do Projeto
 
-http://localhost:8080/parking-management/api/swagger-ui/index.html#/
+http://localhost:8080/swagger-ui/index.html#/
 
-⚠️ É essencial adquirir o Bearer Token por meio da etapa prévia de autenticação, realizando o login através da rota (/signin). Utilize a rota (/user) para efetuar o cadastro do seu usuário. 
+⚠️ É essencial adquirir o Bearer Token por meio da etapa prévia de autenticação, realizando o login através da rota.....). Utilize a rota ..... para efetuar o cadastro do seu usuário. 
 
 ## 😎 Collection para testes
-[Fiap - Parking Management.postman_collection](https://github.com/brunolimadev/community-management/files/13210986/fiap-community-manager.postman_collection.json)
+......
 
